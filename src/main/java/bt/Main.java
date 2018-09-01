@@ -22,15 +22,13 @@ public class Main {
     long startTime = System.currentTimeMillis();
     try {
 
-      List<Class<Task>> taskTypes = new ArrayList<>();
-      for (TaskFactory taskFactory : ServiceLoader.load(TaskFactory.class)) {
-        //noinspection unchecked
-        taskTypes.add(taskFactory.get());
-      }
-      LOGGER.info("{} task(s) to run", taskTypes.size());
+      List<Class<Task>> taskTypes = getTasks();
+      int totalTasks = taskTypes.size();
+      LOGGER.info("{} task(s) to run", totalTasks);
 
       Map<Class, Object> context = new HashMap<>();
 
+      int taskNo = 1;
       while (!taskTypes.isEmpty()) {
 
         Iterator<Class<Task>> it = taskTypes.iterator();
@@ -49,7 +47,7 @@ public class Main {
           if (parameters.length == parameterTypes.length) {
             try {
               Task task = (Task) constructor.newInstance(parameters);
-              LOGGER.info("running {}", taskType.getSimpleName());
+              LOGGER.info("Task [{}/{}]: {}", taskNo, totalTasks, taskType.getSimpleName());
               Object output = task.run();
               if (output != null) {
                 context.put(output.getClass(), output);
@@ -59,10 +57,20 @@ public class Main {
             }
             it.remove();
           }
+          taskNo++;
         }
       }
     } finally {
       LOGGER.info("done - " + (System.currentTimeMillis() - startTime) + "ms");
     }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static List<Class<Task>> getTasks() {
+    List<Class<Task>> taskTypes = new ArrayList<>();
+    for (TaskFactory taskFactory : ServiceLoader.load(TaskFactory.class)) {
+      taskTypes.add(taskFactory.get());
+    }
+    return taskTypes;
   }
 }

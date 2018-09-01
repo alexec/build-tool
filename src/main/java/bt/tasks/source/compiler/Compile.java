@@ -61,7 +61,11 @@ public class Compile implements Task<CompiledCode> {
 
       LOGGER.info("{}", arguments);
 
-      JAVA_COMPILER.run(null, null, null, arguments.toArray(new String[0]));
+      JAVA_COMPILER.run(
+          null,
+          new LogOutputStream(LOGGER::info),
+          new LogOutputStream(LOGGER::warn),
+          arguments.toArray(new String[0]));
 
       compiledCode.add(output);
     }
