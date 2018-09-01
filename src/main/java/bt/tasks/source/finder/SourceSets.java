@@ -8,6 +8,5 @@ import java.util.Set;
 
 @Value
 public class SourceSets {
-    @NonNull
-    private final Set<Path> sourceSets;
+  @NonNull private final Set<Path> sourceSets;
 }

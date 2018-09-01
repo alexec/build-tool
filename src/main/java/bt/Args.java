@@ -10,26 +10,26 @@ import java.util.Map;
 @Value
 public class Args {
 
-    private final Map<String, Object> options = new HashMap<>();
-    private final List<String> commands = new ArrayList<>();
+  private final Map<String, Object> options = new HashMap<>();
+  private final List<String> commands = new ArrayList<>();
 
-    private Args(String[] args) {
-        String optionName = null;
-        for (String arg : args) {
-            if (arg.startsWith("--")) {
-                optionName = arg.substring(2);
-            } else if (arg.startsWith("-")) {
-                optionName = arg.substring(1);
-            } else if (optionName != null) {
-                options.put(optionName, arg);
-                optionName = null;
-            } else {
-                commands.add(arg);
-            }
-        }
+  private Args(String[] args) {
+    String optionName = null;
+    for (String arg : args) {
+      if (arg.startsWith("--")) {
+        optionName = arg.substring(2);
+      } else if (arg.startsWith("-")) {
+        optionName = arg.substring(1);
+      } else if (optionName != null) {
+        options.put(optionName, arg);
+        optionName = null;
+      } else {
+        commands.add(arg);
+      }
     }
+  }
 
-    public static Args parse(String[] args) {
-        return new Args(args);
-    }
+  public static Args parse(String[] args) {
+    return new Args(args);
+  }
 }

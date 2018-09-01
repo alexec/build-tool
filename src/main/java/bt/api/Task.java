@@ -2,5 +2,5 @@ package bt.api;
 
 public interface Task<O> {
 
-    O run() throws Exception;
+  O run() throws Exception;
 }

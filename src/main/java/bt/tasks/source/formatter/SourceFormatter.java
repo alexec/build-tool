@@ -12,44 +12,42 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/**
- * https://github.com/google/google-java-format
- */
+/** https://github.com/google/google-java-format */
 public class SourceFormatter implements Task {
-    private static final Formatter FORMATTER = new Formatter();
-    private static final Logger LOGGER = LoggerFactory.getLogger(SourceFormatter.class);
-    private final SourceSets sourceSets;
+  private static final Formatter FORMATTER = new Formatter();
+  private static final Logger LOGGER = LoggerFactory.getLogger(SourceFormatter.class);
+  private final SourceSets sourceSets;
 
-    public SourceFormatter(SourceSets sourceSets) {
-        this.sourceSets = sourceSets;
+  public SourceFormatter(SourceSets sourceSets) {
+    this.sourceSets = sourceSets;
+  }
+
+  @Override
+  public SourceCodeFormatterReport run() throws IOException {
+
+    for (Path sourceSet : sourceSets.getSourceSets()) {
+      LOGGER.info("formatting {}", sourceSet);
+      Files.find(
+              sourceSet,
+              Integer.MAX_VALUE,
+              (file, basicFileAttributes) -> file.toString().endsWith(".java"))
+          .forEach(
+              source -> {
+                try {
+                  String content = new String(Files.readAllBytes(source));
+                  String formattedContent = FORMATTER.formatSource(content);
+                  if (!content.equals(formattedContent)) {
+                    LOGGER.info("formatted {}", source);
+                    Files.write(source, formattedContent.getBytes());
+                  }
+                } catch (IOException e) {
+                  throw new UncheckedIOException(e);
+                } catch (FormatterException e) {
+                  throw new IllegalStateException(e);
+                }
+              });
     }
 
-    @Override
-    public SourceCodeFormatterReport run() throws IOException {
-
-        for (Path sourceSet : sourceSets.getSourceSets()) {
-            LOGGER.info("formatting {}", sourceSet);
-            Files.find(
-                    sourceSet,
-                    Integer.MAX_VALUE,
-                    (file, basicFileAttributes) -> file.toString().endsWith(".java"))
-                    .forEach(
-                            source -> {
-                                try {
-                                    String content = new String(Files.readAllBytes(source));
-                                    String formattedContent = FORMATTER.formatSource(content);
-                                    if (!content.equals(formattedContent)) {
-                                        LOGGER.info("formatted {}", source);
-                                        Files.write(source, formattedContent.getBytes());
-                                    }
-                                } catch (IOException e) {
-                                    throw new UncheckedIOException(e);
-                                } catch (FormatterException e) {
-                                    throw new IllegalStateException(e);
-                                }
-                            });
-        }
-
-        return new SourceCodeFormatterReport();
-    }
+    return new SourceCodeFormatterReport();
+  }
 }
