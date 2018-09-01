@@ -19,6 +19,7 @@ public class Main {
 
   public static void main(String[] args) {
     LOGGER.info("starting");
+    long startTime = System.currentTimeMillis();
     try {
 
       List<Class<Task>> taskTypes = new ArrayList<>();
@@ -59,7 +60,7 @@ public class Main {
         }
       }
     } finally {
-      LOGGER.info("done");
+      LOGGER.info("done - " + (System.currentTimeMillis() - startTime) + "ms");
     }
   }
 }
