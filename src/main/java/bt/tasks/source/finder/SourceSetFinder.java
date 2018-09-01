@@ -16,7 +16,7 @@ public class SourceSetFinder implements Task<SourceSets> {
   public SourceSets run() throws IOException {
     return new SourceSets(
         Files.find(Paths.get("src"), 1, (path, basicFileAttributes) -> path.getNameCount() == 2)
-            .peek(path -> LOGGER.info("- {}", path))
+            .peek(path -> LOGGER.info("found {}", path))
             .collect(Collectors.toSet()));
   }
 }

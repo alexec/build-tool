@@ -1,2 +1,3 @@
 bt.tasks.source.finder.SourceSetFinderFactory
 bt.tasks.source.formatter.SourceCodeFormatterFactory
+bt.tasks.source.compiler.CompilerFactory

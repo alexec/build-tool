@@ -51,7 +51,9 @@ public class Main {
               Task task = (Task) constructor.newInstance(parameters);
               LOGGER.info("running {}", taskType.getSimpleName());
               Object output = task.run();
-              context.put(output.getClass(), output);
+              if (output != null) {
+                context.put(output.getClass(), output);
+              }
             } catch (Exception e) {
               throw new IllegalStateException(e);
             }
