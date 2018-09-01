@@ -3,6 +3,6 @@ set -Eeuo pipefail
 
 unset JAVA_TOOL_OPTIONS
 
-mvn -q clean package
+mvn -q package
 
 java -jar target/bt-jar-with-dependencies.jar $*
