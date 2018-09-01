@@ -41,13 +41,14 @@ public class Compile implements Task<CompiledCode> {
       }
 
       CompilationOpts compilationOpts = getCompilationOpts(javaSources);
-      List<String> classPath = getClassPath(compilationOpts);
       Path output = getTarget(sourceSet);
       if (!Files.exists(output)) {
         Files.createDirectory(output);
       }
 
       LOGGER.info("compiling {} to {}", javaSources, output);
+
+      List<String> classPath = getClassPath(compilationOpts);
       List<String> arguments = new ArrayList<>();
       arguments.add("-source");
       arguments.add(String.valueOf(compilationOpts.getSource()));

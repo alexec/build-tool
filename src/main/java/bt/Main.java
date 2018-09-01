@@ -17,6 +17,7 @@ import java.util.ServiceLoader;
 public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+  /** Runs tool. */
   public static void main(String[] args) {
     LOGGER.info("starting");
     long startTime = System.currentTimeMillis();
@@ -52,12 +53,12 @@ public class Main {
               if (output != null) {
                 context.put(output.getClass(), output);
               }
+              taskNo++;
             } catch (Exception e) {
               throw new IllegalStateException(e);
             }
             it.remove();
           }
-          taskNo++;
         }
       }
     } finally {

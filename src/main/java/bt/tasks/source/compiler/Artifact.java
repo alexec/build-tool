@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 @Builder
 public class Artifact {
   public static final Pattern PATTERN = Pattern.compile("(.*):(.*):(.*)");
-  @NonNull private final String groupId, artifactId, version;
+  @NonNull private final String groupId;
+  @NonNull private final String artifactId;
+  @NonNull private final String version;
 
   static Artifact valueOf(String text) {
     Matcher matcher = PATTERN.matcher(text);

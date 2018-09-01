@@ -25,7 +25,9 @@ class LogOutputStream extends OutputStream {
 
   @Override
   public void flush() {
-    if (!mem.isEmpty()) logger.accept(mem);
+    if (!mem.isEmpty()) {
+      logger.accept(mem);
+    }
     mem = "";
   }
 }
