@@ -38,44 +38,8 @@ public class Main {
         while (it.hasNext()) {
           Task task = it.next();
 
-          List<Field> fields =
-              Arrays.stream(task.getClass().getDeclaredFields())
-                  .filter(f -> f.getAnnotation(Inject.class) != null)
-                  .filter(
-                      f -> {
-                        f.setAccessible(true);
-                        try {
-                          return f.get(task) == null;
-                        } catch (IllegalAccessException e) {
-                          throw new IllegalStateException(e);
-                        }
-                      })
-                  .collect(Collectors.toList());
-
-          long count =
-              fields
-                  .stream()
-                  .filter(
-                      field ->
-                          context
-                              .stream()
-                              .filter(bean -> field.getType().isAssignableFrom(bean.getClass()))
-                              .peek(
-                                  bean -> {
-                                    field.setAccessible(true);
-                                    try {
-                                      field.set(task, bean);
-                                    } catch (IllegalAccessException e) {
-                                      throw new IllegalStateException(e);
-                                    }
-                                  })
-                              .findFirst()
-                              .isPresent())
-                  .count();
-
-          if (count == fields.size()) {
+          if (inject(context, task)) {
             try {
-
               LOGGER.info("Task [{}/{}]: {}", taskNo, totalTasks, task);
               Object output = task.run();
               if (output != null) {
@@ -92,6 +56,45 @@ public class Main {
     } finally {
       LOGGER.info("done - " + (System.currentTimeMillis() - startTime) + "ms");
     }
+  }
+
+  private static boolean inject(List<Object> context, Task task) {
+    List<Field> fields =
+        Arrays.stream(task.getClass().getDeclaredFields())
+            .filter(f -> f.getAnnotation(Inject.class) != null)
+            .filter(
+                f -> {
+                  f.setAccessible(true);
+                  try {
+                    return f.get(task) == null;
+                  } catch (IllegalAccessException e) {
+                    throw new IllegalStateException(e);
+                  }
+                })
+            .collect(Collectors.toList());
+
+    long count =
+        fields
+            .stream()
+            .filter(
+                field ->
+                    context
+                        .stream()
+                        .filter(bean -> field.getType().isAssignableFrom(bean.getClass()))
+                        .peek(
+                            bean -> {
+                              field.setAccessible(true);
+                              try {
+                                field.set(task, bean);
+                              } catch (IllegalAccessException e) {
+                                throw new IllegalStateException(e);
+                              }
+                            })
+                        .findFirst()
+                        .isPresent())
+            .count();
+
+    return count == fields.size();
   }
 
   private static List<Task> getTasks() {
