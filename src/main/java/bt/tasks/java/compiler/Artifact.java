@@ -1,4 +1,4 @@
-package bt.tasks.source.compiler;
+package bt.tasks.java.compiler;
 
 import lombok.Builder;
 import lombok.Data;

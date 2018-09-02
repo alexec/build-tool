@@ -1,7 +1,6 @@
-package bt.tasks.source.compiler;
+package bt.tasks.java.compiler;
 
 import bt.api.Task;
-import bt.tasks.source.finder.SourceSets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +22,12 @@ public class Compile implements Task<CompiledCode> {
   private static final Logger LOGGER = LoggerFactory.getLogger(Compile.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-  @Inject private SourceSets sourceSets;
+  @Inject private Set<Path> sourceSets;
 
   @Override
   public CompiledCode run() throws Exception {
     Set<Path> compiledCode = new HashSet<>();
-    for (Path sourceSet : sourceSets.getSourceSets()) {
+    for (Path sourceSet : sourceSets) {
 
       Path javaSources = sourceSet.resolve(Paths.get("java"));
       List<String> sourceFiles = getSourceFiles(javaSources);

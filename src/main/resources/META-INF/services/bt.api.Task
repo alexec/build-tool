@@ -1,4 +1,4 @@
-bt.tasks.source.finder.FindSourceSets
-bt.tasks.source.formatter.FormatSourceCode
-bt.tasks.source.style.CheckStyle
-bt.tasks.source.compiler.Compile
+bt.tasks.java.finder.FindSourceSets
+bt.tasks.java.formatter.FormatSourceCode
+bt.tasks.java.style.CheckStyle
+bt.tasks.java.compiler.Compile

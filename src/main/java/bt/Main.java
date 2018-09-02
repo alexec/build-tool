@@ -9,10 +9,8 @@ import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
@@ -30,8 +28,8 @@ public class Main {
       int totalTasks = tasks.size();
       LOGGER.info("{} task(s) to run", totalTasks);
 
-      Map<Class, Object> context = new HashMap<>();
-      context.put(Args.class, args);
+      List<Object> context = new ArrayList<>();
+      context.add(args);
 
       int taskNo = 1;
       while (!tasks.isEmpty()) {
@@ -43,25 +41,45 @@ public class Main {
           List<Field> fields =
               Arrays.stream(task.getClass().getDeclaredFields())
                   .filter(f -> f.getAnnotation(Inject.class) != null)
+                  .filter(
+                      f -> {
+                        f.setAccessible(true);
+                        try {
+                          return f.get(task) == null;
+                        } catch (IllegalAccessException e) {
+                          throw new IllegalStateException(e);
+                        }
+                      })
                   .collect(Collectors.toList());
-          long count = fields.stream().map(Field::getType).filter(context::containsKey).count();
+
+          long count =
+              fields
+                  .stream()
+                  .filter(
+                      field ->
+                          context
+                              .stream()
+                              .filter(bean -> field.getType().isAssignableFrom(bean.getClass()))
+                              .peek(
+                                  bean -> {
+                                    field.setAccessible(true);
+                                    try {
+                                      field.set(task, bean);
+                                    } catch (IllegalAccessException e) {
+                                      throw new IllegalStateException(e);
+                                    }
+                                  })
+                              .findFirst()
+                              .isPresent())
+                  .count();
 
           if (count == fields.size()) {
             try {
-              fields.forEach(
-                  f -> {
-                    f.setAccessible(true);
-                    try {
-                      f.set(task, context.get(f.getType()));
-                    } catch (IllegalAccessException e) {
-                      throw new IllegalStateException(e);
-                    }
-                  });
 
               LOGGER.info("Task [{}/{}]: {}", taskNo, totalTasks, task);
               Object output = task.run();
               if (output != null) {
-                context.put(output.getClass(), output);
+                context.add(output);
               }
               taskNo++;
             } catch (Exception e) {

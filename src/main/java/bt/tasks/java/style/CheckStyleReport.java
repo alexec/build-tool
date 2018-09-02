@@ -1,4 +1,4 @@
-package bt.tasks.source.style;
+package bt.tasks.java.style;
 
 import lombok.Value;
 

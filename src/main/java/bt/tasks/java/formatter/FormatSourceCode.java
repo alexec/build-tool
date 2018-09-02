@@ -1,28 +1,25 @@
-package bt.tasks.source.formatter;
+package bt.tasks.java.formatter;
 
 import bt.api.Task;
-import bt.tasks.source.finder.SourceSets;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Set;
 
 /** https://github.com/google/google-java-format */
 public class FormatSourceCode implements Task {
   private static final Formatter FORMATTER = new Formatter();
-  private static final Logger LOGGER = LoggerFactory.getLogger(FormatSourceCode.class);
-  @Inject private SourceSets sourceSets;
+  @Inject private Set<Path> sourceSets;
 
   @Override
   public SourceCodeFormatterReport run() throws IOException {
 
-    for (Path sourceSet : sourceSets.getSourceSets()) {
+    for (Path sourceSet : sourceSets) {
       Files.find(
               sourceSet,
               Integer.MAX_VALUE,

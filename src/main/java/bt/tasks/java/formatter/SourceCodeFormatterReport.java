@@ -1,4 +1,4 @@
-package bt.tasks.source.formatter;
+package bt.tasks.java.formatter;
 
 import lombok.Value;
 

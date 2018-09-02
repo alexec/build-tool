@@ -1,4 +1,4 @@
-package bt.tasks.source.compiler;
+package bt.tasks.java.compiler;
 
 import java.io.OutputStream;
 import java.util.function.Consumer;
