@@ -1,5 +1,6 @@
 package bt;
 
+import bt.api.Args;
 import bt.api.TaskFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,9 @@ public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
   /** Runs tool. */
-  public static void main(String[] args) {
+  public static void main(String[] strings) {
     LOGGER.info("starting");
+    Args args = Args.parse(strings);
     long startTime = System.currentTimeMillis();
     try {
 
@@ -28,6 +30,7 @@ public class Main {
       LOGGER.info("{} task(s) to run", totalTasks);
 
       Map<Class, Object> context = new HashMap<>();
+      context.put(Args.class, args);
 
       int taskNo = 1;
       while (!taskTypes.isEmpty()) {

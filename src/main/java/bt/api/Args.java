@@ -1,4 +1,4 @@
-package bt;
+package bt.api;
 
 import lombok.Value;
 
