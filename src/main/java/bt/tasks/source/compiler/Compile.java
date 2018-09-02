@@ -1,6 +1,5 @@
 package bt.tasks.source.compiler;
 
-import bt.api.Task;
 import bt.tasks.source.finder.SourceSets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -16,9 +15,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class Compile implements Task<CompiledCode> {
+public class Compile implements Callable<CompiledCode> {
   private static final Logger LOGGER = LoggerFactory.getLogger(Compile.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private final SourceSets sourceSets;
@@ -29,7 +29,7 @@ public class Compile implements Task<CompiledCode> {
   }
 
   @Override
-  public CompiledCode run() throws Exception {
+  public CompiledCode call() throws Exception {
     Set<Path> compiledCode = new HashSet<>();
     for (Path sourceSet : sourceSets.getSourceSets()) {
 

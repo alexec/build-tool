@@ -1,6 +1,5 @@
 package bt.tasks.source.style;
 
-import bt.api.Task;
 import bt.tasks.source.finder.SourceSets;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.ConfigurationLoader;
@@ -15,9 +14,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class CheckStyle implements Task<CheckStyleReport> {
+public class CheckStyle implements Callable<CheckStyleReport> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
 
   private final SourceSets sourceSets;
@@ -27,7 +27,7 @@ public class CheckStyle implements Task<CheckStyleReport> {
   }
 
   @Override
-  public CheckStyleReport run() throws Exception {
+  public CheckStyleReport call() throws Exception {
 
     for (Path sourceSet : sourceSets.getSourceSets()) {
       Path configurationFile = sourceSet.resolve(Paths.get("java", "checkstyle.xml"));
