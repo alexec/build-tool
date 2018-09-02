@@ -1,5 +1,6 @@
 package bt;
 
+import bt.api.Task;
 import bt.api.Args;
 import bt.api.TaskFactory;
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
-import java.util.concurrent.Callable;
 
 public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -25,7 +25,7 @@ public class Main {
     long startTime = System.currentTimeMillis();
     try {
 
-      List<Class<Callable>> taskTypes = getTasks();
+      List<Class<Task>> taskTypes = getTasks();
       int totalTasks = taskTypes.size();
       LOGGER.info("{} task(s) to run", totalTasks);
 
@@ -35,9 +35,9 @@ public class Main {
       int taskNo = 1;
       while (!taskTypes.isEmpty()) {
 
-        Iterator<Class<Callable>> it = taskTypes.iterator();
+        Iterator<Class<Task>> it = taskTypes.iterator();
         while (it.hasNext()) {
-          Class<Callable> taskType = it.next();
+          Class<Task> taskType = it.next();
 
           Constructor<?> constructor = taskType.getConstructors()[0];
 
@@ -50,9 +50,9 @@ public class Main {
 
           if (parameters.length == parameterTypes.length) {
             try {
-              Callable task = (Callable) constructor.newInstance(parameters);
+              Task task = (Task) constructor.newInstance(parameters);
               LOGGER.info("Task [{}/{}]: {}", taskNo, totalTasks, taskType.getSimpleName());
-              Object output = task.call();
+              Object output = task.run();
               if (output != null) {
                 context.put(output.getClass(), output);
               }
@@ -70,8 +70,8 @@ public class Main {
   }
 
   @SuppressWarnings("unchecked")
-  private static List<Class<Callable>> getTasks() {
-    List<Class<Callable>> taskTypes = new ArrayList<>();
+  private static List<Class<Task>> getTasks() {
+    List<Class<Task>> taskTypes = new ArrayList<>();
     for (TaskFactory taskFactory : ServiceLoader.load(TaskFactory.class)) {
       taskTypes.add(taskFactory.get());
     }

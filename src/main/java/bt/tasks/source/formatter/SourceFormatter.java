@@ -1,5 +1,6 @@
 package bt.tasks.source.formatter;
 
+import bt.api.Task;
 import bt.tasks.source.finder.SourceSets;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
@@ -10,10 +11,9 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
 
 /** https://github.com/google/google-java-format */
-public class SourceFormatter implements Callable<SourceCodeFormatterReport> {
+public class SourceFormatter implements Task {
   private static final Formatter FORMATTER = new Formatter();
   private static final Logger LOGGER = LoggerFactory.getLogger(SourceFormatter.class);
   private final SourceSets sourceSets;
@@ -23,7 +23,7 @@ public class SourceFormatter implements Callable<SourceCodeFormatterReport> {
   }
 
   @Override
-  public SourceCodeFormatterReport call() throws IOException {
+  public SourceCodeFormatterReport run() throws IOException {
 
     for (Path sourceSet : sourceSets.getSourceSets()) {
       LOGGER.info("formatting {}", sourceSet);
