@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,36 +23,35 @@ public class Compile implements Task<CompiledCode> {
   private static final Logger LOGGER = LoggerFactory.getLogger(Compile.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-  @Inject private Set<Path> sourceSets;
+  @Inject private Map<Path, List<Artifact>> dependencies;
 
   @Override
   public CompiledCode run() throws Exception {
     Set<Path> compiledCode = new HashSet<>();
-    for (Path sourceSet : sourceSets) {
+    for (Path sourceSet : dependencies.keySet()) {
 
-      Path javaSources = sourceSet.resolve(Paths.get("java"));
-      List<String> sourceFiles = getSourceFiles(javaSources);
+      List<String> sourceFiles = getSourceFiles(sourceSet);
 
       if (sourceFiles.isEmpty()) {
         continue;
       }
 
-      CompilationOpts compilationOpts = getCompilationOpts(javaSources);
       Path output = getTarget(sourceSet);
       if (!Files.exists(output)) {
         Files.createDirectory(output);
       }
 
-      LOGGER.info("compiling {} to {}", javaSources, output);
+      LOGGER.info("compiling {} to {}", sourceSet, output);
 
-      List<String> classPath = getClassPath(compilationOpts);
+      CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
+      List<Path> classPath = getClassPath(dependencies.get(sourceSet));
       List<String> arguments = new ArrayList<>();
       arguments.add("-source");
       arguments.add(String.valueOf(compilationOpts.getSource()));
       arguments.add("-target");
       arguments.add(String.valueOf(compilationOpts.getTarget()));
       arguments.add("-cp");
-      arguments.add(String.join(":", classPath));
+      arguments.add(classPath.stream().map(String::valueOf).collect(Collectors.joining(":")));
       arguments.add("-d");
       arguments.add(output.toAbsolutePath().toString());
       arguments.addAll(sourceFiles);
@@ -84,26 +84,8 @@ public class Compile implements Task<CompiledCode> {
         .collect(Collectors.toList());
   }
 
-  private List<String> getClassPath(CompilationOpts compilationOpts) {
-    return compilationOpts
-        .getDependencies()
-        .stream()
-        .map(Artifact::valueOf)
-        .map(
-            artifact ->
-                System.getProperty("user.home")
-                    + "/.m2/repository/"
-                    + artifact.getGroupId().replaceAll("\\.", "/")
-                    + "/"
-                    + artifact.getArtifactId()
-                    + "/"
-                    + artifact.getVersion()
-                    + "/"
-                    + artifact.getArtifactId()
-                    + "-"
-                    + artifact.getVersion()
-                    + ".jar")
-        .collect(Collectors.toList());
+  private List<Path> getClassPath(List<Artifact> dependencies) {
+    return dependencies.stream().map(Artifact::toPath).collect(Collectors.toList());
   }
 
   private CompilationOpts getCompilationOpts(Path javaSources) throws java.io.IOException {
@@ -116,6 +98,6 @@ public class Compile implements Task<CompiledCode> {
 
   @Override
   public String toString() {
-    return "Compile{" + "sourceSets=" + sourceSets + '}';
+    return "Compile{" + "sourceSets=" + dependencies.keySet() + '}';
   }
 }

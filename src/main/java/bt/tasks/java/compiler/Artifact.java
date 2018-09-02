@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,5 +28,16 @@ public class Artifact {
         .artifactId(matcher.group(2))
         .version(matcher.group(3))
         .build();
+  }
+
+  Path toPath() {
+    return Paths.get(
+        System.getProperty("user.home"),
+        ".m2",
+        "repository",
+        getGroupId().replaceAll("\\.", "/"),
+        getArtifactId(),
+        getVersion(),
+        getArtifactId() + "-" + getVersion() + ".jar");
   }
 }

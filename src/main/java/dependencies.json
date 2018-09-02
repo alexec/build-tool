@@ -1,5 +1,4 @@
-{
-  "dependencies": [
+[
     "org.projectlombok:lombok:1.18.0",
     "org.slf4j:slf4j-api:1.7.25",
     "ch.qos.logback:logback-classic:1.2.3",
@@ -9,4 +8,3 @@
     "com.puppycrawl.tools:checkstyle:8.12",
     "javax.inject:javax.inject:1"
   ]
-}
