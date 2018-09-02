@@ -20,11 +20,13 @@ public class GetDependencies implements Task<Map<Path, List<Artifact>>> {
   public Map<Path, List<Artifact>> run() throws Exception {
     Map<Path, List<Artifact>> dependencies = new HashMap<>();
     for (Path sourceSet : sourceSets) {
-      dependencies.put(
-          sourceSet.resolve(Paths.get("java")),
+
+      List<Artifact> artifacts =
           OBJECT_MAPPER.readValue(
               sourceSet.resolve(Paths.get("java", "dependencies.json")).toFile(),
-              new TypeReference<List<Artifact>>() {}));
+              new TypeReference<List<Artifact>>() {});
+
+      dependencies.put(sourceSet, artifacts);
     }
 
     return dependencies;
@@ -32,6 +34,6 @@ public class GetDependencies implements Task<Map<Path, List<Artifact>>> {
 
   @Override
   public String toString() {
-    return "GetDependencies{}";
+    return "GetDependencies{" + "sourceSets=" + sourceSets + '}';
   }
 }

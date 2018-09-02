@@ -11,11 +11,12 @@ import java.util.regex.Pattern;
 
 @Data
 @Builder
-public class Artifact {
-  public static final Pattern PATTERN = Pattern.compile("(.*):(.*):(.*)");
+class Artifact {
+  private static final Pattern PATTERN = Pattern.compile("(.*):(.*):(.*)");
   @NonNull private final String groupId;
   @NonNull private final String artifactId;
   @NonNull private final String version;
+  @NonNull private final String type;
 
   static Artifact valueOf(String text) {
     Matcher matcher = PATTERN.matcher(text);
@@ -27,6 +28,7 @@ public class Artifact {
         .groupId(matcher.group(1))
         .artifactId(matcher.group(2))
         .version(matcher.group(3))
+        .type("jar")
         .build();
   }
 
@@ -35,9 +37,18 @@ public class Artifact {
         System.getProperty("user.home"),
         ".m2",
         "repository",
-        getGroupId().replaceAll("\\.", "/"),
-        getArtifactId(),
-        getVersion(),
-        getArtifactId() + "-" + getVersion() + ".jar");
+        groupId.replaceAll("\\.", "/"),
+        artifactId,
+        version,
+        artifactId + "-" + version + "." + type);
+  }
+
+  Artifact pom() {
+    return Artifact.builder()
+        .groupId(groupId)
+        .artifactId(artifactId)
+        .version(version)
+        .type("pom")
+        .build();
   }
 }
