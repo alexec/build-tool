@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.IOException;
@@ -21,12 +22,8 @@ import java.util.stream.Collectors;
 public class Compile implements Task<CompiledCode> {
   private static final Logger LOGGER = LoggerFactory.getLogger(Compile.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  private final SourceSets sourceSets;
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-
-  public Compile(SourceSets sourceSets) {
-    this.sourceSets = sourceSets;
-  }
+  @Inject private SourceSets sourceSets;
 
   @Override
   public CompiledCode run() throws Exception {
@@ -116,5 +113,10 @@ public class Compile implements Task<CompiledCode> {
     return Files.exists(compilationOptsPath)
         ? OBJECT_MAPPER.readValue(compilationOptsPath.toFile(), CompilationOpts.class)
         : new CompilationOpts();
+  }
+
+  @Override
+  public String toString() {
+    return "Compile{" + "sourceSets=" + sourceSets + '}';
   }
 }

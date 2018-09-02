@@ -6,6 +6,7 @@
     "com.google.googlejavaformat:google-java-format:1.6",
     "com.fasterxml.jackson.core:jackson-databind:2.9.4",
     "com.fasterxml.jackson.core:jackson-core:2.9.4",
-    "com.puppycrawl.tools:checkstyle:8.12"
+    "com.puppycrawl.tools:checkstyle:8.12",
+    "javax.inject:javax.inject:1"
   ]
 }

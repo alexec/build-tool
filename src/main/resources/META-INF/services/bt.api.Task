@@ -1,0 +1,4 @@
+bt.tasks.source.finder.FindSourceSets
+bt.tasks.source.formatter.FormatSourceCode
+bt.tasks.source.style.CheckStyle
+bt.tasks.source.compiler.Compile

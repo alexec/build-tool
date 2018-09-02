@@ -10,6 +10,7 @@ import com.puppycrawl.tools.checkstyle.api.SeverityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,11 +21,7 @@ import java.util.stream.Collectors;
 public class CheckStyle implements Task<CheckStyleReport> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
 
-  private final SourceSets sourceSets;
-
-  public CheckStyle(SourceSets sourceSets) {
-    this.sourceSets = sourceSets;
-  }
+  @Inject private SourceSets sourceSets;
 
   @Override
   public CheckStyleReport run() throws Exception {
@@ -37,7 +34,6 @@ public class CheckStyle implements Task<CheckStyleReport> {
         continue;
       }
 
-      LOGGER.info("checking {}", sourceSet);
       List<File> files =
           Files.find(
                   sourceSet,
@@ -100,5 +96,10 @@ public class CheckStyle implements Task<CheckStyleReport> {
     }
 
     return new CheckStyleReport();
+  }
+
+  @Override
+  public String toString() {
+    return "CheckStyle{" + "sourceSets=" + sourceSets + '}';
   }
 }

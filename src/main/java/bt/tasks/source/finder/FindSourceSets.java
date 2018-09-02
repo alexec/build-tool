@@ -9,14 +9,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
-public class SourceSetFinder implements Task<SourceSets> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(SourceSetFinder.class);
+public class FindSourceSets implements Task<SourceSets> {
+  private static final Logger LOGGER = LoggerFactory.getLogger(FindSourceSets.class);
 
   @Override
   public SourceSets run() throws IOException {
     return new SourceSets(
         Files.find(Paths.get("src"), 1, (path, basicFileAttributes) -> path.getNameCount() == 2)
-            .peek(path -> LOGGER.info("found {}", path))
             .collect(Collectors.toSet()));
+  }
+
+  @Override
+  public String toString() {
+    return "FindSourceSets{}";
   }
 }

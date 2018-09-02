@@ -7,26 +7,22 @@ import com.google.googlejavaformat.java.FormatterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 /** https://github.com/google/google-java-format */
-public class SourceFormatter implements Task {
+public class FormatSourceCode implements Task {
   private static final Formatter FORMATTER = new Formatter();
-  private static final Logger LOGGER = LoggerFactory.getLogger(SourceFormatter.class);
-  private final SourceSets sourceSets;
-
-  public SourceFormatter(SourceSets sourceSets) {
-    this.sourceSets = sourceSets;
-  }
+  private static final Logger LOGGER = LoggerFactory.getLogger(FormatSourceCode.class);
+  @Inject private SourceSets sourceSets;
 
   @Override
   public SourceCodeFormatterReport run() throws IOException {
 
     for (Path sourceSet : sourceSets.getSourceSets()) {
-      LOGGER.info("formatting {}", sourceSet);
       Files.find(
               sourceSet,
               Integer.MAX_VALUE,
@@ -37,7 +33,6 @@ public class SourceFormatter implements Task {
                   String content = new String(Files.readAllBytes(source));
                   String formattedContent = FORMATTER.formatSource(content);
                   if (!content.equals(formattedContent)) {
-                    LOGGER.info("formatted {}", source);
                     Files.write(source, formattedContent.getBytes());
                   }
                 } catch (IOException e) {
@@ -49,5 +44,10 @@ public class SourceFormatter implements Task {
     }
 
     return new SourceCodeFormatterReport();
+  }
+
+  @Override
+  public String toString() {
+    return "FormatSourceCode{" + "sourceSets=" + sourceSets + '}';
   }
 }
