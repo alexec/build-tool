@@ -1,5 +1,5 @@
 [
-    "org.projectlombok:lombok:1.18.0",
+    "org.projectlombok:lombok:1.18.2",
     "org.slf4j:slf4j-api:1.7.25",
     "ch.qos.logback:logback-classic:1.2.3",
     "com.google.googlejavaformat:google-java-format:1.6",
@@ -7,5 +7,6 @@
     "com.fasterxml.jackson.core:jackson-core:2.9.4",
     "com.puppycrawl.tools:checkstyle:8.12",
     "javax.inject:javax.inject:1",
-    "junit:junit:4.12"
+    "junit:junit:4.12",
+    "org.hamcrest:hamcrest-core:1.3"
   ]

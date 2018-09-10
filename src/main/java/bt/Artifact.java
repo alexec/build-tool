@@ -1,22 +1,23 @@
 package bt;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Data
-@Builder
 public class Artifact {
   private static final Pattern PATTERN = Pattern.compile("(.*):(.*):(.*)");
-  @NonNull private final String groupId;
-  @NonNull private final String artifactId;
-  @NonNull private final String version;
-  @NonNull private final String type;
+  private final String groupId;
+  private final String artifactId;
+  private final String version;
+  private final String type;
+
+  private Artifact(String groupId, String artifactId, String version, String type) {
+    this.groupId = groupId;
+    this.artifactId = artifactId;
+    this.version = version;
+    this.type = type;
+  }
 
   /** Creates an artifact. */
   static Artifact valueOf(String text) {
@@ -25,12 +26,7 @@ public class Artifact {
       throw new IllegalArgumentException(text);
     }
 
-    return Artifact.builder()
-        .groupId(matcher.group(1))
-        .artifactId(matcher.group(2))
-        .version(matcher.group(3))
-        .type("jar")
-        .build();
+    return new Artifact(matcher.group(1), matcher.group(2), matcher.group(3), "jar");
   }
 
   /** The path for the artifact. */
@@ -43,15 +39,6 @@ public class Artifact {
         artifactId,
         version,
         artifactId + "-" + version + "." + type);
-  }
-
-  Artifact pom() {
-    return Artifact.builder()
-        .groupId(groupId)
-        .artifactId(artifactId)
-        .version(version)
-        .type("pom")
-        .build();
   }
 
   @Override

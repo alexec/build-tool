@@ -1,4 +1,4 @@
 [
-
-    "target/classes"
-  ]
+  "target/classes",
+  "bt:bt:1.0.0-SNAPSHOT"
+]
