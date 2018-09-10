@@ -33,6 +33,7 @@ public class CheckStyle implements Task<CheckStyleReport> {
         LOGGER.info("skipping {} as {} does not exist", sourceSet, configurationFile);
         continue;
       }
+      LOGGER.info("checking {}", sourceSet);
 
       List<File> files =
           Files.find(
@@ -96,10 +97,5 @@ public class CheckStyle implements Task<CheckStyleReport> {
     }
 
     return new CheckStyleReport();
-  }
-
-  @Override
-  public String toString() {
-    return "CheckStyle{" + "sourceSets=" + sourceSets + '}';
   }
 }

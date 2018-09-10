@@ -32,4 +32,9 @@ public class Args {
   public static Args parse(String[] args) {
     return new Args(args);
   }
+
+  @Override
+  public String toString() {
+    return options + " " + commands;
+  }
 }

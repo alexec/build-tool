@@ -1,4 +1,4 @@
-package bt.tasks.java.compiler;
+package bt;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +11,14 @@ import java.util.regex.Pattern;
 
 @Data
 @Builder
-class Artifact {
+public class Artifact {
   private static final Pattern PATTERN = Pattern.compile("(.*):(.*):(.*)");
   @NonNull private final String groupId;
   @NonNull private final String artifactId;
   @NonNull private final String version;
   @NonNull private final String type;
 
+  /** Creates an artifact. */
   static Artifact valueOf(String text) {
     Matcher matcher = PATTERN.matcher(text);
     if (!matcher.find()) {
@@ -32,6 +33,7 @@ class Artifact {
         .build();
   }
 
+  /** The path for the artifact. */
   Path toPath() {
     return Paths.get(
         System.getProperty("user.home"),
@@ -50,5 +52,10 @@ class Artifact {
         .version(version)
         .type("pom")
         .build();
+  }
+
+  @Override
+  public String toString() {
+    return groupId + ":" + artifactId + ":" + version + ":" + type;
   }
 }

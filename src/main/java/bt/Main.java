@@ -2,6 +2,7 @@ package bt;
 
 import bt.api.Args;
 import bt.api.Task;
+import bt.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,7 @@ public class Main {
     Args args = Args.parse(strings);
     long startTime = System.currentTimeMillis();
     try {
+      LOGGER.info("{}", args);
 
       List<Task> tasks = getTasks();
       int totalTasks = tasks.size();
@@ -40,7 +42,11 @@ public class Main {
 
           if (inject(context, task)) {
             try {
-              LOGGER.info("Task [{}/{}]: {}", taskNo, totalTasks, task);
+              LOGGER.info(
+                  "Task [{}/{}]: {}",
+                  taskNo,
+                  totalTasks,
+                  Strings.toSnakeCase(task.getClass().getSimpleName()));
               Object output = task.run();
               if (output != null) {
                 context.add(output);

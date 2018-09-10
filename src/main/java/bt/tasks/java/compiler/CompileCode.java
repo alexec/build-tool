@@ -1,5 +1,6 @@
 package bt.tasks.java.compiler;
 
+import bt.Dependency;
 import bt.api.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -19,11 +20,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Compile implements Task<CompiledCode> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(Compile.class);
+public class CompileCode implements Task<CompiledCode> {
+  private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-  @Inject private Map<Path, List<Artifact>> dependencies;
+  @Inject private Map<Path, List<Dependency>> dependencies;
 
   @Override
   public CompiledCode run() throws Exception {
@@ -44,7 +45,8 @@ public class Compile implements Task<CompiledCode> {
       LOGGER.info("compiling {} to {}", sourceSet, output);
 
       CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
-      List<Path> classPath = getClassPath(dependencies.get(sourceSet));
+      List<Path> classPath =
+          dependencies.get(sourceSet).stream().map(Dependency::toPath).collect(Collectors.toList());
       List<String> arguments = new ArrayList<>();
       arguments.add("-source");
       arguments.add(String.valueOf(compilationOpts.getSource()));
@@ -58,11 +60,16 @@ public class Compile implements Task<CompiledCode> {
 
       LOGGER.info("{}", arguments);
 
-      JAVA_COMPILER.run(
-          null,
-          new LogOutputStream(LOGGER::info),
-          new LogOutputStream(LOGGER::warn),
-          arguments.toArray(new String[0]));
+      int exitCode =
+          JAVA_COMPILER.run(
+              null,
+              new LogOutputStream(LOGGER::info),
+              new LogOutputStream(LOGGER::warn),
+              arguments.toArray(new String[0]));
+
+      if (exitCode != 0) {
+        throw new IllegalStateException();
+      }
 
       compiledCode.add(output);
     }
@@ -84,20 +91,11 @@ public class Compile implements Task<CompiledCode> {
         .collect(Collectors.toList());
   }
 
-  private List<Path> getClassPath(List<Artifact> dependencies) {
-    return dependencies.stream().map(Artifact::toPath).collect(Collectors.toList());
-  }
-
   private CompilationOpts getCompilationOpts(Path javaSources) throws java.io.IOException {
     Path compilationOptsPath = javaSources.resolve(Paths.get("compilation-opts.json"));
 
     return Files.exists(compilationOptsPath)
         ? OBJECT_MAPPER.readValue(compilationOptsPath.toFile(), CompilationOpts.class)
         : new CompilationOpts();
-  }
-
-  @Override
-  public String toString() {
-    return "Compile{" + "sourceSets=" + dependencies.keySet() + '}';
   }
 }

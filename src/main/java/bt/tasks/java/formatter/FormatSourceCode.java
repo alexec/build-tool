@@ -42,9 +42,4 @@ public class FormatSourceCode implements Task {
 
     return new SourceCodeFormatterReport();
   }
-
-  @Override
-  public String toString() {
-    return "FormatSourceCode{" + "sourceSets=" + sourceSets + '}';
-  }
 }

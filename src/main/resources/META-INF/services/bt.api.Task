@@ -2,4 +2,5 @@ bt.tasks.java.finder.FindSourceSets
 bt.tasks.java.formatter.FormatSourceCode
 bt.tasks.java.style.CheckStyle
 bt.tasks.java.compiler.GetDependencies
-bt.tasks.java.compiler.Compile
+bt.tasks.java.compiler.CompileCode
+bt.tasks.java.test.RunTests
