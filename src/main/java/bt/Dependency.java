@@ -45,6 +45,7 @@ public abstract class Dependency {
   private Dependency() {}
 
   /** Create a dependency form a string. */
+  @SuppressWarnings("unused")
   public static Dependency valueOf(String text) {
     return text.contains(":")
         ? new ArtifactDependency(Artifact.valueOf(text))

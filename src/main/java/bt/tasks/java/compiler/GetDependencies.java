@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GetDependencies implements Task<Map<Path, List<Dependency>>> {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -43,15 +44,13 @@ public class GetDependencies implements Task<Map<Path, List<Dependency>>> {
                   dependenciesFile.toFile(), new TypeReference<List<Dependency>>() {}));
         }
       }
-      LOGGER.info("{} has {} dependenc(ies)", sourceSet, artifacts.size());
+      LOGGER.info(
+          "{} depends on {} ",
+          sourceSet,
+          artifacts.stream().map(String::valueOf).collect(Collectors.joining(":")));
       dependencies.put(sourceSet, artifacts);
     }
 
     return dependencies;
-  }
-
-  @Override
-  public String toString() {
-    return "GetDependencies{" + "sourceSets=" + sourceSets + '}';
   }
 }

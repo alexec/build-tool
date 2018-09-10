@@ -1,5 +1,4 @@
 [
 
-    "target/classes",
-    "junit:junit:4.12"
+    "target/classes"
   ]

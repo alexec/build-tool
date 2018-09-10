@@ -14,10 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CompileCode implements Task<CompiledCode> {
@@ -28,7 +27,7 @@ public class CompileCode implements Task<CompiledCode> {
 
   @Override
   public CompiledCode run() throws Exception {
-    Set<Path> compiledCode = new HashSet<>();
+    Map<Path, List<Path>> compiledCode = new HashMap<>();
     for (Path sourceSet : dependencies.keySet()) {
 
       List<String> sourceFiles = getSourceFiles(sourceSet);
@@ -71,7 +70,7 @@ public class CompileCode implements Task<CompiledCode> {
         throw new IllegalStateException();
       }
 
-      compiledCode.add(output);
+      compiledCode.put(output, classPath);
     }
 
     return new CompiledCode(compiledCode);
