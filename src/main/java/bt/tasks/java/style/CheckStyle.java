@@ -1,5 +1,6 @@
 package bt.tasks.java.style;
 
+import bt.api.Reporter;
 import bt.api.Task;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.ConfigurationLoader;
@@ -16,15 +17,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class CheckStyle implements Task<CheckStyleReport> {
+public class CheckStyle implements Task<Void> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
+  private final Reporter<CheckStyleReport> reporter =
+      Reporter.of(CheckStyleReport.class, () -> new CheckStyleReport(Long.MIN_VALUE));
 
   @Inject private Set<Path> sourceSets;
 
   @Override
-  public CheckStyleReport run() throws Exception {
+  public Void run() throws Exception {
+
+    CheckStyleReport lastReport = reporter.load();
 
     for (Path sourceSet : sourceSets) {
       Path configurationFile = sourceSet.resolve(Paths.get("java", "checkstyle.xml"));
@@ -39,7 +45,10 @@ public class CheckStyle implements Task<CheckStyleReport> {
           Files.find(
                   sourceSet,
                   Integer.MAX_VALUE,
-                  (path, basicFileAttributes) -> path.toString().endsWith(".java"))
+                  (path, attributes) ->
+                      path.toString().endsWith(".java")
+                          && attributes.lastModifiedTime().to(TimeUnit.MILLISECONDS)
+                              > lastReport.getEndTime())
               .map(Path::toFile)
               .collect(Collectors.toList());
       Checker checker = new Checker();
@@ -51,7 +60,9 @@ public class CheckStyle implements Task<CheckStyleReport> {
       checker.addListener(
           new AuditListener() {
             @Override
-            public void auditStarted(AuditEvent auditEvent) {}
+            public void auditStarted(AuditEvent auditEvent) {
+              LOGGER.info("checking {}", auditEvent.getFileName());
+            }
 
             @Override
             public void auditFinished(AuditEvent auditEvent) {}
@@ -96,6 +107,7 @@ public class CheckStyle implements Task<CheckStyleReport> {
       }
     }
 
-    return new CheckStyleReport();
+    reporter.save(new CheckStyleReport(System.currentTimeMillis()));
+    return null;
   }
 }

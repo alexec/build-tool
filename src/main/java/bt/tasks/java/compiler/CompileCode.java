@@ -29,6 +29,13 @@ public class CompileCode implements Task<CompiledCode> {
   public CompiledCode run() throws Exception {
     Map<Path, List<Path>> compiledCode = new HashMap<>();
     for (Path sourceSet : dependencies.keySet()) {
+      Path output = getTarget(sourceSet);
+
+      if (Files.exists(output)
+          && output.toFile().lastModified() > sourceSet.toFile().lastModified()) {
+        LOGGER.info("skipping {}, no changes since last compilation", sourceSet);
+        continue;
+      }
 
       List<String> sourceFiles = getSourceFiles(sourceSet);
 
@@ -36,7 +43,6 @@ public class CompileCode implements Task<CompiledCode> {
         continue;
       }
 
-      Path output = getTarget(sourceSet);
       if (!Files.exists(output)) {
         Files.createDirectory(output);
       }
@@ -78,7 +84,7 @@ public class CompileCode implements Task<CompiledCode> {
 
   private Path getTarget(Path sourceSet) {
     String fileName = sourceSet.getFileName().toString();
-    return Paths.get("target", fileName.equals("main") ? "classes" : fileName + "-classes");
+    return Paths.get("target", fileName + "-classes");
   }
 
   private List<String> getSourceFiles(Path javaSources) throws IOException {

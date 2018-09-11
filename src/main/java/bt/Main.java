@@ -3,6 +3,7 @@ package bt;
 import bt.api.Args;
 import bt.api.Task;
 import bt.util.Strings;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   /** Runs tool. */
   public static void main(String[] strings) {
@@ -47,7 +49,9 @@ public class Main {
                   taskNo,
                   totalTasks,
                   Strings.toSnakeCase(task.getClass().getSimpleName()));
+              long taskStartTime = System.currentTimeMillis();
               Object output = task.run();
+              LOGGER.info("took {}ms", System.currentTimeMillis() - taskStartTime);
               if (output != null) {
                 context.add(output);
               }

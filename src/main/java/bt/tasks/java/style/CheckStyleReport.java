@@ -1,6 +1,20 @@
 package bt.tasks.java.style;
 
-import lombok.Value;
+@SuppressWarnings({"WeakerAccess", "unused"})
+public class CheckStyleReport {
+  private long endTime;
 
-@Value
-public class CheckStyleReport {}
+  public CheckStyleReport(long endTime) {
+    this.endTime = endTime;
+  }
+
+  public CheckStyleReport() {}
+
+  public void setEndTime(long endTime) {
+    this.endTime = endTime;
+  }
+
+  public long getEndTime() {
+    return endTime;
+  }
+}

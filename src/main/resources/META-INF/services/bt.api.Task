@@ -4,3 +4,4 @@ bt.tasks.java.style.CheckStyle
 bt.tasks.java.compiler.GetDependencies
 bt.tasks.java.compiler.CompileCode
 bt.tasks.java.test.RunTests
+bt.tasks.java.packaging.CreateJars
