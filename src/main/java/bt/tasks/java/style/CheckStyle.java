@@ -36,10 +36,9 @@ public class CheckStyle implements Task<Void> {
       Path configurationFile = sourceSet.resolve(Paths.get("java", "checkstyle.xml"));
 
       if (!Files.exists(configurationFile)) {
-        LOGGER.info("skipping {} as {} does not exist", sourceSet, configurationFile);
+        LOGGER.info("skipping {}, {} does not exist", sourceSet, configurationFile);
         continue;
       }
-      LOGGER.info("checking {}", sourceSet);
 
       List<File> files =
           Files.find(
@@ -51,6 +50,14 @@ public class CheckStyle implements Task<Void> {
                               > lastReport.getEndTime())
               .map(Path::toFile)
               .collect(Collectors.toList());
+
+      if (files.isEmpty()) {
+        LOGGER.info("skipping {}, no changes since last check", sourceSet);
+        continue;
+      }
+
+      LOGGER.info("checking {}", sourceSet);
+
       Checker checker = new Checker();
       checker.setBasedir(sourceSet.toAbsolutePath() + "/java");
       checker.setModuleClassLoader(getClass().getClassLoader());
@@ -60,15 +67,15 @@ public class CheckStyle implements Task<Void> {
       checker.addListener(
           new AuditListener() {
             @Override
-            public void auditStarted(AuditEvent auditEvent) {
-              LOGGER.info("checking {}", auditEvent.getFileName());
-            }
+            public void auditStarted(AuditEvent auditEvent) {}
 
             @Override
             public void auditFinished(AuditEvent auditEvent) {}
 
             @Override
-            public void fileStarted(AuditEvent auditEvent) {}
+            public void fileStarted(AuditEvent auditEvent) {
+              LOGGER.info("checking {}", auditEvent.getFileName());
+            }
 
             @Override
             public void fileFinished(AuditEvent auditEvent) {}

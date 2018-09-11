@@ -30,50 +30,51 @@ public class CompileCode implements Task<CompiledCode> {
     Map<Path, List<Path>> compiledCode = new HashMap<>();
     for (Path sourceSet : dependencies.keySet()) {
       Path output = getTarget(sourceSet);
+      CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
+      List<Path> classPath =
+          dependencies.get(sourceSet).stream().map(Dependency::toPath).collect(Collectors.toList());
 
       if (Files.exists(output)
           && output.toFile().lastModified() > sourceSet.toFile().lastModified()) {
         LOGGER.info("skipping {}, no changes since last compilation", sourceSet);
-        continue;
-      }
 
-      List<String> sourceFiles = getSourceFiles(sourceSet);
+      } else {
 
-      if (sourceFiles.isEmpty()) {
-        continue;
-      }
+        List<String> sourceFiles = getSourceFiles(sourceSet);
 
-      if (!Files.exists(output)) {
-        Files.createDirectory(output);
-      }
+        if (sourceFiles.isEmpty()) {
+          continue;
+        }
 
-      LOGGER.info("compiling {} to {}", sourceSet, output);
+        if (!Files.exists(output)) {
+          Files.createDirectory(output);
+        }
 
-      CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
-      List<Path> classPath =
-          dependencies.get(sourceSet).stream().map(Dependency::toPath).collect(Collectors.toList());
-      List<String> arguments = new ArrayList<>();
-      arguments.add("-source");
-      arguments.add(String.valueOf(compilationOpts.getSource()));
-      arguments.add("-target");
-      arguments.add(String.valueOf(compilationOpts.getTarget()));
-      arguments.add("-cp");
-      arguments.add(classPath.stream().map(String::valueOf).collect(Collectors.joining(":")));
-      arguments.add("-d");
-      arguments.add(output.toAbsolutePath().toString());
-      arguments.addAll(sourceFiles);
+        LOGGER.info("compiling {} to {}", sourceSet, output);
 
-      LOGGER.info("{}", arguments);
+        List<String> arguments = new ArrayList<>();
+        arguments.add("-source");
+        arguments.add(String.valueOf(compilationOpts.getSource()));
+        arguments.add("-target");
+        arguments.add(String.valueOf(compilationOpts.getTarget()));
+        arguments.add("-cp");
+        arguments.add(classPath.stream().map(String::valueOf).collect(Collectors.joining(":")));
+        arguments.add("-d");
+        arguments.add(output.toAbsolutePath().toString());
+        arguments.addAll(sourceFiles);
 
-      int exitCode =
-          JAVA_COMPILER.run(
-              null,
-              new LogOutputStream(LOGGER::info),
-              new LogOutputStream(LOGGER::warn),
-              arguments.toArray(new String[0]));
+        LOGGER.info("{}", arguments);
 
-      if (exitCode != 0) {
-        throw new IllegalStateException();
+        int exitCode =
+            JAVA_COMPILER.run(
+                null,
+                new LogOutputStream(LOGGER::info),
+                new LogOutputStream(LOGGER::warn),
+                arguments.toArray(new String[0]));
+
+        if (exitCode != 0) {
+          throw new IllegalStateException();
+        }
       }
 
       compiledCode.put(output, classPath);
@@ -82,9 +83,10 @@ public class CompileCode implements Task<CompiledCode> {
     return new CompiledCode(compiledCode);
   }
 
-  private Path getTarget(Path sourceSet) {
-    String fileName = sourceSet.getFileName().toString();
-    return Paths.get("target", fileName + "-classes");
+  private Path getTarget(Path sourceSet) throws IOException {
+    Path parent = Paths.get("target", "compiled-code");
+    Files.createDirectories(parent);
+    return parent.resolve(sourceSet.getFileName());
   }
 
   private List<String> getSourceFiles(Path javaSources) throws IOException {

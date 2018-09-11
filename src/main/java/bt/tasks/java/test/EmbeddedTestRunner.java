@@ -34,7 +34,7 @@ public class EmbeddedTestRunner {
                     + result.wasSuccessful()
                     + ", "
                     + result.getFailureCount()
-                    + " failures(s), "
+                    + " failures, "
                     + result.getIgnoreCount()
                     + " ignored");
           }
