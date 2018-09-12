@@ -1,6 +1,7 @@
 package bt.tasks.java.compiler;
 
 import bt.api.Dependency;
+import bt.api.Repository;
 import bt.api.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -31,8 +32,9 @@ public class CompileCode implements Task<CompiledCode> {
     for (Path sourceSet : dependencies.keySet()) {
       Path output = getTarget(sourceSet);
       CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
+      Repository repository = new Repository();
       List<Path> classPath =
-          dependencies.get(sourceSet).stream().map(Dependency::toPath).collect(Collectors.toList());
+          dependencies.get(sourceSet).stream().map(repository::get).collect(Collectors.toList());
 
       if (Files.exists(output)
           && output.toFile().lastModified() > sourceSet.toFile().lastModified()) {

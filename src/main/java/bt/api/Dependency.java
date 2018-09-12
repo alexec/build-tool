@@ -4,17 +4,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public abstract class Dependency {
-  public abstract Path toPath();
 
-  private static class PathDependency extends Dependency {
+  static class PathDependency extends Dependency {
     private final Path path;
 
     private PathDependency(Path path) {
       this.path = path;
     }
 
-    @Override
-    public Path toPath() {
+    public Path getPath() {
       return path;
     }
 
@@ -24,7 +22,7 @@ public abstract class Dependency {
     }
   }
 
-  private static class ArtifactDependency extends Dependency {
+  static class ArtifactDependency extends Dependency {
     private final Artifact artifact;
 
     private ArtifactDependency(Artifact artifact) {
@@ -32,13 +30,12 @@ public abstract class Dependency {
     }
 
     @Override
-    public Path toPath() {
-      return artifact.toPath();
-    }
-
-    @Override
     public String toString() {
       return String.valueOf(artifact);
+    }
+
+    Artifact getArtifact() {
+      return artifact;
     }
   }
 

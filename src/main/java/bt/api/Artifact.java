@@ -1,5 +1,7 @@
 package bt.api;
 
+import lombok.Data;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Matcher;
@@ -19,6 +21,22 @@ public class Artifact {
     this.type = type;
   }
 
+  public String getGroupId() {
+    return groupId;
+  }
+
+  public String getArtifactId() {
+    return artifactId;
+  }
+
+  public String getVersion() {
+    return version;
+  }
+
+  public String getType() {
+    return type;
+  }
+
   /** Creates an artifact. */
   static Artifact valueOf(String text) {
     Matcher matcher = PATTERN.matcher(text);
@@ -27,18 +45,6 @@ public class Artifact {
     }
 
     return new Artifact(matcher.group(1), matcher.group(2), matcher.group(3), "jar");
-  }
-
-  /** The path for the artifact. */
-  Path toPath() {
-    return Paths.get(
-        System.getProperty("user.home"),
-        ".m2",
-        "repository",
-        groupId.replaceAll("\\.", "/"),
-        artifactId,
-        version,
-        artifactId + "-" + version + "." + type);
   }
 
   @Override
