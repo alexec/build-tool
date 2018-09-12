@@ -1,6 +1,6 @@
 package bt.tasks.java.compiler;
 
-import bt.Dependency;
+import bt.api.Dependency;
 import bt.api.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
