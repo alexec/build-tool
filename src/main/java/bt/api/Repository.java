@@ -18,7 +18,12 @@ public class Repository {
         artifact.getGroupId().replaceAll("\\.", "/"),
         artifact.getArtifactId(),
         artifact.getVersion(),
-        artifact.getArtifactId() + "-" + artifact.getVersion() + "." + artifact.getType());
+        artifact.getArtifactId()
+            + "-"
+            + artifact.getVersion()
+            + (artifact.getClassifier() != null ? "-" + artifact.getClassifier() : "")
+            + "."
+            + artifact.getType());
   }
 
   /** Get the path of the dependency. */

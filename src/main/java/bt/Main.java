@@ -1,6 +1,7 @@
 package bt;
 
 import bt.api.Args;
+import bt.api.Repository;
 import bt.api.Task;
 import bt.util.Strings;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,7 @@ public class Main {
 
       List<Object> context = new ArrayList<>();
       context.add(args);
+      context.add(new Repository());
 
       int taskNo = 1;
       while (!tasks.isEmpty()) {

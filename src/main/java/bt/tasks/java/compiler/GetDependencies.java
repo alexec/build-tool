@@ -39,9 +39,11 @@ public class GetDependencies implements Task<Map<Path, List<Dependency>>> {
         Path dependenciesFile = sourceSet.resolve(path);
         if (Files.exists(dependenciesFile)) {
           LOGGER.info("reading {}", dependenciesFile);
-          artifacts.addAll(
+          Map<String, Map> tree =
               OBJECT_MAPPER.readValue(
-                  dependenciesFile.toFile(), new TypeReference<List<Dependency>>() {}));
+                  dependenciesFile.toFile(), new TypeReference<Map<String, Map>>() {});
+
+          artifacts.addAll(flatten(tree, new ArrayList<>()));
         }
       }
       LOGGER.info(
@@ -50,6 +52,18 @@ public class GetDependencies implements Task<Map<Path, List<Dependency>>> {
           artifacts.stream().map(String::valueOf).collect(Collectors.joining(":")));
       dependencies.put(sourceSet, artifacts);
     }
+
+    return dependencies;
+  }
+
+  private List<Dependency> flatten(Map<String, Map> tree, List<Dependency> dependencies) {
+
+    tree.forEach(
+        (dependency, map) -> {
+          dependencies.add(Dependency.valueOf(dependency));
+          //noinspection unchecked
+          flatten(map, dependencies);
+        });
 
     return dependencies;
   }

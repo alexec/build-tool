@@ -10,27 +10,46 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CreateJars implements Task<Void> {
+public class CreateJars implements Task<Jars> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CreateJars.class);
   @Inject private CompiledCode compiledCode;
 
   @Override
-  public Void run() throws IOException, InterruptedException {
+  public Jars run() throws IOException, InterruptedException {
+    List<Path> jars = new ArrayList<>();
+    for (Path compiledCode : compiledCode.getCompiledCode().keySet()) {
 
-    for (Path path : compiledCode.getCompiledCode().keySet()) {
+      Path jar = compiledCode.getParent().resolve(Paths.get(compiledCode.getFileName() + ".jar"));
+
+      Optional<Long> lastModified =
+          Files.walk(compiledCode).map(file -> file.toFile().lastModified()).max(Long::compareTo);
+
+      jars.add(jar);
+
+      if (Files.exists(jar)
+          && lastModified.isPresent()
+          && lastModified.get() <= jar.toFile().lastModified()) {
+        LOGGER.info("skipping {}, {} is unchanged", jar, compiledCode);
+        continue;
+      }
 
       ProcessBuilder command =
           new ProcessBuilder()
-              .directory(path.getParent().toFile())
+              .directory(jar.getParent().toFile())
               .command(
                   "jar",
                   "cf",
-                  path.getFileName() + ".jar",
+                  jar.getFileName().toString(),
                   "-C",
-                  path.getFileName().toString(),
+                  compiledCode.getFileName().toString(),
                   ".");
 
       LOGGER.info("running {},", command.command());
@@ -48,7 +67,7 @@ public class CreateJars implements Task<Void> {
       }
     }
 
-    return null;
+    return new Jars(jars);
   }
 
   private void log(InputStream inputStream, Consumer<String> info) {

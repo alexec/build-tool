@@ -1,4 +1,4 @@
-[
-  "target/classes",
-  "bt:bt:1.0.0-SNAPSHOT"
-]
+{
+  "target/classes": {},
+  "bt:bt:jar:1.0.0-SNAPSHOT:main": {}
+}

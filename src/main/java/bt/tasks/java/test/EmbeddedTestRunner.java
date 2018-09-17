@@ -24,7 +24,7 @@ public class EmbeddedTestRunner {
         new RunListener() {
           @Override
           public void testRunStarted(Description description) {
-            System.out.println("Test run started " + description);
+            System.out.println("Test run started");
           }
 
           @Override

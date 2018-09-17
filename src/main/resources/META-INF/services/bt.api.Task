@@ -1,7 +1,9 @@
 bt.tasks.java.finder.FindSourceSets
+bt.tasks.java.resources.CopyResources
 bt.tasks.java.formatter.FormatSourceCode
 bt.tasks.java.style.CheckStyle
 bt.tasks.java.compiler.GetDependencies
 bt.tasks.java.compiler.CompileCode
 bt.tasks.java.test.RunTests
 bt.tasks.java.packaging.CreateJars
+bt.tasks.java.packaging.DeployJars
