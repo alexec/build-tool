@@ -31,10 +31,7 @@ public class GetDependencies implements Task<Map<Path, List<Dependency>>> {
       List<Dependency> artifacts = new ArrayList<>();
       for (Path path :
           new Path[] {
-            Paths.get("java", "dependencies.json"),
-            Paths.get("dependencies.json"),
-            Paths.get("../dependencies.json"),
-            Paths.get("../../dependencies.json"),
+            Paths.get("dependencies.json"), Paths.get("../dependencies.json"),
           }) {
         Path dependenciesFile = sourceSet.resolve(path);
         if (Files.exists(dependenciesFile)) {

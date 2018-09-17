@@ -51,7 +51,7 @@ public class EmbeddedTestRunner {
 
           @Override
           public void testFailure(Failure failure) {
-            System.out.println("Test failed " + failure);
+            System.err.println("Test failed " + failure);
           }
 
           @Override

@@ -13,6 +13,7 @@ import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UncheckedIOException;
+import java.util.HashSet;
 import java.util.Set;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -29,14 +30,21 @@ public class TestProcessor extends AbstractProcessor {
                 .getFiler()
                 .createResource(StandardLocation.CLASS_OUTPUT, "", "META-INF/tests");
 
+        Set<String> types = new HashSet<>();
+
         try (PrintWriter out = new PrintWriter(tests.openOutputStream())) {
           for (Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
 
             String type = String.valueOf(element.getEnclosingElement().asType());
 
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "indexed test " + type);
+            if (types.add(type)) {
 
-            out.println(type);
+              processingEnv
+                  .getMessager()
+                  .printMessage(Diagnostic.Kind.OTHER, "indexed test " + type);
+
+              out.println(type);
+            }
           }
         }
       }
