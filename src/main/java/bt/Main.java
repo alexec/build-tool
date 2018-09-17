@@ -23,15 +23,15 @@ public class Main {
 
   /** Runs tool. */
   public static void main(String[] strings) {
-    LOGGER.info("starting");
+    LOGGER.debug("starting");
     Args args = Args.parse(strings);
     long startTime = System.currentTimeMillis();
     try {
-      LOGGER.info("{}", args);
+      LOGGER.debug("{}", args);
 
       List<Task> tasks = getTasks();
       int totalTasks = tasks.size();
-      LOGGER.info("{} task(s) to run", totalTasks);
+      LOGGER.debug("{} task(s) to run", totalTasks);
 
       List<Object> context = new ArrayList<>();
       context.add(args);
@@ -53,7 +53,7 @@ public class Main {
                   Strings.toSnakeCase(task.getClass().getSimpleName()));
               long taskStartTime = System.currentTimeMillis();
               Object output = task.run();
-              LOGGER.info("took {}ms", System.currentTimeMillis() - taskStartTime);
+              LOGGER.debug("took {}ms", System.currentTimeMillis() - taskStartTime);
               if (output != null) {
                 context.add(output);
               }

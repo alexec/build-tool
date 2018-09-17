@@ -37,7 +37,7 @@ public class CreateJars implements Task<Jars> {
       if (Files.exists(jar)
           && lastModified.isPresent()
           && lastModified.get() <= jar.toFile().lastModified()) {
-        LOGGER.info("skipping {}, {} is unchanged", jar, compiledCode);
+        LOGGER.debug("skipping {}, {} is unchanged", jar, compiledCode);
         continue;
       }
 
@@ -52,7 +52,7 @@ public class CreateJars implements Task<Jars> {
                   compiledCode.getFileName().toString(),
                   ".");
 
-      LOGGER.info("running {},", command.command());
+      LOGGER.debug("running {},", command.command());
       Process process = command.start();
 
       log(process.getInputStream(), LOGGER::info);
@@ -60,7 +60,7 @@ public class CreateJars implements Task<Jars> {
 
       int exitValue = process.waitFor();
 
-      LOGGER.info("exit {}", exitValue);
+      LOGGER.debug("exit {}", exitValue);
 
       if (exitValue != 0) {
         throw new IllegalStateException();

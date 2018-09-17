@@ -39,7 +39,7 @@ public class FormatSourceCode implements Task<Void> {
                           > lastReport.getEndTime())
           .forEach(
               source -> {
-                LOGGER.info("formatting {}", source);
+                LOGGER.debug("formatting {}", source);
                 try {
                   String content = new String(Files.readAllBytes(source));
                   String formattedContent = FORMATTER.formatSource(content);

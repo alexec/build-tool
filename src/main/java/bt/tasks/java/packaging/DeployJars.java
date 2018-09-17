@@ -27,11 +27,11 @@ public class DeployJars implements Task<Void> {
                       + jar.getFileName().toString().replaceFirst("\\..*", "")));
 
       if (Files.exists(target) && target.toFile().lastModified() >= jar.toFile().lastModified()) {
-        LOGGER.info("skipping {}, {} is unchanged", jar, target);
+        LOGGER.debug("skipping {}, {} is unchanged", jar, target);
         continue;
       }
 
-      LOGGER.info("deploying {} to {}", jar, target);
+      LOGGER.debug("deploying {} to {}", jar, target);
 
       Files.createDirectories(target.getParent());
 

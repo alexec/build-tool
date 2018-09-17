@@ -61,7 +61,7 @@ public class CompileCode implements Task<CompiledCode> {
         if (maxLastModified.isPresent()
             && maxSourceLastModified.isPresent()
             && maxLastModified.get() >= maxSourceLastModified.get()) {
-          LOGGER.info("skipping {}, no changes since last compilation", sourceSet);
+          LOGGER.debug("skipping {}, no changes since last compilation", sourceSet);
           continue;
         }
       }
@@ -70,7 +70,7 @@ public class CompileCode implements Task<CompiledCode> {
         Files.createDirectory(output);
       }
 
-      LOGGER.info("compiling {} to {}", sourceSet, output);
+      LOGGER.debug("compiling {} to {}", sourceSet, output);
 
       List<String> arguments = new ArrayList<>();
       arguments.add("-source");
@@ -83,7 +83,7 @@ public class CompileCode implements Task<CompiledCode> {
       arguments.add(output.toAbsolutePath().toString());
       arguments.addAll(sourceFiles);
 
-      LOGGER.info("{}", arguments);
+      LOGGER.debug("{}", arguments);
 
       int exitCode =
           JAVA_COMPILER.run(

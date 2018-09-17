@@ -33,23 +33,23 @@ public class RunTests implements Task<TestResult> {
               + entry.getValue().stream().map(String::valueOf).collect(Collectors.joining(":"));
 
       if (!Files.exists(dir.resolve(Paths.get("META-INF/tests")))) {
-        LOGGER.info("skipping {}, no tests", dir);
+        LOGGER.debug("skipping {}, no tests", dir);
         continue;
       }
 
-      LOGGER.info("running tests in {} with -cp {}", dir, classPath);
+      LOGGER.debug("running tests in {} with -cp {}", dir, classPath);
 
       Process process =
           new ProcessBuilder()
               .command("java", "-cp", classPath, "bt.tasks.java.test.EmbeddedTestRunner")
               .start();
 
-      log(process.getInputStream(), LOGGER::info);
-      log(process.getErrorStream(), LOGGER::error);
+      log(process.getInputStream(), LOGGER::debug);
+      log(process.getErrorStream(), LOGGER::warn);
 
       int exitValue = process.waitFor();
 
-      LOGGER.info("exit {}", exitValue);
+      LOGGER.debug("exit {}", exitValue);
     }
 
     return new TestResult();

@@ -23,11 +23,11 @@ public class CopyResources implements Task<Void> {
       Path target = sourceSet.resolve("../../target/java/" + sourceSet.getFileName());
 
       if (!Files.exists(resources)) {
-        LOGGER.info("skipping {}, does not exist", resources);
+        LOGGER.debug("skipping {}, does not exist", resources);
         continue;
       }
 
-      LOGGER.info("coping {} to {}", resources, target);
+      LOGGER.debug("coping {} to {}", resources, target);
       Files.walk(resources)
           .filter(path -> Files.isRegularFile(path))
           .forEach(
@@ -37,7 +37,7 @@ public class CopyResources implements Task<Void> {
                     && dest.toFile().lastModified() >= sourcePath.toFile().lastModified()) {
                   return;
                 }
-                LOGGER.info("coping {} to {}", sourcePath, dest);
+                LOGGER.debug("coping {} to {}", sourcePath, dest);
                 try {
                   if (!Files.exists(dest.getParent())) {
                     Files.createDirectories(dest.getParent());

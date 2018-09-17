@@ -36,7 +36,7 @@ public class CheckStyle implements Task<Void> {
       Path configurationFile = sourceSet.resolve(Paths.get("java", "checkstyle.xml"));
 
       if (!Files.exists(configurationFile)) {
-        LOGGER.info("skipping {}, {} does not exist", sourceSet, configurationFile);
+        LOGGER.debug("skipping {}, {} does not exist", sourceSet, configurationFile);
         continue;
       }
 
@@ -52,11 +52,11 @@ public class CheckStyle implements Task<Void> {
               .collect(Collectors.toList());
 
       if (files.isEmpty()) {
-        LOGGER.info("skipping {}, no changes since last check", sourceSet);
+        LOGGER.debug("skipping {}, no changes since last check", sourceSet);
         continue;
       }
 
-      LOGGER.info("checking {}", sourceSet);
+      LOGGER.debug("checking {}", sourceSet);
 
       Checker checker = new Checker();
       checker.setBasedir(sourceSet.toAbsolutePath() + "/java");
@@ -102,12 +102,12 @@ public class CheckStyle implements Task<Void> {
 
             @Override
             public void addException(AuditEvent auditEvent, Throwable throwable) {
-              LOGGER.info("{}", auditEvent.getFileName());
+              LOGGER.debug("{}", auditEvent.getFileName());
             }
           });
       int errorCount = checker.process(files);
 
-      LOGGER.info("{} error(s)", errorCount);
+      LOGGER.debug("{} error(s)", errorCount);
 
       if (errorCount > 0) {
         throw new IllegalStateException("expect zero errors, got " + errorCount);

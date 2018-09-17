@@ -22,9 +22,9 @@ public class FindSourceSets implements Task<Set<Path>> {
                 Paths.get("src"),
                 1,
                 (path, basicFileAttributes) -> Files.isDirectory(path) && path.getNameCount() == 2)
-            .peek(sourceSet -> LOGGER.info("{}", sourceSet))
+            .peek(sourceSet -> LOGGER.debug("{}", sourceSet))
             .collect(Collectors.toSet());
-    LOGGER.info("found {} source set(s)", sourceSets.size());
+    LOGGER.debug("found {} source set(s)", sourceSets.size());
     return sourceSets;
   }
 }

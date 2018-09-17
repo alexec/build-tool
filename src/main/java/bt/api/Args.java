@@ -26,6 +26,10 @@ public class Args {
     }
   }
 
+  public List<String> getCommands() {
+    return commands;
+  }
+
   public static Args parse(String[] args) {
     return new Args(args);
   }
