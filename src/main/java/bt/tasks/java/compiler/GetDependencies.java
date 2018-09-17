@@ -56,12 +56,12 @@ public class GetDependencies implements Task<Map<Path, List<Dependency>>> {
     return dependencies;
   }
 
+  @SuppressWarnings("unchecked")
   private List<Dependency> flatten(Map<String, Map> tree, List<Dependency> dependencies) {
 
     tree.forEach(
         (dependency, map) -> {
           dependencies.add(Dependency.valueOf(dependency));
-          //noinspection unchecked
           flatten(map, dependencies);
         });
 

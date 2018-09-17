@@ -1,13 +1,10 @@
 package bt.api;
 
-import lombok.Value;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Value
 public class Args {
 
   private final Map<String, Object> options = new HashMap<>();

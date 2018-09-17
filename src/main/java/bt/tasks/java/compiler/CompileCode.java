@@ -61,11 +61,7 @@ public class CompileCode implements Task<CompiledCode> {
         if (maxLastModified.isPresent()
             && maxSourceLastModified.isPresent()
             && maxLastModified.get() >= maxSourceLastModified.get()) {
-          LOGGER.info(
-              "skipping {}, no changes since last compilation, {} >= {}",
-              sourceSet,
-              maxLastModified.get(),
-              sourceSet.toFile().lastModified());
+          LOGGER.info("skipping {}, no changes since last compilation", sourceSet);
           continue;
         }
       }
