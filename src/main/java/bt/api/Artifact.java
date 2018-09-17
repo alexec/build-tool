@@ -23,11 +23,11 @@ public class Artifact {
     this.classifier = classifier;
   }
 
-  String getGroupId() {
+  public String getGroupId() {
     return groupId;
   }
 
-  String getArtifactId() {
+  public String getArtifactId() {
     return artifactId;
   }
 
@@ -35,7 +35,7 @@ public class Artifact {
     return type;
   }
 
-  String getVersion() {
+  public String getVersion() {
     return version;
   }
 

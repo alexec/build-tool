@@ -1,6 +1,7 @@
 package bt;
 
 import bt.api.Args;
+import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Task;
 import bt.util.Strings;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,52 +24,56 @@ public class Main {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   /** Runs tool. */
-  public static void main(String[] strings) {
-    LOGGER.debug("starting");
+  public static void main(String[] strings) throws Exception {
     Args args = Args.parse(strings);
+
+    LOGGER.debug("starting");
+    LOGGER.debug("{}", args);
     long startTime = System.currentTimeMillis();
-    try {
-      LOGGER.debug("{}", args);
 
-      List<Task> tasks = getTasks();
-      int totalTasks = tasks.size();
-      LOGGER.debug("{} task(s) to run", totalTasks);
+    Project project = OBJECT_MAPPER.readValue(new File("project.json"), Project.class);
 
-      List<Object> context = new ArrayList<>();
-      context.add(args);
-      context.add(new Repository());
+    LOGGER.info("Project: {}", project.getArtifact());
 
-      int taskNo = 1;
-      while (!tasks.isEmpty()) {
+    List<Task> tasks = getTasks();
+    int totalTasks = tasks.size();
+    LOGGER.debug("{} task(s) to run", totalTasks);
 
-        Iterator<Task> it = tasks.iterator();
-        while (it.hasNext()) {
-          Task task = it.next();
+    List<Object> context = new ArrayList<>();
+    context.add(args);
+    context.add(project);
+    context.add(new Repository());
 
-          if (inject(context, task)) {
-            try {
-              LOGGER.info(
-                  "Task [{}/{}]: {}",
-                  taskNo,
-                  totalTasks,
-                  Strings.toSnakeCase(task.getClass().getSimpleName()));
-              long taskStartTime = System.currentTimeMillis();
-              Object output = task.run();
-              LOGGER.debug("took {}ms", System.currentTimeMillis() - taskStartTime);
-              if (output != null) {
-                context.add(output);
-              }
-              taskNo++;
-            } catch (Exception e) {
-              throw new IllegalStateException(e);
+    int taskNo = 1;
+    while (!tasks.isEmpty()) {
+
+      Iterator<Task> it = tasks.iterator();
+      while (it.hasNext()) {
+        Task task = it.next();
+
+        if (inject(context, task)) {
+          try {
+            LOGGER.info(
+                "Task {}/{}: {}",
+                taskNo,
+                totalTasks,
+                Strings.toSnakeCase(task.getClass().getSimpleName()));
+            long taskStartTime = System.currentTimeMillis();
+            Object output = task.run();
+            LOGGER.debug("took {}ms", System.currentTimeMillis() - taskStartTime);
+            if (output != null) {
+              context.add(output);
             }
-            it.remove();
+            taskNo++;
+          } catch (Exception e) {
+            throw new IllegalStateException(e);
           }
+          it.remove();
         }
       }
-    } finally {
-      LOGGER.info("done - " + (System.currentTimeMillis() - startTime) + "ms");
     }
+
+    LOGGER.info("Done: {}ms", (System.currentTimeMillis() - startTime));
   }
 
   private static boolean inject(List<Object> context, Task task) {
