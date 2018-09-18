@@ -5,13 +5,15 @@ import bt.api.Repository;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
 import bt.api.events.ImlFileCreated;
+import bt.api.events.SourceSetFound;
 
 import javax.inject.Inject;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
-public class ImlCreator implements Task<CodeCompiled> {
+public class ImlCreator implements Task<SourceSetFound> {
 
     @Inject
     private Repository repository;
@@ -19,16 +21,16 @@ public class ImlCreator implements Task<CodeCompiled> {
     private EventBus eventBus;
 
     @Override
-    public Class<CodeCompiled> eventType() {
-        return CodeCompiled.class;
+    public Class<SourceSetFound> eventType() {
+        return SourceSetFound.class;
     }
 
     @Override
-    public void consume(CodeCompiled event) throws Exception {
+    public void consume(SourceSetFound event) throws Exception {
 
         Path sourceSet = event.getSourceSet();
 
-        boolean testSource = Files.exists(event.getCompiledCode().resolve(Paths.get("META-INF", "tests")));
+        boolean testSource = repository.getDependencies(sourceSet).stream().anyMatch(dependency -> dependency.toString().contains("junit"));
 
         String context = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<module type=\"JAVA_MODULE\" version=\"4\">\n" +
@@ -39,6 +41,12 @@ public class ImlCreator implements Task<CodeCompiled> {
                 "    </content>\n" +
                 "    <orderEntry type=\"inheritedJdk\" />\n" +
                 "    <orderEntry type=\"sourceFolder\" forTests=\""+testSource+"\" />\n" +
+                (
+                        repository.getDependencies(sourceSet).stream()
+                        .map(dependency -> "    <orderEntry type=\"library\" name=\"" + dependency + "\" level=\"project\" />")
+                        .collect(Collectors.joining("\n"))
+
+                ) + "\n" +
                 "  </component>\n" +
                 "</module>";
         Path path = sourceSet.resolve(Paths.get(sourceSet.getFileName() + ".iml"));
