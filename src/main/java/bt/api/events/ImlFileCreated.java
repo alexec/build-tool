@@ -2,16 +2,16 @@ package bt.api.events;
 
 import java.nio.file.Path;
 
-public class IprFileCreated {
+public class ImlFileCreated {
     private final Path output;
 
-    public IprFileCreated(Path output) {
+    public ImlFileCreated(Path output) {
         this.output = output;
     }
 
     @Override
     public String toString() {
-        return "IprFileCreated(" +
+        return "ImlFileCreated(" +
                 output +
                 ')';
     }
