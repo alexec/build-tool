@@ -2,6 +2,7 @@ package bt.tasks;
 
 import bt.api.Args;
 import bt.api.Task;
+import bt.api.events.Start;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,15 +13,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 
-public class Clean implements Task<Void> {
+public class Clean implements Task<Start> {
   private static final Logger LOGGER = LoggerFactory.getLogger(Clean.class);
   @Inject private Args args;
 
   @Override
-  public Void run() throws Exception {
+  public Class<Start> eventType() {
+    return Start.class;
+  }
+
+  @Override
+  public void consume(Start event) throws Exception {
     if (!args.getCommands().contains("clean")) {
       LOGGER.debug("skipping, not 'clean' in args");
-      return null;
+      return;
     }
     //noinspection ResultOfMethodCallIgnored
     Files.walk(Paths.get("target"))
@@ -28,7 +34,10 @@ public class Clean implements Task<Void> {
         .map(Path::toFile)
         .peek(file -> LOGGER.debug("deleting {}", file))
         .forEach(File::delete);
+  }
 
-    return null;
+  @Override
+  public String toString() {
+    return "clean()";
   }
 }

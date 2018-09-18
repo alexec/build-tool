@@ -1,7 +1,9 @@
 package bt.tasks.java.packaging;
 
+import bt.api.EventBus;
 import bt.api.Task;
-import bt.tasks.java.compiler.CompiledCode;
+import bt.api.events.CodeCompiled;
+import bt.api.events.JarCreated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,28 +20,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CreateJars implements Task<Jars> {
+public class CreateJars implements Task<CodeCompiled> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CreateJars.class);
-  @Inject private CompiledCode compiledCode;
+  @Inject private EventBus eventBus;
 
   @Override
-  public Jars run() throws IOException, InterruptedException {
-    List<Path> jars = new ArrayList<>();
-    for (Path compiledCode : compiledCode.getCompiledCode().keySet()) {
+  public Class<CodeCompiled> eventType() {
+    return CodeCompiled.class;
+  }
 
-      Path jar = compiledCode.getParent().resolve(Paths.get(compiledCode.getFileName() + ".jar"));
+  @Override
+  public void consume(CodeCompiled event) throws Exception {
+    Path compiledCode = event.getCompiledCode();
 
-      Optional<Long> lastModified =
-          Files.walk(compiledCode).map(file -> file.toFile().lastModified()).max(Long::compareTo);
+    Path jar = compiledCode.getParent().resolve(Paths.get(compiledCode.getFileName() + ".jar"));
 
-      jars.add(jar);
-
-      if (Files.exists(jar)
-          && lastModified.isPresent()
-          && lastModified.get() <= jar.toFile().lastModified()) {
-        LOGGER.debug("skipping {}, {} is unchanged", jar, compiledCode);
-        continue;
-      }
+    if (!canSkip(compiledCode, jar)) {
 
       ProcessBuilder command =
           new ProcessBuilder()
@@ -66,8 +62,20 @@ public class CreateJars implements Task<Jars> {
         throw new IllegalStateException();
       }
     }
+    eventBus.add(new JarCreated(jar));
+  }
 
-    return new Jars(jars);
+  private boolean canSkip(Path compiledCode, Path jar) throws IOException {
+    Optional<Long> lastModified =
+        Files.walk(compiledCode).map(file -> file.toFile().lastModified()).max(Long::compareTo);
+
+    if (Files.exists(jar)
+        && lastModified.isPresent()
+        && lastModified.get() <= jar.toFile().lastModified()) {
+      LOGGER.debug("skipping {}, {} is unchanged", jar, compiledCode);
+      return true;
+    }
+    return false;
   }
 
   private void log(InputStream inputStream, Consumer<String> info) {

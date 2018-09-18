@@ -1,39 +1,35 @@
 package bt.tasks.java.finder;
 
+import bt.api.EventBus;
 import bt.api.Task;
+import bt.api.events.SourceSetFound;
+import bt.api.events.Start;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-public class FindSourceSets implements Task<Set<Path>> {
+public class FindSourceSets implements Task<Start> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FindSourceSets.class);
+  @Inject private EventBus eventBus;
 
   @Override
-  public Set<Path> run() throws IOException {
-    Set<Path> sourceSets =
-        Files.find(
-                Paths.get("."),
-                Integer.MAX_VALUE,
-                (path, attributes) -> path.getFileName().equals(Paths.get("src")))
-            .flatMap(
-                path -> {
-                  try {
-                    return Files.find(path, 1, (path1, attributes) -> Files.isDirectory(path1));
-                  } catch (IOException e) {
-                    throw new UncheckedIOException(e);
-                  }
-                })
-            .peek(sourceSet -> LOGGER.debug("{}", sourceSet))
-            .collect(Collectors.toSet());
-    LOGGER.debug("found {} source set(s)", sourceSets.size());
-    return sourceSets;
+  public Class<Start> eventType() {
+    return Start.class;
+  }
+
+  @Override
+  public void consume(Start event) throws Exception {
+    // TODO - needs to be better
+    Files.find(
+            Paths.get("src"),
+            1,
+            (path, attributes) -> Files.isDirectory(path) && path.getNameCount() == 2)
+        .peek(sourceSet -> LOGGER.debug("{}", sourceSet))
+        .forEach(sourceSet -> eventBus.add(new SourceSetFound(sourceSet)));
   }
 }

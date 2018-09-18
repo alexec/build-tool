@@ -1,11 +1,9 @@
 package bt.api;
 
-public interface Task<O> {
+public interface Task<E> {
 
-  /**
-   * Run the task.
-   *
-   * @return Output to add to the context. Maybe null.
-   */
-  O run() throws Exception;
+  Class<E> eventType();
+
+  /** Run the task. */
+  void consume(E event) throws Exception;
 }

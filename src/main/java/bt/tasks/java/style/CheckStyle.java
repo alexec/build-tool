@@ -1,7 +1,11 @@
 package bt.tasks.java.style;
 
+import bt.api.EventBus;
 import bt.api.Reporter;
 import bt.api.Task;
+import bt.api.events.SourceCodeFormatted;
+import bt.api.events.SourceSetFound;
+import bt.api.events.StyleChecked;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.ConfigurationLoader;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
@@ -20,41 +24,45 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class CheckStyle implements Task<Void> {
+public class CheckStyle implements Task<SourceSetFound> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
-  private final Reporter<CheckStyleReport> reporter =
-      Reporter.of(CheckStyleReport.class, () -> new CheckStyleReport(Long.MIN_VALUE));
 
-  @Inject private Set<Path> sourceSets;
+  @Inject private EventBus eventBus;
 
   @Override
-  public Void run() throws Exception {
+  public Class<SourceSetFound> eventType() {
+    return SourceSetFound.class;
+  }
+
+  @Override
+  public void consume(SourceSetFound event) throws Exception {
+    Path sourceSet = event.getSourceSet();
+    Reporter<CheckStyleReport> reporter =
+        Reporter.of(sourceSet, CheckStyleReport.class, () -> new CheckStyleReport(Long.MIN_VALUE));
 
     CheckStyleReport lastReport = reporter.load();
 
-    for (Path sourceSet : sourceSets) {
-      Path configurationFile = sourceSet.resolve(Paths.get("java", "checkstyle.xml"));
+    Path configurationFile = sourceSet.resolve(Paths.get("java", "checkstyle.xml"));
 
-      if (!Files.exists(configurationFile)) {
-        LOGGER.debug("skipping {}, {} does not exist", sourceSet, configurationFile);
-        continue;
-      }
+    if (!Files.exists(configurationFile)) {
+      LOGGER.debug("skipping {}, {} does not exist", sourceSet, configurationFile);
+      return;
+    }
 
-      List<File> files =
-          Files.find(
-                  sourceSet,
-                  Integer.MAX_VALUE,
-                  (path, attributes) ->
-                      path.toString().endsWith(".java")
-                          && attributes.lastModifiedTime().to(TimeUnit.MILLISECONDS)
-                              > lastReport.getEndTime())
-              .map(Path::toFile)
-              .collect(Collectors.toList());
+    List<File> files =
+        Files.find(
+                sourceSet,
+                Integer.MAX_VALUE,
+                (path, attributes) ->
+                    path.toString().endsWith(".java")
+                        && attributes.lastModifiedTime().to(TimeUnit.MILLISECONDS)
+                            > lastReport.getEndTime())
+            .map(Path::toFile)
+            .collect(Collectors.toList());
 
-      if (files.isEmpty()) {
-        LOGGER.debug("skipping {}, no changes since last check", sourceSet);
-        continue;
-      }
+    if (files.isEmpty()) {
+      LOGGER.debug("skipping {}, no changes since last check", sourceSet);
+    } else {
 
       LOGGER.debug("checking {}", sourceSet);
 
@@ -112,9 +120,9 @@ public class CheckStyle implements Task<Void> {
       if (errorCount > 0) {
         throw new IllegalStateException("expect zero errors, got " + errorCount);
       }
+      reporter.save(new CheckStyleReport(System.currentTimeMillis()));
     }
 
-    reporter.save(new CheckStyleReport(System.currentTimeMillis()));
-    return null;
+    eventBus.add(new StyleChecked(sourceSet));
   }
 }

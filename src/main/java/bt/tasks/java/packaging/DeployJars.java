@@ -2,9 +2,12 @@ package bt.tasks.java.packaging;
 
 import bt.api.Artifact;
 import bt.api.Dependency;
+import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Task;
+import bt.api.events.JarCreated;
+import bt.api.events.JarDeployed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,32 +16,35 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class DeployJars implements Task<Void> {
+public class DeployJars implements Task<JarCreated> {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployJars.class);
   @Inject private Project project;
-  @Inject private Jars jars;
   @Inject private Repository repository;
+  @Inject private EventBus eventBus;
 
   @Override
-  public Void run() throws Exception {
+  public Class<JarCreated> eventType() {
+    return JarCreated.class;
+  }
 
-    for (Path jar : this.jars.getJars()) {
-      Artifact artifact = project.getArtifact();
-      Path target =
-          repository.get(
-              Dependency.valueOf(
-                  artifact.getGroupId()
-                      + ":"
-                      + artifact.getArtifactId()
-                      + ":jar:"
-                      + artifact.getVersion()
-                      + ":"
-                      + jar.getFileName().toString().replaceFirst("\\..*", "")));
+  @Override
+  public void consume(JarCreated event) throws Exception {
+    Path jar = event.getPath();
+    Artifact artifact = project.getArtifact();
+    Path target =
+        repository.get(
+            Dependency.valueOf(
+                artifact.getGroupId()
+                    + ":"
+                    + artifact.getArtifactId()
+                    + ":jar:"
+                    + artifact.getVersion()
+                    + ":"
+                    + jar.getFileName().toString().replaceFirst("\\..*", "")));
 
-      if (Files.exists(target) && target.toFile().lastModified() >= jar.toFile().lastModified()) {
-        LOGGER.debug("skipping {}, {} is unchanged", jar, target);
-        continue;
-      }
+    if (Files.exists(target) && target.toFile().lastModified() >= jar.toFile().lastModified()) {
+      LOGGER.debug("skipping {}, {} is unchanged", jar, target);
+    } else {
 
       LOGGER.debug("deploying {} to {}", jar, target);
 
@@ -47,6 +53,6 @@ public class DeployJars implements Task<Void> {
       Files.copy(jar, target, StandardCopyOption.REPLACE_EXISTING);
     }
 
-    return null;
+    eventBus.add(new JarDeployed(target));
   }
 }

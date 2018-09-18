@@ -1,7 +1,11 @@
 package bt.tasks.java.test;
 
+import bt.api.Dependency;
+import bt.api.EventBus;
+import bt.api.Repository;
 import bt.api.Task;
-import bt.tasks.java.compiler.CompiledCode;
+import bt.api.events.CodeCompiled;
+import bt.api.events.TestsRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,26 +22,27 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class RunTests implements Task<TestResult> {
+public class RunTests implements Task<CodeCompiled> {
   private static final Logger LOGGER = LoggerFactory.getLogger(RunTests.class);
-  @Inject private CompiledCode compiledCode;
+  @Inject private EventBus eventBus;
+  @Inject private Repository repository;
 
   @Override
-  public TestResult run() throws IOException, InterruptedException {
+  public Class<CodeCompiled> eventType() {
+    return CodeCompiled.class;
+  }
 
-    for (Map.Entry<Path, List<Path>> entry : compiledCode.getCompiledCode().entrySet()) {
-      Path dir = entry.getKey();
-      String classPath =
-          dir
-              + ":"
-              + entry.getValue().stream().map(String::valueOf).collect(Collectors.joining(":"));
+  @Override
+  public void consume(CodeCompiled event) throws Exception {
 
-      if (!Files.exists(dir.resolve(Paths.get("META-INF/tests")))) {
-        LOGGER.debug("skipping {}, no tests", dir);
-        continue;
-      }
+    Path compiledCode = event.getCompiledCode();
 
-      LOGGER.debug("running tests in {} with -cp {}", dir, classPath);
+    if (!Files.exists(compiledCode.resolve(Paths.get("META-INF/tests")))) {
+      LOGGER.debug("skipping {}, no tests", compiledCode);
+    } else {
+
+      String classPath = compiledCode + ":" + repository.getClassPath(event.getSourceSet());
+      LOGGER.debug("running tests in {} with -cp {}", compiledCode, classPath);
 
       Process process =
           new ProcessBuilder()
@@ -50,9 +55,13 @@ public class RunTests implements Task<TestResult> {
       int exitValue = process.waitFor();
 
       LOGGER.debug("exit {}", exitValue);
-    }
 
-    return new TestResult();
+      if (exitValue != 0) {
+        throw new IllegalStateException();
+      }
+
+      eventBus.add(new TestsRun(compiledCode));
+    }
   }
 
   private void log(InputStream inputStream, Consumer<String> info) {

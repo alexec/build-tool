@@ -1,9 +1,11 @@
 package bt;
 
 import bt.api.Args;
+import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Task;
+import bt.api.events.Start;
 import bt.util.Strings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -37,46 +39,29 @@ public class Main {
 
     List<Task> tasks = getTasks();
     int totalTasks = tasks.size();
-    LOGGER.debug("{} task(s) to run", totalTasks);
+    LOGGER.debug("{} task(s)", totalTasks);
 
     List<Object> context = new ArrayList<>();
+    EventBus eventBus = new EventBus();
     context.add(args);
     context.add(project);
+    context.add(eventBus);
     context.add(new Repository());
 
-    int taskNo = 1;
-    while (!tasks.isEmpty()) {
+    tasks.forEach(task -> inject(context, task));
+    tasks.forEach(eventBus::register);
 
-      Iterator<Task> it = tasks.iterator();
-      while (it.hasNext()) {
-        Task task = it.next();
+    Thread thread = new Thread(eventBus);
 
-        if (inject(context, task)) {
-          try {
-            LOGGER.info(
-                "Task {}/{}: {}",
-                taskNo,
-                totalTasks,
-                Strings.toSnakeCase(task.getClass().getSimpleName()));
-            long taskStartTime = System.currentTimeMillis();
-            Object output = task.run();
-            LOGGER.debug("took {}ms", System.currentTimeMillis() - taskStartTime);
-            if (output != null) {
-              context.add(output);
-            }
-            taskNo++;
-          } catch (Exception e) {
-            throw new IllegalStateException(e);
-          }
-          it.remove();
-        }
-      }
-    }
+    eventBus.add(new Start());
+
+    thread.run();
+    thread.join();
 
     LOGGER.info("Done: {}ms", (System.currentTimeMillis() - startTime));
   }
 
-  private static boolean inject(List<Object> context, Task task) {
+  private static void inject(List<Object> context, Task task) {
     List<Field> fields =
         Arrays.stream(task.getClass().getDeclaredFields())
             .filter(f -> f.getAnnotation(Inject.class) != null)
@@ -91,28 +76,20 @@ public class Main {
                 })
             .collect(Collectors.toList());
 
-    long count =
-        fields
-            .stream()
-            .filter(
-                field ->
-                    context
-                        .stream()
-                        .filter(bean -> field.getType().isAssignableFrom(bean.getClass()))
-                        .peek(
-                            bean -> {
-                              field.setAccessible(true);
-                              try {
-                                field.set(task, bean);
-                              } catch (IllegalAccessException e) {
-                                throw new IllegalStateException(e);
-                              }
-                            })
-                        .findFirst()
-                        .isPresent())
-            .count();
-
-    return count == fields.size();
+    fields.forEach(
+        field ->
+            context
+                .stream()
+                .filter(bean -> field.getType().isAssignableFrom(bean.getClass()))
+                .forEach(
+                    bean -> {
+                      field.setAccessible(true);
+                      try {
+                        field.set(task, bean);
+                      } catch (IllegalAccessException e) {
+                        throw new IllegalStateException(e);
+                      }
+                    }));
   }
 
   private static List<Task> getTasks() {

@@ -1,8 +1,11 @@
 package bt.tasks.java.compiler;
 
 import bt.api.Dependency;
+import bt.api.EventBus;
 import bt.api.Repository;
 import bt.api.Task;
+import bt.api.events.CodeCompiled;
+import bt.api.events.SourceSetFound;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,56 +18,42 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CompileCode implements Task<CompiledCode> {
+public class CompileCode implements Task<SourceSetFound> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-  @Inject private Map<Path, List<Dependency>> dependencies;
+  @Inject private EventBus eventBus;
   @Inject private Repository repository;
 
   @Override
-  public CompiledCode run() throws Exception {
-    Map<Path, List<Path>> compiledCode = new HashMap<>();
-    for (Path sourceSet : dependencies.keySet()) {
-      Path output = getTarget(sourceSet);
-      CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
-      List<Path> classPath =
-          dependencies.get(sourceSet).stream().map(repository::get).collect(Collectors.toList());
+  public Class<SourceSetFound> eventType() {
+    return SourceSetFound.class;
+  }
 
-      List<String> sourceFiles = getSourceFiles(sourceSet);
+  @Override
+  public void consume(SourceSetFound event) throws Exception {
+    Path sourceSet = event.getSourceSet();
 
-      if (sourceFiles.isEmpty()) {
-        continue;
-      }
+    Path output = getTarget(sourceSet);
+    CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
 
-      compiledCode.put(output, classPath);
+    List<String> sourceFiles = getSourceFiles(sourceSet);
 
-      Optional<Long> maxSourceLastModified =
-          Files.walk(sourceSet)
-              .filter(file -> file.toString().endsWith(".java"))
-              .map(file -> file.toFile().lastModified())
-              .max(Long::compareTo);
+    if (sourceFiles.isEmpty()) {
+      return;
+    }
 
-      if (output.toFile().exists()) {
-        Optional<Long> maxLastModified =
-            Files.walk(output)
-                .filter(file -> file.toString().endsWith(".class"))
-                .map(file -> file.toFile().lastModified())
-                .max(Long::compareTo);
+    Optional<Long> maxSourceLastModified =
+        Files.walk(sourceSet)
+            .filter(file -> file.toString().endsWith(".java"))
+            .map(file -> file.toFile().lastModified())
+            .max(Long::compareTo);
 
-        if (maxLastModified.isPresent()
-            && maxSourceLastModified.isPresent()
-            && maxLastModified.get() >= maxSourceLastModified.get()) {
-          LOGGER.debug("skipping {}, no changes since last compilation", sourceSet);
-          continue;
-        }
-      }
+    if (!canSkip(sourceSet, output, maxSourceLastModified)) {
 
       if (!Files.exists(output)) {
         Files.createDirectory(output);
@@ -78,7 +67,7 @@ public class CompileCode implements Task<CompiledCode> {
       arguments.add("-target");
       arguments.add(String.valueOf(compilationOpts.getTarget()));
       arguments.add("-cp");
-      arguments.add(classPath.stream().map(String::valueOf).collect(Collectors.joining(":")));
+      arguments.add(repository.getClassPath(sourceSet));
       arguments.add("-d");
       arguments.add(output.toAbsolutePath().toString());
       arguments.addAll(sourceFiles);
@@ -96,8 +85,26 @@ public class CompileCode implements Task<CompiledCode> {
         throw new IllegalStateException();
       }
     }
+    eventBus.add(new CodeCompiled(sourceSet, output));
+  }
 
-    return new CompiledCode(compiledCode);
+  private boolean canSkip(Path sourceSet, Path output, Optional<Long> maxSourceLastModified)
+      throws IOException {
+    if (output.toFile().exists()) {
+      Optional<Long> maxLastModified =
+          Files.walk(output)
+              .filter(file -> file.toString().endsWith(".class"))
+              .map(file -> file.toFile().lastModified())
+              .max(Long::compareTo);
+
+      if (maxLastModified.isPresent()
+          && maxSourceLastModified.isPresent()
+          && maxLastModified.get() >= maxSourceLastModified.get()) {
+        LOGGER.debug("skipping {}, no changes since last compilation", sourceSet);
+        return true;
+      }
+    }
+    return false;
   }
 
   private Path getTarget(Path sourceSet) throws IOException {
