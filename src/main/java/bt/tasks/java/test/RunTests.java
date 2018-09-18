@@ -43,7 +43,13 @@ public class RunTests implements Task<CodeCompiled> {
 
       Process process =
           new ProcessBuilder()
-              .command("java", "-cp", classPath, "bt.tasks.java.test.EmbeddedTestRunner")
+              .command(
+                  "java",
+                  "-Xverify:none",
+                  "-XX:TieredStopAtLevel=1",
+                  "-cp",
+                  classPath,
+                  "bt.tasks.java.test.EmbeddedTestRunner")
               .start();
 
       log(process.getInputStream(), LOGGER::debug);

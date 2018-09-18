@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static java.lang.System.currentTimeMillis;
+
 public class EventBus implements Runnable {
   private static final Logger LOGGER = LoggerFactory.getLogger(EventBus.class);
   private final List<Task> tasks = new ArrayList<>();
@@ -34,8 +36,10 @@ public class EventBus implements Runnable {
           .filter(task -> task.eventType().equals(event.getClass()))
           .forEach(
               task -> {
+                long start = currentTimeMillis();
                 try {
                   task.consume(event);
+                  LOGGER.debug("{} took {}ms", task, currentTimeMillis() - start);
                 } catch (Exception e) {
                   LOGGER.error("{}", e);
                   events.clear();
