@@ -1,6 +1,7 @@
 package bt.api;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public abstract class Dependency {
 
@@ -64,6 +65,6 @@ public abstract class Dependency {
         ? new ModuleDependency(text.substring(1))
         : text.contains(":")
             ? new ArtifactDependency(Artifact.valueOf(text))
-            : new ModuleDependency(text);
+            : new PathDependency(Paths.get(text));
   }
 }

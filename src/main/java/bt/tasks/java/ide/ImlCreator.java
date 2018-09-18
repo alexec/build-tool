@@ -43,6 +43,9 @@ public class ImlCreator implements Task<ModuleFound> {
             + "      <sourceFolder url=\"file://$MODULE_DIR$/java\" isTestSource=\""
             + testSource
             + "\" />\n"
+            + "      <sourceFolder url=\"file://$MODULE_DIR$/resources\" isTestSource=\""
+            + testSource
+            + "\" />\n"
             + "    </content>\n"
             + "    <orderEntry type=\"inheritedJdk\" />\n"
             + "    <orderEntry type=\"sourceFolder\" forTests=\""
@@ -53,17 +56,17 @@ public class ImlCreator implements Task<ModuleFound> {
                 .stream()
                 .map(
                     dependency -> {
-                      String library =
-                          dependency instanceof Dependency.ModuleDependency ? "module" : "library";
-                      String name =
-                          dependency instanceof Dependency.ModuleDependency
-                              ? ((Dependency.ModuleDependency) dependency).getArtifactId()
-                              : dependency.toString();
-                      return "    <orderEntry type=\""
-                          + library
-                          + "\" name=\""
-                          + name
-                          + "\" level=\"project\" />";
+                      if (dependency instanceof Dependency.ModuleDependency) {
+                        return "    <orderEntry type=\"module\" module-name=\""
+                            + ((Dependency.ModuleDependency) dependency).getArtifactId()
+                            + "\" />";
+                      } else {
+                        return "    <orderEntry type=\""
+                            + "library"
+                            + "\" name=\""
+                            + dependency
+                            + "\" level=\"project\" />";
+                      }
                     })
                 .collect(Collectors.joining("\n")))
             + "\n"
