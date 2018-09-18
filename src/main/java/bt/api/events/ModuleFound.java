@@ -2,12 +2,10 @@ package bt.api.events;
 
 import bt.api.Module;
 
-import java.nio.file.Path;
-
-public class CodeCompiled {
+public class ModuleFound {
   private final Module module;
 
-  public CodeCompiled(Module module) {
+  public ModuleFound(Module module) {
     this.module = module;
   }
 
@@ -17,6 +15,6 @@ public class CodeCompiled {
 
   @Override
   public String toString() {
-    return "CodeCompiled(" + module + ')';
+    return "ModuleFound(" + module + ')';
   }
 }

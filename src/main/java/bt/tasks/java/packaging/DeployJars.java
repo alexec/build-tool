@@ -36,11 +36,9 @@ public class DeployJars implements Task<JarCreated> {
             Dependency.valueOf(
                 artifact.getGroupId()
                     + ":"
-                    + artifact.getArtifactId()
-                    + ":jar:"
-                    + artifact.getVersion()
+                    + jar.getFileName().toString().replaceFirst("\\..*", "")
                     + ":"
-                    + jar.getFileName().toString().replaceFirst("\\..*", "")));
+                    + artifact.getVersion()));
 
     if (Files.exists(target) && target.toFile().lastModified() >= jar.toFile().lastModified()) {
       LOGGER.debug("skipping {}, {} is unchanged", jar, target);

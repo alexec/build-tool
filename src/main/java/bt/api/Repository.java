@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,9 +18,14 @@ import org.slf4j.LoggerFactory;
 public class Repository {
   private static final Logger LOGGER = LoggerFactory.getLogger(Repository.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+  private Map<String, Module> modules = new HashMap<>();
 
-  private Path get(Dependency.PathDependency dependency) {
-    return dependency.getPath();
+  public void addModule(Module module) {
+    modules.put(module.getArtifact().getArtifactId(), module);
+  }
+
+  private Path get(Dependency.ModuleDependency dependency) {
+    return modules.get(dependency.getArtifactId()).getCompiledCode();
   }
 
   private Path get(Dependency.ArtifactDependency dependency) {
@@ -44,7 +50,7 @@ public class Repository {
   public Path get(Dependency dependency) {
     return dependency instanceof Dependency.ArtifactDependency
         ? get((Dependency.ArtifactDependency) dependency)
-        : get((Dependency.PathDependency) dependency);
+        : get((Dependency.ModuleDependency) dependency);
   }
 
   public List<Dependency> getDependencies(Path sourceSet) {
@@ -57,7 +63,7 @@ public class Repository {
       Path dependenciesFile = sourceSet.resolve(path);
       if (Files.exists(dependenciesFile)) {
         LOGGER.debug("reading {}", dependenciesFile);
-        Map<String, Map> tree = null;
+        Map<String, Map> tree;
         try {
           tree =
               OBJECT_MAPPER.readValue(

@@ -1,11 +1,11 @@
 package bt.tasks.java.compiler;
 
-import bt.api.Dependency;
 import bt.api.EventBus;
+import bt.api.Module;
 import bt.api.Repository;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
-import bt.api.events.SourceSetFound;
+import bt.api.events.ModuleFound;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CompileCode implements Task<SourceSetFound> {
+public class CompileCode implements Task<ModuleFound> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
@@ -30,15 +30,16 @@ public class CompileCode implements Task<SourceSetFound> {
   @Inject private Repository repository;
 
   @Override
-  public Class<SourceSetFound> eventType() {
-    return SourceSetFound.class;
+  public Class<ModuleFound> eventType() {
+    return ModuleFound.class;
   }
 
   @Override
-  public void consume(SourceSetFound event) throws Exception {
-    Path sourceSet = event.getSourceSet();
+  public void consume(ModuleFound event) throws Exception {
+    Module module = event.getModule();
+    Path sourceSet = module.getSourceSet();
 
-    Path output = getTarget(sourceSet);
+    Path output = module.getCompiledCode();
     CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
 
     List<String> sourceFiles = getSourceFiles(sourceSet);
@@ -85,7 +86,7 @@ public class CompileCode implements Task<SourceSetFound> {
         throw new IllegalStateException();
       }
     }
-    eventBus.add(new CodeCompiled(sourceSet, output));
+    eventBus.add(new CodeCompiled(module));
   }
 
   private boolean canSkip(Path sourceSet, Path output, Optional<Long> maxSourceLastModified)
@@ -105,12 +106,6 @@ public class CompileCode implements Task<SourceSetFound> {
       }
     }
     return false;
-  }
-
-  private Path getTarget(Path sourceSet) throws IOException {
-    Path parent = Paths.get("target", "java");
-    Files.createDirectories(parent);
-    return parent.resolve(sourceSet.getFileName());
   }
 
   private List<String> getSourceFiles(Path javaSources) throws IOException {

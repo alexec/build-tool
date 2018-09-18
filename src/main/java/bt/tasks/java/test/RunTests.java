@@ -1,6 +1,5 @@
 package bt.tasks.java.test;
 
-import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Repository;
 import bt.api.Task;
@@ -17,10 +16,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class RunTests implements Task<CodeCompiled> {
   private static final Logger LOGGER = LoggerFactory.getLogger(RunTests.class);
@@ -35,13 +31,14 @@ public class RunTests implements Task<CodeCompiled> {
   @Override
   public void consume(CodeCompiled event) throws Exception {
 
-    Path compiledCode = event.getCompiledCode();
+    Path compiledCode = event.getModule().getCompiledCode();
 
     if (!Files.exists(compiledCode.resolve(Paths.get("META-INF/tests")))) {
       LOGGER.debug("skipping {}, no tests", compiledCode);
     } else {
 
-      String classPath = compiledCode + ":" + repository.getClassPath(event.getSourceSet());
+      String classPath =
+          compiledCode + ":" + repository.getClassPath(event.getModule().getSourceSet());
       LOGGER.debug("running tests in {} with -cp {}", compiledCode, classPath);
 
       Process process =

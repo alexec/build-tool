@@ -44,7 +44,7 @@ public class Artifact {
   }
 
   /** Creates an artifact. */
-  static Artifact valueOf(String text) {
+  public static Artifact valueOf(String text) {
     Matcher matcher = PATTERN.matcher(text);
     if (!matcher.find()) {
       throw new IllegalArgumentException(text);

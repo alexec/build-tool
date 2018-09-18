@@ -3,8 +3,7 @@ package bt.tasks.java.style;
 import bt.api.EventBus;
 import bt.api.Reporter;
 import bt.api.Task;
-import bt.api.events.SourceCodeFormatted;
-import bt.api.events.SourceSetFound;
+import bt.api.events.ModuleFound;
 import bt.api.events.StyleChecked;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.ConfigurationLoader;
@@ -20,23 +19,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class CheckStyle implements Task<SourceSetFound> {
+public class CheckStyle implements Task<ModuleFound> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
 
   @Inject private EventBus eventBus;
 
   @Override
-  public Class<SourceSetFound> eventType() {
-    return SourceSetFound.class;
+  public Class<ModuleFound> eventType() {
+    return ModuleFound.class;
   }
 
   @Override
-  public void consume(SourceSetFound event) throws Exception {
-    Path sourceSet = event.getSourceSet();
+  public void consume(ModuleFound event) throws Exception {
+    Path sourceSet = event.getModule().getSourceSet();
     Reporter<CheckStyleReport> reporter =
         Reporter.of(sourceSet, CheckStyleReport.class, () -> new CheckStyleReport(Long.MIN_VALUE));
 

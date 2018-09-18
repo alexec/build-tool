@@ -1,7 +1,6 @@
 package bt.api;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public abstract class Dependency {
 
@@ -19,6 +18,23 @@ public abstract class Dependency {
     @Override
     public String toString() {
       return String.valueOf(path);
+    }
+  }
+
+  static class ModuleDependency extends Dependency {
+    private final String artifactId;
+
+    private ModuleDependency(String artifactId) {
+      this.artifactId = artifactId;
+    }
+
+    String getArtifactId() {
+      return artifactId;
+    }
+
+    @Override
+    public String toString() {
+      return ":" + artifactId;
     }
   }
 
@@ -44,8 +60,10 @@ public abstract class Dependency {
   /** Create a dependency form a string. */
   @SuppressWarnings("unused")
   public static Dependency valueOf(String text) {
-    return text.contains(":")
-        ? new ArtifactDependency(Artifact.valueOf(text))
-        : new PathDependency(Paths.get(text));
+    return text.startsWith(":")
+        ? new ModuleDependency(text.substring(1))
+        : text.contains(":")
+            ? new ArtifactDependency(Artifact.valueOf(text))
+            : new ModuleDependency(text);
   }
 }

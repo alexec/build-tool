@@ -15,8 +15,6 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -31,7 +29,7 @@ public class CreateJars implements Task<CodeCompiled> {
 
   @Override
   public void consume(CodeCompiled event) throws Exception {
-    Path compiledCode = event.getCompiledCode();
+    Path compiledCode = event.getModule().getCompiledCode();
 
     Path jar = compiledCode.getParent().resolve(Paths.get(compiledCode.getFileName() + ".jar"));
 

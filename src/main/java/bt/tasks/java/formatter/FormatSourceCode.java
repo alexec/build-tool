@@ -4,7 +4,7 @@ import bt.api.EventBus;
 import bt.api.Reporter;
 import bt.api.Task;
 import bt.api.events.SourceCodeFormatted;
-import bt.api.events.SourceSetFound;
+import bt.api.events.ModuleFound;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 import org.slf4j.Logger;
@@ -15,25 +15,24 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /** https://github.com/google/google-java-format */
-public class FormatSourceCode implements Task<SourceSetFound> {
+public class FormatSourceCode implements Task<ModuleFound> {
   private static final Formatter FORMATTER = new Formatter();
   private static final Logger LOGGER = LoggerFactory.getLogger(FormatSourceCode.class);
 
   @Inject private EventBus eventBus;
 
   @Override
-  public Class<SourceSetFound> eventType() {
-    return SourceSetFound.class;
+  public Class<ModuleFound> eventType() {
+    return ModuleFound.class;
   }
 
   @Override
-  public void consume(SourceSetFound event) throws Exception {
+  public void consume(ModuleFound event) throws Exception {
 
-    Path sourceSet = event.getSourceSet();
+    Path sourceSet = event.getModule().getSourceSet();
 
     Reporter<SourceCodeFormatterReport> reporter =
         Reporter.of(

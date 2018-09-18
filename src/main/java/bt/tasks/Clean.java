@@ -25,7 +25,7 @@ public class Clean implements Task<Start> {
   @Override
   public void consume(Start event) throws Exception {
     if (!args.getCommands().contains("clean")) {
-      LOGGER.debug("skipping, not 'clean' in args");
+      LOGGER.debug("skipping, 'clean' not in args");
       return;
     }
     //noinspection ResultOfMethodCallIgnored
@@ -34,10 +34,5 @@ public class Clean implements Task<Start> {
         .map(Path::toFile)
         .peek(file -> LOGGER.debug("deleting {}", file))
         .forEach(File::delete);
-  }
-
-  @Override
-  public String toString() {
-    return "clean()";
   }
 }
