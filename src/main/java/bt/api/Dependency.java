@@ -21,14 +21,14 @@ public abstract class Dependency {
     }
   }
 
-  static class ModuleDependency extends Dependency {
+  public static class ModuleDependency extends Dependency {
     private final String artifactId;
 
     private ModuleDependency(String artifactId) {
       this.artifactId = artifactId;
     }
 
-    String getArtifactId() {
+    public String getArtifactId() {
       return artifactId;
     }
 
@@ -38,7 +38,7 @@ public abstract class Dependency {
     }
   }
 
-  static class ArtifactDependency extends Dependency {
+  public static class ArtifactDependency extends Dependency {
     private final Artifact artifact;
 
     private ArtifactDependency(Artifact artifact) {

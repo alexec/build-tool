@@ -35,7 +35,7 @@ public class FindModules implements Task<Start> {
             Paths.get("src"),
             1,
             (path, attributes) -> Files.isDirectory(path) && path.getNameCount() == 2)
-            .sorted()
+        .sorted()
         .map(
             sourceSet ->
                 new Module(

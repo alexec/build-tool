@@ -3,6 +3,7 @@ package bt.tasks.java.ide;
 import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
+import bt.api.Dependency;
 import bt.api.Task;
 import bt.api.events.IprFileCreated;
 import bt.api.events.ModuleFound;
@@ -66,6 +67,7 @@ public class IprCreator implements Task<ModuleFound> {
             + (repository
                 .getDependencies(sourceSet)
                 .stream()
+                .filter(dependency -> dependency instanceof Dependency.ArtifactDependency)
                 .map(
                     dependency ->
                         "    <library name=\""

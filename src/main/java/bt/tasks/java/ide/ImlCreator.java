@@ -1,5 +1,6 @@
 package bt.tasks.java.ide;
 
+import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Repository;
 import bt.api.Task;
@@ -51,10 +52,19 @@ public class ImlCreator implements Task<ModuleFound> {
                 .getDependencies(sourceSet)
                 .stream()
                 .map(
-                    dependency ->
-                        "    <orderEntry type=\"library\" name=\""
-                            + dependency
-                            + "\" level=\"project\" />")
+                    dependency -> {
+                      String library =
+                          dependency instanceof Dependency.ModuleDependency ? "module" : "library";
+                      String name =
+                          dependency instanceof Dependency.ModuleDependency
+                              ? ((Dependency.ModuleDependency) dependency).getArtifactId()
+                              : dependency.toString();
+                      return "    <orderEntry type=\""
+                          + library
+                          + "\" name=\""
+                          + name
+                          + "\" level=\"project\" />";
+                    })
                 .collect(Collectors.joining("\n")))
             + "\n"
             + "  </component>\n"
