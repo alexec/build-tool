@@ -20,7 +20,7 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
   @Inject private Project project;
   @Inject private Repository repository;
   @Inject private EventBus eventBus;
-  private final List<Path> imls = new ArrayList<>();
+  private final List<Path> sourcesSets = new ArrayList<>();
 
   @Override
   public Class<ModuleFound> eventType() {
@@ -30,8 +30,7 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
   @Override
   public void consume(ModuleFound event) throws Exception {
 
-    Path sourceSet = event.getModule().getSourceSet();
-    imls.add(sourceSet.resolve(sourceSet.getFileName() + ".iml"));
+    sourcesSets.add(event.getModule().getSourceSet());
 
     String context =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -44,14 +43,16 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
             + "  </component>\n"
             + "  <component name=\"ProjectModuleManager\">\n"
             + "    <modules>\n"
-            + (imls.stream()
+            + (sourcesSets
+                .stream()
+                .map(sourceSet -> sourceSet.resolve(sourceSet.getFileName() + ".iml"))
                 .map(
                     iml ->
                         "      <module fileurl=\"file://$PROJECT_DIR$/"
                             + iml
                             + "\" filepath=\"$PROJECT_DIR$/"
                             + iml
-                            + "\" />\n")
+                            + "\" />")
                 .collect(Collectors.joining("\n")))
             + "\n"
             + "    </modules>\n"
@@ -64,10 +65,12 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
             + "  </component>\n"
             + "\n"
             + "  <component name=\"libraryTable\">\n"
-            + (repository
-                .getDependencies(sourceSet)
+            + (sourcesSets
                 .stream()
+                .flatMap(sourceSet -> repository.getDependencies(sourceSet).stream())
                 .filter(dependency -> dependency instanceof Dependency.ArtifactDependency)
+                .sorted()
+                .distinct()
                 .map(
                     dependency ->
                         "    <library name=\""

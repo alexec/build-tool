@@ -3,7 +3,7 @@ package bt.api;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public abstract class Dependency {
+public abstract class Dependency implements Comparable<Dependency> {
 
   static class PathDependency extends Dependency {
     private final Path path;
@@ -57,6 +57,11 @@ public abstract class Dependency {
   }
 
   private Dependency() {}
+
+  @Override
+  public int compareTo(Dependency o) {
+    return toString().compareTo(o.toString());
+  }
 
   /** Create a dependency form a string. */
   @SuppressWarnings("unused")
