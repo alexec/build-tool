@@ -18,8 +18,8 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CreateJars implements Task<CodeCompiled> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(CreateJars.class);
+public class CreateJar implements Task<CodeCompiled> {
+  private static final Logger LOGGER = LoggerFactory.getLogger(CreateJar.class);
   @Inject private EventBus eventBus;
 
   @Override

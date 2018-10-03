@@ -22,14 +22,6 @@
   </component>
 
   <component name="libraryTable">
-    <library name="bt:main:1.0.6-SNAPSHOT" type="repository">
-      <properties maven-id="bt:main:1.0.6-SNAPSHOT" />
-      <CLASSES>
-        <root url="jar://Users/alex.e.c/.m2/repository/bt/main/1.0.6-SNAPSHOT/main-1.0.6-SNAPSHOT.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
     <library name="org.slf4j:slf4j-api:1.7.25" type="repository">
       <properties maven-id="org.slf4j:slf4j-api:1.7.25" />
       <CLASSES>

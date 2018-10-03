@@ -1,4 +1,0 @@
-#!/bin/sh
-set -Eeuo pipefail
-
-env version=1.0.7-SNAPSHOT $(dirname $0)/bt 
