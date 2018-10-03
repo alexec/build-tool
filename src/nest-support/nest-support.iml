@@ -8,8 +8,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="true" />
-    <orderEntry type="module" module-name="main" />
-    <orderEntry type="module" module-name="nest-support" />
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" name="org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
