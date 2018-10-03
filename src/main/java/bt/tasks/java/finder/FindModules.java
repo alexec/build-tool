@@ -56,7 +56,8 @@ public class FindModules implements Task<Start> {
   }
 
   private Path outputDirectory(Path sourceSet) {
-    return sourceSet.resolve(
-        Paths.get("..", "..", "target", "java", sourceSet.getFileName().toString()));
+    return sourceSet
+        .resolve(Paths.get("..", "..", "target", "java", sourceSet.getFileName().toString()))
+        .normalize();
   }
 }
