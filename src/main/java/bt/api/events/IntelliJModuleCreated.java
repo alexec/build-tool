@@ -2,15 +2,15 @@ package bt.api.events;
 
 import java.nio.file.Path;
 
-public class ImlFileCreated {
+public class IntelliJModuleCreated {
   private final Path output;
 
-  public ImlFileCreated(Path output) {
+  public IntelliJModuleCreated(Path output) {
     this.output = output;
   }
 
   @Override
   public String toString() {
-    return "ImlFileCreated(" + output + ')';
+    return "IntelliJModuleCreated(" + output + ')';
   }
 }

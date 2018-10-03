@@ -4,7 +4,7 @@ import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Repository;
 import bt.api.Task;
-import bt.api.events.ImlFileCreated;
+import bt.api.events.IntelliJModuleCreated;
 import bt.api.events.ModuleFound;
 
 import javax.inject.Inject;
@@ -76,6 +76,6 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
 
     Files.write(path, context.getBytes());
 
-    eventBus.add(new ImlFileCreated(path));
+    eventBus.add(new IntelliJModuleCreated(path));
   }
 }
