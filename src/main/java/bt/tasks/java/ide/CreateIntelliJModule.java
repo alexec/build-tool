@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
-public class CreateIntelliJModuleFile implements Task<ModuleFound> {
+public class CreateIntelliJModule implements Task<ModuleFound> {
 
   @Inject private Repository repository;
   @Inject private EventBus eventBus;

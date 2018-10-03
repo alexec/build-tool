@@ -5,7 +5,7 @@ import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Dependency;
 import bt.api.Task;
-import bt.api.events.IprFileCreated;
+import bt.api.events.IntellJProjectCreated;
 import bt.api.events.ModuleFound;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class IprCreator implements Task<ModuleFound> {
+public class CreateIntelliJProject implements Task<ModuleFound> {
   @Inject private Project project;
   @Inject private Repository repository;
   @Inject private EventBus eventBus;
@@ -92,6 +92,6 @@ public class IprCreator implements Task<ModuleFound> {
 
     Files.write(path, context.getBytes());
 
-    eventBus.add(new IprFileCreated(path));
+    eventBus.add(new IntellJProjectCreated(path));
   }
 }
