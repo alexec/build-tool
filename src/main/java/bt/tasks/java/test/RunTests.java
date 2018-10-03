@@ -52,7 +52,15 @@ public class RunTests implements Task<CodeCompiled> {
                   "bt.tasks.java.test.EmbeddedTestRunner")
               .start();
 
-      log(process.getInputStream(), LOGGER::debug);
+      final int[] number = {0};
+      log(
+          process.getInputStream(),
+          line -> {
+            LOGGER.debug(line);
+            if (line.startsWith("Test started")) {
+              number[0]++;
+            }
+          });
       log(process.getErrorStream(), LOGGER::warn);
 
       int exitValue = process.waitFor();
@@ -63,7 +71,7 @@ public class RunTests implements Task<CodeCompiled> {
         throw new IllegalStateException();
       }
 
-      eventBus.add(new TestsRun(compiledCode));
+      eventBus.add(new TestsRun(compiledCode, number[0]));
     }
   }
 
