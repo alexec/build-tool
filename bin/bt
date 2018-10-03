@@ -18,6 +18,12 @@ for jar in $(echo $CLASSPATH | tr ':' "\n") ; do
   fi
 done
 
-export CLASSPATH=$(dirname $0)/../lib/main-$version.jar:$M2_REPO/bt/main/$version/main-$version.jar:$CLASSPATH
+lib=$(dirname $0)/../lib/main-$version.jar
+
+if [ -e $lib ]; then
+  export CLASSPATH=$(dirname $0)/../lib/main-$version.jar:$CLASSPATH
+else
+  export CLASSPATH=$M2_REPO/bt/main/$version/main-$version.jar:$CLASSPATH
+fi
 
 java bt.Main $*
