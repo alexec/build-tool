@@ -37,7 +37,7 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
     String context =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<module type=\"JAVA_MODULE\" version=\"4\">\n"
-            + "  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\n"
+            + "  <component name=\"NewModuleRootManager\">\n"
             + "    <output url=\"file://$MODULE_DIR$/../../target/java/"
             + event.getModule().getName()
             + "/classes\" />\n"
