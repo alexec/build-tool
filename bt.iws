@@ -265,7 +265,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.Foo">
+  <component name="RunManager" selected="JUnit.StringsTest">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -304,6 +304,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StringsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bt.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bt.util" />
+      <option name="MAIN_CLASS_NAME" value="bt.util.StringsTest" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -321,9 +336,11 @@
     <list>
       <item itemvalue="JUnit.Foo" />
       <item itemvalue="JUnit.Foo.name" />
+      <item itemvalue="JUnit.StringsTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.StringsTest" />
         <item itemvalue="JUnit.Foo" />
         <item itemvalue="JUnit.Foo.name" />
       </list>
