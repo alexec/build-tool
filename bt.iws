@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="new directories">
-      <change beforePath="$PROJECT_DIR$/bt.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bt.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bt.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bt.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/api/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/api/Module.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nest-support/nest-support.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/nest-support/nest-support.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/test.iml" afterDir="false" />
@@ -48,7 +45,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="ipr" value="1" />
-          <entry key="java" value="189" />
+          <entry key="java" value="224" />
           <entry key="json" value="2" />
           <entry key="txt" value="15" />
         </counts>
@@ -56,7 +53,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="IDEA_PROJECT" value="1" />
-          <entry key="JAVA" value="189" />
+          <entry key="JAVA" value="224" />
           <entry key="JSON" value="2" />
           <entry key="PLAIN_TEXT" value="15" />
         </counts>
@@ -65,20 +62,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/main.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="41" selection-start-line="4" selection-start-column="64" selection-end-line="4" selection-end-column="68" />
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
+            <state relative-caret-position="224">
+              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -162,7 +159,6 @@
         <option value="$PROJECT_DIR$/src/nest-support/src/java/bt/java/tasks/test/EmbeddedTestRunner.java" />
         <option value="$PROJECT_DIR$/src/nest-support/dependencies.json" />
         <option value="$PROJECT_DIR$/src/test/dependencies.json" />
-        <option value="$PROJECT_DIR$/src/main/main.iml" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/events/TestsRun.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Dependency.java" />
@@ -176,8 +172,9 @@
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java" />
         <option value="$PROJECT_DIR$/project.json" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Module.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" />
+        <option value="$PROJECT_DIR$/src/main/main.iml" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" />
       </list>
     </option>
   </component>
@@ -284,7 +281,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -641,13 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bt.ipr">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -665,7 +655,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/main.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="41" selection-start-line="4" selection-start-column="64" selection-end-line="4" selection-end-column="68" />
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
         </state>
       </provider>
     </entry>

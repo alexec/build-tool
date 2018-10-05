@@ -41,6 +41,9 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
             + "    <output url=\"file://$MODULE_DIR$/../../target/java/"
             + event.getModule().getName()
             + "/classes\" />\n"
+            + "    <output-test url=\"file://$MODULE_DIR$/../../target/java/"
+            + event.getModule().getName()
+            + "/classes\" />\n"
             + "    <exclude-output />\n"
             + "    <content url=\"file://$MODULE_DIR$\">\n"
             + "      <sourceFolder url=\"file://$MODULE_DIR$/java\" isTestSource=\""
