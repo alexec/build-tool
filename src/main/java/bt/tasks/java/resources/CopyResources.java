@@ -21,9 +21,8 @@ public class CopyResources implements Task<ModuleFound> {
 
   @Override
   public void consume(ModuleFound event) throws Exception {
-    Path sourceSet = event.getModule().getSourceSet();
-    Path resources = sourceSet.resolve("resources");
-    Path target = sourceSet.resolve("../../target/java/" + sourceSet.getFileName());
+    Path resources = event.getModule().getSourceSet().resolve("resources");
+    Path target = event.getModule().getCompiledCode();
 
     if (!Files.exists(resources)) {
       LOGGER.debug("skipping {}, does not exist", resources);

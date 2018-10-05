@@ -57,7 +57,7 @@ public class CompileCode implements Task<ModuleFound> {
     if (!canSkip(sourceSet, output, maxSourceLastModified)) {
 
       if (!Files.exists(output)) {
-        Files.createDirectory(output);
+        Files.createDirectories(output);
       }
 
       LOGGER.debug("compiling {} to {}", sourceSet, output);
