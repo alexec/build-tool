@@ -1,6 +1,6 @@
 {
   ":main": {},
-  ":nest-support": {},
+  ":test-support": {},
   "junit:junit:4.12": {
     "org.hamcrest:hamcrest-core:1.3": {
     }
