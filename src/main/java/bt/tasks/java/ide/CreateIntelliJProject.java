@@ -5,7 +5,7 @@ import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Dependency;
 import bt.api.Task;
-import bt.api.events.IntellJProjectCreated;
+import bt.api.events.IntelliJProjectCreated;
 import bt.api.events.ModuleFound;
 
 import javax.inject.Inject;
@@ -95,6 +95,6 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
 
     Files.write(path, context.getBytes());
 
-    eventBus.add(new IntellJProjectCreated(path));
+    eventBus.add(new IntelliJProjectCreated(path));
   }
 }

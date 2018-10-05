@@ -63,6 +63,11 @@ public abstract class Dependency implements Comparable<Dependency> {
     return toString().compareTo(o.toString());
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    return this.toString().equals(obj.toString());
+  }
+
   /** Create a dependency form a string. */
   @SuppressWarnings("unused")
   public static Dependency valueOf(String text) {
