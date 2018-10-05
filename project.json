@@ -1,3 +1,8 @@
 {
-    "artifact": "bt:bt:1.0.10-SNAPSHOT"
+    "artifact": "bt:bt:1.0.10-SNAPSHOT",
+    "modules": [
+        "src/main",
+        "src/nest-support",
+        "src/test"
+    ]
 }

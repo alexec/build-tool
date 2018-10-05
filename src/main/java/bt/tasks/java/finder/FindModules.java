@@ -8,6 +8,7 @@ import bt.api.Repository;
 import bt.api.Task;
 import bt.api.events.ModuleFound;
 import bt.api.events.Start;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 
 public class FindModules implements Task<Start> {
 
@@ -31,11 +33,9 @@ public class FindModules implements Task<Start> {
   @Override
   public void consume(Start event) throws Exception {
     // TODO - needs to be better
-    Files.find(
-            Paths.get("src"),
-            1,
-            (path, attributes) -> Files.isDirectory(path) && path.getNameCount() == 2)
-        .sorted()
+    project
+        .getModules()
+        .stream()
         .map(
             sourceSet ->
                 new Module(
@@ -47,6 +47,7 @@ public class FindModules implements Task<Start> {
                             + sourceSet.getFileName()
                             + ":"
                             + project.getArtifact().getVersion())))
+        .sorted(Comparator.comparing(Module::toString))
         .forEach(
             module -> {
               LOGGER.debug("{}", module);
