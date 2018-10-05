@@ -80,7 +80,7 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
                             + dependency
                             + "\" />\n"
                             + "      <CLASSES>\n"
-                            + "        <root url=\"jar:/"
+                            + "        <root url=\"jar://"
                             + repository.get(dependency)
                             + "!/\" />\n"
                             + "      </CLASSES>\n"

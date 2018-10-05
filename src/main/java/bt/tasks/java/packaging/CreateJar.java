@@ -31,7 +31,10 @@ public class CreateJar implements Task<CodeCompiled> {
   public void consume(CodeCompiled event) throws Exception {
     Path compiledCode = event.getModule().getCompiledCode();
 
-    Path jar = compiledCode.getParent().resolve(Paths.get(compiledCode.getFileName() + ".jar"));
+    Path jar =
+        compiledCode
+            .getParent()
+            .resolve(Paths.get(event.getModule().getSourceSet().getFileName() + ".jar"));
 
     if (!canSkip(compiledCode, jar)) {
 
