@@ -38,6 +38,9 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<module type=\"JAVA_MODULE\" version=\"4\">\n"
             + "  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\n"
+            + "    <output url=\"file://$MODULE_DIR$/../../target/java/"
+            + event.getModule().getName()
+            + "/classes\" />\n"
             + "    <exclude-output />\n"
             + "    <content url=\"file://$MODULE_DIR$\">\n"
             + "      <sourceFolder url=\"file://$MODULE_DIR$/java\" isTestSource=\""
@@ -49,7 +52,7 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
             + "    </content>\n"
             + "    <orderEntry type=\"inheritedJdk\" />\n"
             + "    <orderEntry type=\"sourceFolder\" forTests=\""
-            + testSource
+            + false
             + "\" />\n"
             + (repository
                 .getDependencies(sourceSet)

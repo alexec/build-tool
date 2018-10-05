@@ -24,6 +24,10 @@ public class Module {
     return artifact;
   }
 
+  public String getName() {
+    return artifact.getArtifactId();
+  }
+
   @Override
   public String toString() {
     return artifact.toString();
