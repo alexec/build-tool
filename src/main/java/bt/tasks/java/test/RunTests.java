@@ -2,6 +2,7 @@ package bt.tasks.java.test;
 
 import bt.api.EventBus;
 import bt.api.Repository;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
 import bt.api.events.TestsRun;
@@ -18,17 +19,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
 
-public class RunTests implements Task<CodeCompiled> {
+public class RunTests implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(RunTests.class);
   @Inject private EventBus defaultEventBus;
   @Inject private Repository defaultRepository;
 
-  @Override
-  public Class<CodeCompiled> eventType() {
-    return CodeCompiled.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(CodeCompiled event) throws Exception {
 
     Path compiledCode = event.getModule().getCompiledCode();

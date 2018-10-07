@@ -5,6 +5,7 @@ import bt.api.EventBus;
 import bt.api.Module;
 import bt.api.Project;
 import bt.api.Repository;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.ModuleFound;
 import bt.api.events.Start;
@@ -16,20 +17,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 
-public class FindModules implements Task<Start> {
+public class FindModules implements Task {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FindModules.class);
   @Inject private Project project;
   @Inject private EventBus defaultEventBus;
   @Inject private Repository defaultRepository;
 
-  @Override
-  public Class<Start> eventType() {
-    return Start.class;
-  }
-
-  @Override
-  public void consume(Start event) throws Exception {
+@Subscribe
+public void consume(Start event) throws Exception {
     // TODO - needs to be better
     project
         .getModules()

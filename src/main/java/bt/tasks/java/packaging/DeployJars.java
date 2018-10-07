@@ -5,6 +5,7 @@ import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.JarCreated;
 import bt.api.events.JarDeployed;
@@ -16,18 +17,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class DeployJars implements Task<JarCreated> {
+public class DeployJars implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployJars.class);
   @Inject private Project project;
   @Inject private Repository defaultRepository;
   @Inject private EventBus defaultEventBus;
 
-  @Override
-  public Class<JarCreated> eventType() {
-    return JarCreated.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(JarCreated event) throws Exception {
     Path jar = event.getPath();
     Artifact artifact = project.getArtifact();

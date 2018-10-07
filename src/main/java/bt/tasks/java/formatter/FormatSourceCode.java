@@ -2,6 +2,7 @@ package bt.tasks.java.formatter;
 
 import bt.api.EventBus;
 import bt.api.Reporter;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.ModuleFound;
 import bt.api.events.SourceCodeFormatted;
@@ -18,18 +19,13 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 /** https://github.com/google/google-java-format */
-public class FormatSourceCode implements Task<ModuleFound> {
+public class FormatSourceCode implements Task {
   private static final Formatter FORMATTER = new Formatter();
   private static final Logger LOGGER = LoggerFactory.getLogger(FormatSourceCode.class);
 
   @Inject private EventBus defaultEventBus;
 
-  @Override
-  public Class<ModuleFound> eventType() {
-    return ModuleFound.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(ModuleFound event) throws Exception {
 
     Path sourceSet = event.getModule().getSourceSet();

@@ -4,6 +4,7 @@ import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.IntelliJProjectCreated;
 import bt.api.events.ModuleFound;
@@ -16,18 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CreateIntelliJProject implements Task<ModuleFound> {
+public class CreateIntelliJProject implements Task {
   @Inject private Project project;
   @Inject private Repository defaultRepository;
   @Inject private EventBus defaultEventBus;
   private final List<Path> sourcesSets = new ArrayList<>();
 
-  @Override
-  public Class<ModuleFound> eventType() {
-    return ModuleFound.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(ModuleFound event) throws Exception {
 
     sourcesSets.add(event.getModule().getSourceSet());

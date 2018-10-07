@@ -3,6 +3,7 @@ package bt.tasks.java.ide;
 import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Repository;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.IntelliJModuleCreated;
 import bt.api.events.ModuleFound;
@@ -13,17 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
-public class CreateIntelliJModule implements Task<ModuleFound> {
+public class CreateIntelliJModule implements Task {
 
   @Inject private Repository defaultRepository;
   @Inject private EventBus defaultEventBus;
 
-  @Override
-  public Class<ModuleFound> eventType() {
-    return ModuleFound.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(ModuleFound event) throws Exception {
 
     Path sourceSet = event.getModule().getSourceSet();

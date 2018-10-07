@@ -1,6 +1,7 @@
 package bt.tasks;
 
 import bt.api.Args;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.Start;
 import org.slf4j.Logger;
@@ -13,16 +14,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 
-public class Clean implements Task<Start> {
+public class Clean implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(Clean.class);
   @Inject private Args args;
 
-  @Override
-  public Class<Start> eventType() {
-    return Start.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(Start event) throws Exception {
     if (!args.getCommands().contains("clean")) {
       LOGGER.debug("skipping, 'clean' not in args");

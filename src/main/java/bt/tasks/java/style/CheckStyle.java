@@ -2,6 +2,7 @@ package bt.tasks.java.style;
 
 import bt.api.EventBus;
 import bt.api.Reporter;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.ModuleFound;
 import bt.api.events.StyleChecked;
@@ -22,17 +23,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class CheckStyle implements Task<ModuleFound> {
+public class CheckStyle implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
 
   @Inject private EventBus defaultEventBus;
 
-  @Override
-  public Class<ModuleFound> eventType() {
-    return ModuleFound.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(ModuleFound event) throws Exception {
     Path sourceSet = event.getModule().getSourceSet();
     Reporter<CheckStyleReport> reporter =

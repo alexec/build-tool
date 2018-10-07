@@ -1,5 +1,6 @@
 package bt.tasks.java.resources;
 
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.ModuleFound;
 import org.slf4j.Logger;
@@ -11,15 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class CopyResources implements Task<ModuleFound> {
+public class CopyResources implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CopyResources.class);
 
-  @Override
-  public Class<ModuleFound> eventType() {
-    return ModuleFound.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(ModuleFound event) throws Exception {
     Path resources = event.getModule().getSourceSet().resolve("resources");
     Path target = event.getModule().getCompiledCode();

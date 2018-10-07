@@ -1,6 +1,7 @@
 package bt.tasks.java.packaging;
 
 import bt.api.EventBus;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
 import bt.api.events.JarCreated;
@@ -18,16 +19,11 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CreateJar implements Task<CodeCompiled> {
+public class CreateJar implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CreateJar.class);
   @Inject private EventBus defaultEventBus;
 
-  @Override
-  public Class<CodeCompiled> eventType() {
-    return CodeCompiled.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(CodeCompiled event) throws Exception {
     Path compiledCode = event.getModule().getCompiledCode();
 

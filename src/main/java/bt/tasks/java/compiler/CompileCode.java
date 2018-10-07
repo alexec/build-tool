@@ -3,6 +3,7 @@ package bt.tasks.java.compiler;
 import bt.api.EventBus;
 import bt.api.Module;
 import bt.api.Repository;
+import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
 import bt.api.events.ModuleFound;
@@ -22,19 +23,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CompileCode implements Task<ModuleFound> {
+public class CompileCode implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
   @Inject private EventBus defaultEventBus;
   @Inject private Repository defaultRepository;
 
-  @Override
-  public Class<ModuleFound> eventType() {
-    return ModuleFound.class;
-  }
-
-  @Override
+  @Subscribe
   public void consume(ModuleFound event) throws Exception {
     Module module = event.getModule();
     Path sourceSet = module.getSourceSet();
