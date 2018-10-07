@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 public class Reporter<R> {
-  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+  private final ObjectMapper objectMapper = new ObjectMapper();
   private final Class<R> reportType;
   private final Path path;
   private final Supplier<R> defaultValueSupplier;
@@ -34,7 +34,7 @@ public class Reporter<R> {
    */
   public R load() throws IOException {
     if (Files.exists(path)) {
-      return OBJECT_MAPPER.readValue(path.toFile(), reportType);
+      return objectMapper.readValue(path.toFile(), reportType);
     } else {
       return defaultValueSupplier.get();
     }
@@ -45,6 +45,6 @@ public class Reporter<R> {
     if (!Files.isDirectory(path.getParent())) {
       Files.createDirectories(path.getParent());
     }
-    OBJECT_MAPPER.writeValue(path.toFile(), report);
+    objectMapper.writeValue(path.toFile(), report);
   }
 }

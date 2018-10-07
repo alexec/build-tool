@@ -35,7 +35,9 @@ public class Main {
     int totalTasks = tasks.size();
     LOGGER.debug("{} task(s)", totalTasks);
 
-    int threads = Integer.parseInt(args.getOption("-T", String.valueOf(Runtime.getRuntime().availableProcessors() / 2)));
+    int threads =
+        Integer.parseInt(
+            args.getOption("-T", String.valueOf(Runtime.getRuntime().availableProcessors() / 2)));
 
     LOGGER.info("Threads {}", threads);
     DefaultContext context = new DefaultContext(threads);
