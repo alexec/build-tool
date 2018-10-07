@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="extracted repository">
-      <change afterPath="$PROJECT_DIR$/src/api/java/bt/api/Subscribe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bt.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bt.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/main/DefaultEventBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/main/DefaultEventBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/resources/CopyResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/resources/CopyResources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" afterDir="false" />
-    </list>
+    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="@Subscribe" />
     <ignored path="$PROJECT_DIR$/target/java/" />
     <ignored path="$PROJECT_DIR$/src/test-support/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,7 +26,7 @@
           <entry key="iml" value="5" />
           <entry key="ipr" value="4" />
           <entry key="iws" value="1" />
-          <entry key="java" value="57" />
+          <entry key="java" value="69" />
           <entry key="json" value="16" />
         </counts>
       </usages-collector>
@@ -49,7 +36,7 @@
           <entry key="IDEA_MODULE" value="5" />
           <entry key="IDEA_PROJECT" value="4" />
           <entry key="IDEA_WORKSPACE" value="1" />
-          <entry key="JAVA" value="57" />
+          <entry key="JAVA" value="69" />
           <entry key="JSON" value="16" />
         </counts>
       </usages-collector>
@@ -57,18 +44,18 @@
         <counts>
           <entry key="bt" value="14" />
           <entry key="ipr" value="1" />
-          <entry key="java" value="666" />
+          <entry key="java" value="710" />
           <entry key="json" value="305" />
-          <entry key="txt" value="91" />
+          <entry key="txt" value="104" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="14" />
           <entry key="IDEA_PROJECT" value="1" />
-          <entry key="JAVA" value="666" />
+          <entry key="JAVA" value="710" />
           <entry key="JSON" value="305" />
-          <entry key="PLAIN_TEXT" value="91" />
+          <entry key="PLAIN_TEXT" value="104" />
         </counts>
       </usages-collector>
     </session>
@@ -76,19 +63,97 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultEventBus.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
+            <state relative-caret-position="492">
+              <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/lang/Class.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="509" column="26" selection-start-line="509" selection-start-column="26" selection-end-line="509" selection-end-column="26" />
+            <state relative-caret-position="120">
+              <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="37" column="2" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="2" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -134,7 +199,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bt/api/events/IntelljJProjectCreated.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/events/IntelliJProjectCreated.java" />
         <option value="$PROJECT_DIR$/bt.ipr" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java" />
         <option value="$PROJECT_DIR$/src/main/main.iml" />
         <option value="$PROJECT_DIR$/src/main/dependencies.json" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Project.java" />
@@ -142,7 +206,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Module.java" />
         <option value="$PROJECT_DIR$/src/test-support/module.json" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Repository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" />
         <option value="$PROJECT_DIR$/src/main/module.json" />
         <option value="$PROJECT_DIR$/src/main/java/bt/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/main/DefaultRepository.java" />
@@ -152,16 +215,19 @@
         <option value="$PROJECT_DIR$/bin/bt" />
         <option value="$PROJECT_DIR$/project.json" />
         <option value="$PROJECT_DIR$/src/api/java/bt/api/Subscribe.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/resources/CopyResources.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/main/DefaultEventBus.java" />
+        <option value="$PROJECT_DIR$/src/api/java/bt/api/Task.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/resources/CopyResources.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" />
       </list>
     </option>
   </component>
@@ -360,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538915449161</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="@Subscribe">
+      <created>1538916727024</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1538916727024</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -432,7 +505,8 @@
     <MESSAGE value="explicit modules" />
     <MESSAGE value="extract event bus" />
     <MESSAGE value="extracted repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="extracted repository" />
+    <MESSAGE value="@Subscribe" />
+    <option name="LAST_COMMIT_MESSAGE" value="@Subscribe" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -705,27 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Subscribe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -733,75 +786,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="38" column="12" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/resources/CopyResources.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -814,8 +798,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultEventBus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        <state relative-caret-position="395">
+          <caret line="46" column="39" lean-forward="true" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/resources/CopyResources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/Clean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="37" column="2" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
