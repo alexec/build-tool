@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="simplify">
-      <change beforePath="$PROJECT_DIR$/bt.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bt.iws" afterDir="false" />
+    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="multi-threaded">
+      <change beforePath="$PROJECT_DIR$/src/api/java/bt/api/Args.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/java/bt/api/Args.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/main/DefaultRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/main/DefaultRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/java/" />
     <ignored path="$PROJECT_DIR$/src/test-support/target/" />
@@ -35,8 +32,9 @@
           <entry key="iml" value="5" />
           <entry key="ipr" value="4" />
           <entry key="iws" value="1" />
-          <entry key="java" value="85" />
+          <entry key="java" value="86" />
           <entry key="json" value="16" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -45,9 +43,10 @@
           <entry key="IDEA_MODULE" value="5" />
           <entry key="IDEA_PROJECT" value="4" />
           <entry key="IDEA_WORKSPACE" value="1" />
-          <entry key="JAVA" value="85" />
+          <entry key="JAVA" value="86" />
           <entry key="JSON" value="16" />
           <entry key="SPI" value="1" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -56,18 +55,18 @@
           <entry key="bt" value="14" />
           <entry key="dummy" value="12" />
           <entry key="ipr" value="1" />
-          <entry key="java" value="1987" />
+          <entry key="java" value="2159" />
           <entry key="json" value="305" />
-          <entry key="txt" value="147" />
+          <entry key="txt" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="14" />
           <entry key="IDEA_PROJECT" value="1" />
-          <entry key="JAVA" value="1987" />
+          <entry key="JAVA" value="2159" />
           <entry key="JSON" value="305" />
-          <entry key="PLAIN_TEXT" value="159" />
+          <entry key="PLAIN_TEXT" value="173" />
           <entry key="SPI" value="1" />
         </counts>
       </usages-collector>
@@ -75,11 +74,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="47" column="27" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+            <state relative-caret-position="260">
+              <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,14 +86,36 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Args.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+              <folding>
+                <element signature="e#852#853#0" expanded="true" />
+                <element signature="e#876#877#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+            <state relative-caret-position="281">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/logback.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -152,8 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJars.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/api/events/ImlFileCreated.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/events/IntelliModuleCreated.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/events/IntelliJModuleCreated.java" />
         <option value="$PROJECT_DIR$/src/test-support/pom.xml" />
@@ -200,9 +219,11 @@
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/services/bt.api.Task" />
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/main/DefaultRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/logback.xml" />
         <option value="$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java" />
+        <option value="$PROJECT_DIR$/src/api/java/bt/api/Args.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/Main.java" />
       </list>
     </option>
   </component>
@@ -242,71 +263,7 @@
             <path>
               <item name="bt" type="b2602c69:ProjectViewProjectNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bt" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bt" type="462c0819:PsiDirectoryNode" />
-              <item name="tasks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bt" type="462c0819:PsiDirectoryNode" />
-              <item name="tasks" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bt" type="462c0819:PsiDirectoryNode" />
-              <item name="tasks" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bt" type="462c0819:PsiDirectoryNode" />
-              <item name="tasks" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="packaging" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bt" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -502,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538919913036</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="multi-threaded">
+      <created>1538922690491</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1538922690491</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -578,7 +542,8 @@
     <MESSAGE value="rename" />
     <MESSAGE value="prototype new events" />
     <MESSAGE value="simplify" />
-    <option name="LAST_COMMIT_MESSAGE" value="simplify" />
+    <MESSAGE value="multi-threaded" />
+    <option name="LAST_COMMIT_MESSAGE" value="multi-threaded" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -594,13 +559,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/events/IntelliJProjectCreated.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/events/ModuleFound.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -634,13 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Args.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -903,16 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="47" column="27" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/concurrent/LinkedBlockingDeque.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -942,10 +883,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logback.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
+        <state relative-caret-position="281">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Args.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#876#877#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

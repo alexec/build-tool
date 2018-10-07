@@ -19,9 +19,12 @@ import static java.lang.System.currentTimeMillis;
 
 public class DefaultContext implements Context, EventBus {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultContext.class);
-    private final ThreadPoolExecutor executor =
-            new ThreadPoolExecutor(4, 4, 10L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+    private final ThreadPoolExecutor executor;
     private final List<Object> beans = new ArrayList<>();
+
+    public DefaultContext(int maximumPoolSize) {
+        executor = new ThreadPoolExecutor(maximumPoolSize, maximumPoolSize, 10L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+    }
 
     public void register(Object bean) {
         LOGGER.debug("registered {}", bean);

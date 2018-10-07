@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Args {
 
-  private final Map<String, Object> options = new HashMap<>();
+  private final Map<String, String> options = new HashMap<>();
   private final List<String> commands = new ArrayList<>();
 
   private Args(String[] args) {
@@ -32,6 +32,10 @@ public class Args {
 
   public static Args parse(String[] args) {
     return new Args(args);
+  }
+
+  public String getOption(String key, String defaultValue) {
+    return options.getOrDefault(key, defaultValue);
   }
 
   @Override
