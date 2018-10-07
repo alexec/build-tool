@@ -1,11 +1,14 @@
 package bt.tasks.java.resources;
 
+import bt.api.EventBus;
 import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.ModuleFound;
+import bt.api.events.ResourcesCopied;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -14,6 +17,7 @@ import java.nio.file.StandardCopyOption;
 
 public class CopyResources implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CopyResources.class);
+  @Inject private EventBus eventBus;
 
   @Subscribe
   public void consume(ModuleFound event) throws Exception {
@@ -46,5 +50,7 @@ public class CopyResources implements Task {
                 throw new UncheckedIOException(e);
               }
             });
+
+    eventBus.emit(new ResourcesCopied(event.getModule(), target));
   }
 }
