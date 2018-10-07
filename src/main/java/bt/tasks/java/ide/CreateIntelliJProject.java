@@ -6,10 +6,12 @@ import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Subscribe;
 import bt.api.Task;
+import bt.api.events.Finished;
 import bt.api.events.IntelliJProjectCreated;
 import bt.api.events.ModuleFound;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,9 +26,12 @@ public class CreateIntelliJProject implements Task {
   private final List<Path> sourcesSets = new ArrayList<>();
 
   @Subscribe
-  public void consume(ModuleFound event) throws Exception {
-
+  public void moduleFound(ModuleFound event) {
     sourcesSets.add(event.getModule().getSourceSet());
+  }
+
+  @Subscribe
+  public void finished(Finished finished) throws IOException {
 
     String context =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
