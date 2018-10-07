@@ -32,7 +32,7 @@ public class FormatSourceCode implements Task {
 
     Reporter<SourceCodeFormatterReport> reporter =
         Reporter.of(
-            sourceSet,
+            event.getModule(),
             SourceCodeFormatterReport.class,
             () -> new SourceCodeFormatterReport(Long.MIN_VALUE));
 

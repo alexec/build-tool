@@ -14,17 +14,18 @@ public class Reporter<R> {
   private final Path path;
   private final Supplier<R> defaultValueSupplier;
 
-  private Reporter(Path sourceSet, Class<R> reportType, Supplier<R> defaultValueSupplier) {
+  private Reporter(Module module, Class<R> reportType, Supplier<R> defaultValueSupplier) {
     this.reportType = reportType;
     path =
-        sourceSet.resolve(
-            Paths.get("..", "..", "target", "reports", reportType.getName() + ".json"));
+        module
+            .getBuildDir()
+            .resolve(Paths.get("..", "..", "target", "reports", reportType.getName() + ".json"));
     this.defaultValueSupplier = defaultValueSupplier;
   }
 
   public static <R> Reporter<R> of(
-      Path sourceSet, Class<R> reportType, Supplier<R> defaultValueSupplier) {
-    return new Reporter<>(sourceSet, reportType, defaultValueSupplier);
+      Module module, Class<R> reportType, Supplier<R> defaultValueSupplier) {
+    return new Reporter<>(module, reportType, defaultValueSupplier);
   }
 
   /**

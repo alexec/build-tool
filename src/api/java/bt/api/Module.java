@@ -1,15 +1,16 @@
 package bt.api;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Module {
-  private final Path sourceSet, compiledCode;
+  private final Path sourceSet, buildDir;
   private final Artifact artifact;
 
-  public Module(Path sourceSet, Path compiledCode, Artifact artifact) {
+  public Module(Path sourceSet, Path buildDir, Artifact artifact) {
     this.sourceSet = sourceSet;
-    this.compiledCode = compiledCode;
+    this.buildDir = buildDir;
     this.artifact = artifact;
   }
 
@@ -18,7 +19,7 @@ public class Module {
   }
 
   public Path getCompiledCode() {
-    return compiledCode;
+    return buildDir.resolve(Paths.get("classes"));
   }
 
   public Artifact getArtifact() {
@@ -45,5 +46,9 @@ public class Module {
   @Override
   public String toString() {
     return artifact.toString();
+  }
+
+  public Path getBuildDir() {
+    return buildDir;
   }
 }

@@ -34,7 +34,7 @@ public class FindModules implements Task {
             sourceSet ->
                 new Module(
                     sourceSet,
-                    outputDirectory(sourceSet),
+                    buildDir(sourceSet),
                     Artifact.valueOf(
                         project.getArtifact().getGroupId()
                             + ":"
@@ -50,10 +50,9 @@ public class FindModules implements Task {
             });
   }
 
-  private Path outputDirectory(Path sourceSet) {
+  private Path buildDir(Path sourceSet) {
     return sourceSet
-        .resolve(
-            Paths.get("..", "..", "target", "java", sourceSet.getFileName().toString(), "classes"))
+        .resolve(Paths.get("..", "..", "target", "java", sourceSet.getFileName().toString()))
         .normalize();
   }
 }

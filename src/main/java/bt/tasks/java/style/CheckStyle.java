@@ -1,6 +1,7 @@
 package bt.tasks.java.style;
 
 import bt.api.EventBus;
+import bt.api.Module;
 import bt.api.Reporter;
 import bt.api.Subscribe;
 import bt.api.Task;
@@ -30,9 +31,10 @@ public class CheckStyle implements Task {
 
   @Subscribe
   public void consume(ModuleFound event) throws Exception {
-    Path sourceSet = event.getModule().getSourceSet();
+    Module module = event.getModule();
+    Path sourceSet = module.getSourceSet();
     Reporter<CheckStyleReport> reporter =
-        Reporter.of(sourceSet, CheckStyleReport.class, () -> new CheckStyleReport(Long.MIN_VALUE));
+        Reporter.of(module, CheckStyleReport.class, () -> new CheckStyleReport(Long.MIN_VALUE));
 
     CheckStyleReport lastReport = reporter.load();
 
