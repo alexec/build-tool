@@ -24,8 +24,8 @@ public class FindModules implements Task {
   @Inject private EventBus eventBus;
   @Inject private Repository repository;
 
-@Subscribe
-public void consume(Start event) throws Exception {
+  @Subscribe
+  public void consume(Start event) throws Exception {
     // TODO - needs to be better
     project
         .getModules()

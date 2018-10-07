@@ -17,7 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class DeployJar implements Task  {
+public class DeployJar implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployJar.class);
   @Inject private Project project;
   @Inject private Repository repository;
@@ -50,5 +50,3 @@ public class DeployJar implements Task  {
     eventBus.emit(new JarDeployed(target));
   }
 }
-
-

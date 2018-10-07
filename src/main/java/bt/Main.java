@@ -43,12 +43,9 @@ public class Main {
 
     tasks.forEach(context::register);
 
-    Thread thread = new Thread(context);
-
     context.emit(new Start());
 
-    thread.run();
-    thread.join();
+    context.awaitTermination();
 
     LOGGER.info("Done: {}ms", (System.currentTimeMillis() - startTime));
   }

@@ -25,7 +25,8 @@ public class DefaultRepository implements Repository {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private Map<String, Module> modules = new HashMap<>();
 
-  @Override public void addModule(Module module) {
+  @Override
+  public void addModule(Module module) {
     modules.put(module.getArtifact().getArtifactId(), module);
   }
 
@@ -52,13 +53,15 @@ public class DefaultRepository implements Repository {
   }
 
   /** Get the path of the dependency. */
-  @Override public Path get(Dependency dependency) {
+  @Override
+  public Path get(Dependency dependency) {
     return dependency instanceof Dependency.ArtifactDependency
         ? get((Dependency.ArtifactDependency) dependency)
         : get((Dependency.ModuleDependency) dependency);
   }
 
-  @Override public List<Dependency> getDependencies(Path sourceSet) {
+  @Override
+  public List<Dependency> getDependencies(Path sourceSet) {
 
     List<Dependency> artifacts = new ArrayList<>();
     Path moduleFile = sourceSet.resolve(Paths.get("module.json"));
@@ -80,7 +83,7 @@ public class DefaultRepository implements Repository {
     LOGGER.debug(
         "{} depends on {} ",
         sourceSet,
-        artifacts.stream().map(String::valueOf).collect(Collectors.joining(":")));
+        artifacts.stream().map(String::valueOf).collect(Collectors.joining(",")));
     return artifacts;
   }
 
@@ -96,7 +99,8 @@ public class DefaultRepository implements Repository {
     return dependencies;
   }
 
-  @Override public String getClassPath(Path sourceSet) {
+  @Override
+  public String getClassPath(Path sourceSet) {
     return getDependencies(sourceSet)
         .stream()
         .map(this::get)

@@ -6,7 +6,7 @@
             <level>INFO</level>
         </filter>
         <encoder>
-            <Pattern>[%highlight(%level)] %msg%n</Pattern>
+            <Pattern>[%highlight(%level)] [%thread] %msg%n</Pattern>
         </encoder>
     </appender>
 
