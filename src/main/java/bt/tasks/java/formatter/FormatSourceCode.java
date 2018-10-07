@@ -23,7 +23,7 @@ public class FormatSourceCode implements Task {
   private static final Formatter FORMATTER = new Formatter();
   private static final Logger LOGGER = LoggerFactory.getLogger(FormatSourceCode.class);
 
-  @Inject private EventBus defaultEventBus;
+  @Inject private EventBus eventBus;
 
   @Subscribe
   public void consume(ModuleFound event) throws Exception {
@@ -62,6 +62,6 @@ public class FormatSourceCode implements Task {
 
     reporter.save(new SourceCodeFormatterReport(System.currentTimeMillis()));
 
-    defaultEventBus.add(new SourceCodeFormatted(sourceSet));
+    eventBus.emit(new SourceCodeFormatted(sourceSet));
   }
 }

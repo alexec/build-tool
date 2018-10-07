@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 
 public class CreateIntelliJProject implements Task {
   @Inject private Project project;
-  @Inject private Repository defaultRepository;
-  @Inject private EventBus defaultEventBus;
+  @Inject private Repository repository;
+  @Inject private EventBus eventBus;
   private final List<Path> sourcesSets = new ArrayList<>();
 
   @Subscribe
@@ -61,7 +61,7 @@ public class CreateIntelliJProject implements Task {
             + "  <component name=\"libraryTable\">\n"
             + (sourcesSets
                 .stream()
-                .flatMap(sourceSet -> defaultRepository.getDependencies(sourceSet).stream())
+                .flatMap(sourceSet -> repository.getDependencies(sourceSet).stream())
                 .filter(dependency -> dependency instanceof Dependency.ArtifactDependency)
                 .sorted()
                 .distinct()
@@ -75,7 +75,7 @@ public class CreateIntelliJProject implements Task {
                             + "\" />\n"
                             + "      <CLASSES>\n"
                             + "        <root url=\"jar://"
-                            + defaultRepository.get(dependency)
+                            + repository.get(dependency)
                             + "!/\" />\n"
                             + "      </CLASSES>\n"
                             + "      <JAVADOC />\n"
@@ -89,6 +89,6 @@ public class CreateIntelliJProject implements Task {
 
     Files.write(path, context.getBytes());
 
-    defaultEventBus.add(new IntelliJProjectCreated(path));
+    eventBus.emit(new IntelliJProjectCreated(path));
   }
 }

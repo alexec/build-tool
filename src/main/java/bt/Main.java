@@ -4,20 +4,16 @@ import bt.api.Args;
 import bt.api.Project;
 import bt.api.Task;
 import bt.api.events.Start;
-import bt.main.DefaultEventBus;
+import bt.main.DefaultContext;
 import bt.main.DefaultRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -39,55 +35,22 @@ public class Main {
     int totalTasks = tasks.size();
     LOGGER.debug("{} task(s)", totalTasks);
 
-    List<Object> context = new ArrayList<>();
-    DefaultEventBus eventBus = new DefaultEventBus();
-    context.add(args);
-    context.add(project);
-    context.add(eventBus);
-    context.add(new DefaultRepository());
+    DefaultContext context = new DefaultContext();
+    context.register(context);
+    context.register(args);
+    context.register(project);
+    context.register(new DefaultRepository());
 
-    tasks.forEach(task -> inject(context, task));
-    tasks.forEach(eventBus::register);
+    tasks.forEach(context::register);
 
-    Thread thread = new Thread(eventBus);
+    Thread thread = new Thread(context);
 
-    eventBus.add(new Start());
+    context.emit(new Start());
 
     thread.run();
     thread.join();
 
     LOGGER.info("Done: {}ms", (System.currentTimeMillis() - startTime));
-  }
-
-  private static void inject(List<Object> context, Task task) {
-    List<Field> fields =
-        Arrays.stream(task.getClass().getDeclaredFields())
-            .filter(f -> f.getAnnotation(Inject.class) != null)
-            .filter(
-                f -> {
-                  f.setAccessible(true);
-                  try {
-                    return f.get(task) == null;
-                  } catch (IllegalAccessException e) {
-                    throw new IllegalStateException(e);
-                  }
-                })
-            .collect(Collectors.toList());
-
-    fields.forEach(
-        field ->
-            context
-                .stream()
-                .filter(bean -> field.getType().isAssignableFrom(bean.getClass()))
-                .forEach(
-                    bean -> {
-                      field.setAccessible(true);
-                      try {
-                        field.set(task, bean);
-                      } catch (IllegalAccessException e) {
-                        throw new IllegalStateException(e);
-                      }
-                    }));
   }
 
   private static List<Task> getTasks() {

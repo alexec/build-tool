@@ -21,8 +21,8 @@ public class FindModules implements Task {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FindModules.class);
   @Inject private Project project;
-  @Inject private EventBus defaultEventBus;
-  @Inject private Repository defaultRepository;
+  @Inject private EventBus eventBus;
+  @Inject private Repository repository;
 
 @Subscribe
 public void consume(Start event) throws Exception {
@@ -45,8 +45,8 @@ public void consume(Start event) throws Exception {
         .forEach(
             module -> {
               LOGGER.debug("{}", module);
-              defaultRepository.addModule(module);
-              defaultEventBus.add(new ModuleFound(module));
+              repository.addModule(module);
+              eventBus.emit(new ModuleFound(module));
             });
   }
 

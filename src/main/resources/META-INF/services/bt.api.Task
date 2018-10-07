@@ -8,4 +8,4 @@ bt.tasks.java.ide.CreateIntelliJModule
 bt.tasks.java.ide.CreateIntelliJProject
 bt.tasks.java.test.RunTests
 bt.tasks.java.packaging.CreateJar
-bt.tasks.java.packaging.DeployJar
+bt.tasks.java.packaging.DeployJars

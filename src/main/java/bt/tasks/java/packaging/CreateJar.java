@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 
 public class CreateJar implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CreateJar.class);
-  @Inject private EventBus defaultEventBus;
+  @Inject private EventBus eventBus;
 
   @Subscribe
   public void consume(CodeCompiled event) throws Exception {
@@ -59,7 +59,7 @@ public class CreateJar implements Task {
         throw new IllegalStateException();
       }
     }
-    defaultEventBus.add(new JarCreated(jar));
+    eventBus.emit(new JarCreated(event.getModule(), jar));
   }
 
   private boolean canSkip(Path compiledCode, Path jar) throws IOException {

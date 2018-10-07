@@ -27,8 +27,8 @@ public class CompileCode implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-  @Inject private EventBus defaultEventBus;
-  @Inject private Repository defaultRepository;
+  @Inject private EventBus eventBus;
+  @Inject private Repository repository;
 
   @Subscribe
   public void consume(ModuleFound event) throws Exception {
@@ -64,7 +64,7 @@ public class CompileCode implements Task {
       arguments.add("-target");
       arguments.add(String.valueOf(compilationOpts.getTarget()));
       arguments.add("-cp");
-      arguments.add(defaultRepository.getClassPath(sourceSet));
+      arguments.add(repository.getClassPath(sourceSet));
       arguments.add("-d");
       arguments.add(output.toAbsolutePath().toString());
       arguments.addAll(sourceFiles);
@@ -82,7 +82,7 @@ public class CompileCode implements Task {
         throw new IllegalStateException();
       }
     }
-    defaultEventBus.add(new CodeCompiled(module));
+    eventBus.emit(new CodeCompiled(module));
   }
 
   private boolean canSkip(Path sourceSet, Path output, Optional<Long> maxSourceLastModified)

@@ -1,7 +1,6 @@
 package bt.api;
 
+@FunctionalInterface
 public interface EventBus {
-  void add(Object event);
-
-  void register(Task task);
+  void emit(Object event);
 }

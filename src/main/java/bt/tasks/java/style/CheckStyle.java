@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class CheckStyle implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CheckStyle.class);
 
-  @Inject private EventBus defaultEventBus;
+  @Inject private EventBus eventBus;
 
   @Subscribe
   public void consume(ModuleFound event) throws Exception {
@@ -117,6 +117,6 @@ public class CheckStyle implements Task {
       reporter.save(new CheckStyleReport(System.currentTimeMillis()));
     }
 
-    defaultEventBus.add(new StyleChecked(sourceSet));
+    eventBus.emit(new StyleChecked(sourceSet));
   }
 }

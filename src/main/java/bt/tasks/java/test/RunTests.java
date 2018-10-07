@@ -21,8 +21,8 @@ import java.util.function.Consumer;
 
 public class RunTests implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(RunTests.class);
-  @Inject private EventBus defaultEventBus;
-  @Inject private Repository defaultRepository;
+  @Inject private EventBus eventBus;
+  @Inject private Repository repository;
 
   @Subscribe
   public void consume(CodeCompiled event) throws Exception {
@@ -34,7 +34,7 @@ public class RunTests implements Task {
     } else {
 
       String classPath =
-          compiledCode + ":" + defaultRepository.getClassPath(event.getModule().getSourceSet());
+          compiledCode + ":" + repository.getClassPath(event.getModule().getSourceSet());
       LOGGER.debug("running tests in {} with -cp {}", compiledCode, classPath);
 
       Process process =
@@ -67,7 +67,7 @@ public class RunTests implements Task {
         throw new IllegalStateException();
       }
 
-      defaultEventBus.add(new TestsRun(compiledCode, number[0]));
+      eventBus.emit(new TestsRun(compiledCode, number[0]));
     }
   }
 
