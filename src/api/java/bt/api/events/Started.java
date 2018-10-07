@@ -1,8 +1,8 @@
 package bt.api.events;
 
-public class Start {
+public class Started {
   @Override
   public String toString() {
-    return "Start()";
+    return "Started()";
   }
 }

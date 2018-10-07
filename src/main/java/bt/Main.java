@@ -3,7 +3,7 @@ package bt;
 import bt.api.Args;
 import bt.api.Project;
 import bt.api.Task;
-import bt.api.events.Start;
+import bt.api.events.Started;
 import bt.main.DefaultContext;
 import bt.main.DefaultRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,7 +48,7 @@ public class Main {
 
     tasks.forEach(context::register);
 
-    context.emit(new Start());
+    context.emit(new Started());
 
     context.awaitTermination();
 

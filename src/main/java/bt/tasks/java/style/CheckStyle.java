@@ -30,7 +30,7 @@ public class CheckStyle implements Task {
   @Inject private EventBus eventBus;
 
   @Subscribe
-  public void consume(ModuleFound event) throws Exception {
+  public void moduleFound(ModuleFound event) throws Exception {
     Module module = event.getModule();
     Path sourceSet = module.getSourceSet();
     Reporter<CheckStyleReport> reporter =

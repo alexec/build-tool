@@ -3,7 +3,7 @@ package bt.tasks;
 import bt.api.Args;
 import bt.api.Subscribe;
 import bt.api.Task;
-import bt.api.events.Start;
+import bt.api.events.Started;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ public class Clean implements Task {
   @Inject private Args args;
 
   @Subscribe
-  public void consume(Start event) throws Exception {
+  public void started(Started event) throws Exception {
     if (!args.getCommands().contains("clean")) {
       LOGGER.debug("skipping, 'clean' not in args");
       return;

@@ -26,7 +26,7 @@ public class FormatSourceCode implements Task {
   @Inject private EventBus eventBus;
 
   @Subscribe
-  public void consume(ModuleFound event) throws Exception {
+  public void moduleFound(ModuleFound event) throws Exception {
 
     Path sourceSet = event.getModule().getSourceSet();
 

@@ -25,7 +25,7 @@ public class RunTests implements Task {
   @Inject private Repository repository;
 
   @Subscribe
-  public void consume(CodeCompiled event) throws Exception {
+  public void codeCompiled(CodeCompiled event) throws Exception {
 
     Path compiledCode = event.getModule().getCompiledCode();
 

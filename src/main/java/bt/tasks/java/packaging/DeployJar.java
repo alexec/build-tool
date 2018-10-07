@@ -24,7 +24,7 @@ public class DeployJar implements Task {
   @Inject private EventBus eventBus;
 
   @Subscribe
-  public void consume(JarCreated event) throws Exception {
+  public void jarCreated(JarCreated event) throws Exception {
     Path jar = event.getPath();
     Artifact artifact = project.getArtifact();
     Path target =

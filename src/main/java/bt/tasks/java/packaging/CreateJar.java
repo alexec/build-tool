@@ -24,7 +24,7 @@ public class CreateJar implements Task {
   @Inject private EventBus eventBus;
 
   @Subscribe
-  public void consume(CodeCompiled event) throws Exception {
+  public void codeCompiled(CodeCompiled event) throws Exception {
     Path compiledCode = event.getModule().getCompiledCode();
 
     Path jar =
