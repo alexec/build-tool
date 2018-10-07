@@ -24,7 +24,7 @@ public class Main {
     Args args = Args.parse(strings);
 
     LOGGER.debug("starting");
-    LOGGER.debug("{}", args);
+    LOGGER.info("Args: {}", args);
     long startTime = System.currentTimeMillis();
 
     Project project = OBJECT_MAPPER.readValue(new File("project.json"), Project.class);
@@ -39,7 +39,7 @@ public class Main {
         Integer.parseInt(
             args.getOption("-T", String.valueOf(Runtime.getRuntime().availableProcessors() / 2)));
 
-    LOGGER.info("Threads {}", threads);
+    LOGGER.info("Threads: {}", threads);
     DefaultContext context = new DefaultContext(threads);
     context.register(context);
     context.register(args);

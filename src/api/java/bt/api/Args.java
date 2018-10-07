@@ -13,10 +13,8 @@ public class Args {
   private Args(String[] args) {
     String optionName = null;
     for (String arg : args) {
-      if (arg.startsWith("--")) {
-        optionName = arg.substring(2);
-      } else if (arg.startsWith("-")) {
-        optionName = arg.substring(1);
+      if (arg.startsWith("-")) {
+        optionName = arg;
       } else if (optionName != null) {
         options.put(optionName, arg);
         optionName = null;
