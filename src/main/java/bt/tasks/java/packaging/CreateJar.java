@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class CreateJar implements Task<CodeCompiled> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CreateJar.class);
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
 
   @Override
   public Class<CodeCompiled> eventType() {
@@ -63,7 +63,7 @@ public class CreateJar implements Task<CodeCompiled> {
         throw new IllegalStateException();
       }
     }
-    eventBus.add(new JarCreated(jar));
+    defaultEventBus.add(new JarCreated(jar));
   }
 
   private boolean canSkip(Path compiledCode, Path jar) throws IOException {

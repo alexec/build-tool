@@ -20,7 +20,7 @@ public class FindModules implements Task<Start> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FindModules.class);
   @Inject private Project project;
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
   @Inject private Repository repository;
 
   @Override
@@ -50,7 +50,7 @@ public class FindModules implements Task<Start> {
             module -> {
               LOGGER.debug("{}", module);
               repository.addModule(module);
-              eventBus.add(new ModuleFound(module));
+              defaultEventBus.add(new ModuleFound(module));
             });
   }
 

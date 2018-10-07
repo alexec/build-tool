@@ -26,7 +26,7 @@ public class CompileCode implements Task<ModuleFound> {
   private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
   @Inject private Repository repository;
 
   @Override
@@ -86,7 +86,7 @@ public class CompileCode implements Task<ModuleFound> {
         throw new IllegalStateException();
       }
     }
-    eventBus.add(new CodeCompiled(module));
+    defaultEventBus.add(new CodeCompiled(module));
   }
 
   private boolean canSkip(Path sourceSet, Path output, Optional<Long> maxSourceLastModified)

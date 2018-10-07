@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CreateIntelliJModule implements Task<ModuleFound> {
 
   @Inject private Repository repository;
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
 
   @Override
   public Class<ModuleFound> eventType() {
@@ -82,6 +82,6 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
 
     Files.write(path, context.getBytes());
 
-    eventBus.add(new IntelliJModuleCreated(path));
+    defaultEventBus.add(new IntelliJModuleCreated(path));
   }
 }

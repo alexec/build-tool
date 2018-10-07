@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class RunTests implements Task<CodeCompiled> {
   private static final Logger LOGGER = LoggerFactory.getLogger(RunTests.class);
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
   @Inject private Repository repository;
 
   @Override
@@ -71,7 +71,7 @@ public class RunTests implements Task<CodeCompiled> {
         throw new IllegalStateException();
       }
 
-      eventBus.add(new TestsRun(compiledCode, number[0]));
+      defaultEventBus.add(new TestsRun(compiledCode, number[0]));
     }
   }
 

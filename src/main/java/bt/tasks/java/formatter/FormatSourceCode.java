@@ -3,8 +3,8 @@ package bt.tasks.java.formatter;
 import bt.api.EventBus;
 import bt.api.Reporter;
 import bt.api.Task;
-import bt.api.events.SourceCodeFormatted;
 import bt.api.events.ModuleFound;
+import bt.api.events.SourceCodeFormatted;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class FormatSourceCode implements Task<ModuleFound> {
   private static final Formatter FORMATTER = new Formatter();
   private static final Logger LOGGER = LoggerFactory.getLogger(FormatSourceCode.class);
 
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
 
   @Override
   public Class<ModuleFound> eventType() {
@@ -66,6 +66,6 @@ public class FormatSourceCode implements Task<ModuleFound> {
 
     reporter.save(new SourceCodeFormatterReport(System.currentTimeMillis()));
 
-    eventBus.add(new SourceCodeFormatted(sourceSet));
+    defaultEventBus.add(new SourceCodeFormatted(sourceSet));
   }
 }

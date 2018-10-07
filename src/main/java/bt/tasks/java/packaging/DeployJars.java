@@ -20,7 +20,7 @@ public class DeployJars implements Task<JarCreated> {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployJars.class);
   @Inject private Project project;
   @Inject private Repository repository;
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
 
   @Override
   public Class<JarCreated> eventType() {
@@ -51,6 +51,6 @@ public class DeployJars implements Task<JarCreated> {
       Files.copy(jar, target, StandardCopyOption.REPLACE_EXISTING);
     }
 
-    eventBus.add(new JarDeployed(target));
+    defaultEventBus.add(new JarDeployed(target));
   }
 }

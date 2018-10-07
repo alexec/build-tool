@@ -1,12 +1,11 @@
 package bt;
 
 import bt.api.Args;
-import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Task;
 import bt.api.events.Start;
-import bt.util.Strings;
+import bt.main.DefaultEventBus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
@@ -42,7 +40,7 @@ public class Main {
     LOGGER.debug("{} task(s)", totalTasks);
 
     List<Object> context = new ArrayList<>();
-    EventBus eventBus = new EventBus();
+    DefaultEventBus eventBus = new DefaultEventBus();
     context.add(args);
     context.add(project);
     context.add(eventBus);

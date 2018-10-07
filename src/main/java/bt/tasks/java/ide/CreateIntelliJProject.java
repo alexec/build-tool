@@ -1,9 +1,9 @@
 package bt.tasks.java.ide;
 
+import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Project;
 import bt.api.Repository;
-import bt.api.Dependency;
 import bt.api.Task;
 import bt.api.events.IntelliJProjectCreated;
 import bt.api.events.ModuleFound;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class CreateIntelliJProject implements Task<ModuleFound> {
   @Inject private Project project;
   @Inject private Repository repository;
-  @Inject private EventBus eventBus;
+  @Inject private EventBus defaultEventBus;
   private final List<Path> sourcesSets = new ArrayList<>();
 
   @Override
@@ -93,6 +93,6 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
 
     Files.write(path, context.getBytes());
 
-    eventBus.add(new IntelliJProjectCreated(path));
+    defaultEventBus.add(new IntelliJProjectCreated(path));
   }
 }
