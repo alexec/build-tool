@@ -47,6 +47,6 @@ public class DeployJar implements Task {
       Files.copy(jar, target, StandardCopyOption.REPLACE_EXISTING);
     }
 
-    eventBus.emit(new JarDeployed(target));
+    eventBus.emit(new JarDeployed(event.getModule(), target));
   }
 }

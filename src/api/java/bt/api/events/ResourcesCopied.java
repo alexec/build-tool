@@ -13,6 +13,10 @@ public class ResourcesCopied {
     this.target = target;
   }
 
+  public Module getModule() {
+    return module;
+  }
+
   @Override
   public String toString() {
     return "ResourcesCopied(" + target + ')';

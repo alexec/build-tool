@@ -1,12 +1,15 @@
 package bt.tasks.java.compiler;
 
+import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Module;
 import bt.api.Repository;
 import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
+import bt.api.events.JarDeployed;
 import bt.api.events.ModuleFound;
+import bt.api.events.ResourcesCopied;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,23 +22,79 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class CompileCode implements Task {
   private static final Logger LOGGER = LoggerFactory.getLogger(CompileCode.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
+  private final Map<Module, Set<String>> pending = new ConcurrentHashMap<>();
+  private final Set<Module> resourcesCopied = new HashSet<>();
+  private final Set<Module> compiled = new HashSet<>();
   @Inject private EventBus eventBus;
   @Inject private Repository repository;
 
   @Subscribe
-  public void consume(ModuleFound event) throws Exception {
+  public void moduleFound(ModuleFound event) throws Exception {
     Module module = event.getModule();
     Path sourceSet = module.getSourceSet();
 
+    Set<String> eventDeps =
+        repository
+            .getDependencies(sourceSet)
+            .stream()
+            .filter(dependency -> dependency instanceof Dependency.ModuleDependency)
+            .map(dependency -> (Dependency.ModuleDependency) dependency)
+            .map(Dependency.ModuleDependency::getArtifactId)
+            .collect(Collectors.toSet());
+
+    LOGGER.debug("{} depends on {}", module, eventDeps);
+
+    pending.put(module, eventDeps);
+
+    tryCompile(module);
+  }
+
+  private void tryCompile(Module module) throws IOException {
+    if (pending.get(module).isEmpty()
+        && resourcesCopied.contains(module)
+        && !compiled.contains(module)) {
+      compileCode(module);
+    }
+  }
+
+  @Subscribe
+  public void resourcesCopied(ResourcesCopied resourcesCopied) throws IOException {
+    Module module = resourcesCopied.getModule();
+    this.resourcesCopied.add(module);
+    tryCompile(resourcesCopied.getModule());
+  }
+
+  @Subscribe
+  public void jarDeployed(JarDeployed jarDeployed) throws IOException {
+    for (Map.Entry<Module, Set<String>> entry : pending.entrySet()) {
+      Set<String> artifactIds = entry.getValue();
+      String artifactId = jarDeployed.getModule().getArtifact().getArtifactId();
+      if (artifactIds.remove(artifactId)) {
+        Module module = entry.getKey();
+        LOGGER.debug("{} now depends on {} (less {})", module, artifactIds, artifactId);
+        tryCompile(module);
+      }
+    }
+  }
+
+  private void compileCode(Module module) throws IOException {
+
+    compiled.add(module);
+
     Path output = module.getCompiledCode();
+    Path sourceSet = module.getSourceSet();
     CompilationOpts compilationOpts = getCompilationOpts(sourceSet);
 
     List<String> sourceFiles = getSourceFiles(sourceSet);

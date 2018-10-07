@@ -14,18 +14,25 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.currentTimeMillis;
 
 public class DefaultContext implements Context, EventBus {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultContext.class);
+  private static final AtomicInteger THREAD_ID = new AtomicInteger();
   private final ThreadPoolExecutor executor;
   private final List<Object> beans = new ArrayList<>();
 
   public DefaultContext(int maximumPoolSize) {
     executor =
         new ThreadPoolExecutor(
-            maximumPoolSize, maximumPoolSize, 10L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+            maximumPoolSize,
+            maximumPoolSize,
+            10L,
+            TimeUnit.SECONDS,
+            new LinkedBlockingDeque<>(),
+            r -> new Thread(r, "T" + THREAD_ID.getAndIncrement()));
   }
 
   public void register(Object bean) {
@@ -96,7 +103,7 @@ public class DefaultContext implements Context, EventBus {
 
   public void awaitTermination() throws InterruptedException {
     while (executor.getTaskCount() != executor.getCompletedTaskCount()) {
-      Thread.sleep(500L);
+      Thread.sleep(250L);
     }
     emit(new Finished());
     executor.shutdown();
