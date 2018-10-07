@@ -16,10 +16,7 @@ public class Reporter<R> {
 
   private Reporter(Module module, Class<R> reportType, Supplier<R> defaultValueSupplier) {
     this.reportType = reportType;
-    path =
-        module
-            .getBuildDir()
-            .resolve(Paths.get("..", "..", "target", "reports", reportType.getName() + ".json"));
+    path = module.getBuildDir().resolve(Paths.get("reports", reportType.getName() + ".json"));
     this.defaultValueSupplier = defaultValueSupplier;
   }
 
