@@ -20,7 +20,7 @@ public class Module {
     return compiledCode;
   }
 
-  Artifact getArtifact() {
+  public Artifact getArtifact() {
     return artifact;
   }
 

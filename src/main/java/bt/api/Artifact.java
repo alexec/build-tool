@@ -31,7 +31,7 @@ public class Artifact {
     return artifactId;
   }
 
-  String getType() {
+  public String getType() {
     return type;
   }
 
@@ -39,7 +39,7 @@ public class Artifact {
     return version;
   }
 
-  String getClassifier() {
+  public String getClassifier() {
     return classifier;
   }
 

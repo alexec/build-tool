@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 public class RunTests implements Task<CodeCompiled> {
   private static final Logger LOGGER = LoggerFactory.getLogger(RunTests.class);
   @Inject private EventBus defaultEventBus;
-  @Inject private Repository repository;
+  @Inject private Repository defaultRepository;
 
   @Override
   public Class<CodeCompiled> eventType() {
@@ -38,7 +38,7 @@ public class RunTests implements Task<CodeCompiled> {
     } else {
 
       String classPath =
-          compiledCode + ":" + repository.getClassPath(event.getModule().getSourceSet());
+          compiledCode + ":" + defaultRepository.getClassPath(event.getModule().getSourceSet());
       LOGGER.debug("running tests in {} with -cp {}", compiledCode, classPath);
 
       Process process =

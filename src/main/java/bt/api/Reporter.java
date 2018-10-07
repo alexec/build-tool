@@ -43,7 +43,7 @@ public class Reporter<R> {
   /** Save the report. */
   public void save(R report) throws IOException {
     if (!Files.isDirectory(path.getParent())) {
-      Files.createDirectory(path.getParent());
+      Files.createDirectories(path.getParent());
     }
     OBJECT_MAPPER.writeValue(path.toFile(), report);
   }

@@ -21,7 +21,7 @@ public class FindModules implements Task<Start> {
   private static final Logger LOGGER = LoggerFactory.getLogger(FindModules.class);
   @Inject private Project project;
   @Inject private EventBus defaultEventBus;
-  @Inject private Repository repository;
+  @Inject private Repository defaultRepository;
 
   @Override
   public Class<Start> eventType() {
@@ -49,7 +49,7 @@ public class FindModules implements Task<Start> {
         .forEach(
             module -> {
               LOGGER.debug("{}", module);
-              repository.addModule(module);
+              defaultRepository.addModule(module);
               defaultEventBus.add(new ModuleFound(module));
             });
   }

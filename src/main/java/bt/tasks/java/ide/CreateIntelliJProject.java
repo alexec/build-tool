@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class CreateIntelliJProject implements Task<ModuleFound> {
   @Inject private Project project;
-  @Inject private Repository repository;
+  @Inject private Repository defaultRepository;
   @Inject private EventBus defaultEventBus;
   private final List<Path> sourcesSets = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
             + "  <component name=\"libraryTable\">\n"
             + (sourcesSets
                 .stream()
-                .flatMap(sourceSet -> repository.getDependencies(sourceSet).stream())
+                .flatMap(sourceSet -> defaultRepository.getDependencies(sourceSet).stream())
                 .filter(dependency -> dependency instanceof Dependency.ArtifactDependency)
                 .sorted()
                 .distinct()
@@ -79,7 +79,7 @@ public class CreateIntelliJProject implements Task<ModuleFound> {
                             + "\" />\n"
                             + "      <CLASSES>\n"
                             + "        <root url=\"jar://"
-                            + repository.get(dependency)
+                            + defaultRepository.get(dependency)
                             + "!/\" />\n"
                             + "      </CLASSES>\n"
                             + "      <JAVADOC />\n"

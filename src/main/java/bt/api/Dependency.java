@@ -51,7 +51,7 @@ public abstract class Dependency implements Comparable<Dependency> {
       return String.valueOf(artifact);
     }
 
-    Artifact getArtifact() {
+    public Artifact getArtifact() {
       return artifact;
     }
   }

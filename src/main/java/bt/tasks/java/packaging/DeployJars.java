@@ -19,7 +19,7 @@ import java.nio.file.StandardCopyOption;
 public class DeployJars implements Task<JarCreated> {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployJars.class);
   @Inject private Project project;
-  @Inject private Repository repository;
+  @Inject private Repository defaultRepository;
   @Inject private EventBus defaultEventBus;
 
   @Override
@@ -32,7 +32,7 @@ public class DeployJars implements Task<JarCreated> {
     Path jar = event.getPath();
     Artifact artifact = project.getArtifact();
     Path target =
-        repository.get(
+        defaultRepository.get(
             Dependency.valueOf(
                 artifact.getGroupId()
                     + ":"

@@ -2,10 +2,10 @@ package bt;
 
 import bt.api.Args;
 import bt.api.Project;
-import bt.api.Repository;
 import bt.api.Task;
 import bt.api.events.Start;
 import bt.main.DefaultEventBus;
+import bt.main.DefaultRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public class Main {
     context.add(args);
     context.add(project);
     context.add(eventBus);
-    context.add(new Repository());
+    context.add(new DefaultRepository());
 
     tasks.forEach(task -> inject(context, task));
     tasks.forEach(eventBus::register);

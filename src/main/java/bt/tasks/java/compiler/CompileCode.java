@@ -27,7 +27,7 @@ public class CompileCode implements Task<ModuleFound> {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final JavaCompiler JAVA_COMPILER = ToolProvider.getSystemJavaCompiler();
   @Inject private EventBus defaultEventBus;
-  @Inject private Repository repository;
+  @Inject private Repository defaultRepository;
 
   @Override
   public Class<ModuleFound> eventType() {
@@ -68,7 +68,7 @@ public class CompileCode implements Task<ModuleFound> {
       arguments.add("-target");
       arguments.add(String.valueOf(compilationOpts.getTarget()));
       arguments.add("-cp");
-      arguments.add(repository.getClassPath(sourceSet));
+      arguments.add(defaultRepository.getClassPath(sourceSet));
       arguments.add("-d");
       arguments.add(output.toAbsolutePath().toString());
       arguments.addAll(sourceFiles);

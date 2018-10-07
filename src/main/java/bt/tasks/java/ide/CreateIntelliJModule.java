@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class CreateIntelliJModule implements Task<ModuleFound> {
 
-  @Inject private Repository repository;
+  @Inject private Repository defaultRepository;
   @Inject private EventBus defaultEventBus;
 
   @Override
@@ -29,7 +29,7 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
     Path sourceSet = event.getModule().getSourceSet();
 
     boolean testSource =
-        repository
+        defaultRepository
             .getDependencies(sourceSet)
             .stream()
             .anyMatch(dependency -> dependency.toString().contains("junit"));
@@ -57,7 +57,7 @@ public class CreateIntelliJModule implements Task<ModuleFound> {
             + "    <orderEntry type=\"sourceFolder\" forTests=\""
             + false
             + "\" />\n"
-            + (repository
+            + (defaultRepository
                 .getDependencies(sourceSet)
                 .stream()
                 .map(
