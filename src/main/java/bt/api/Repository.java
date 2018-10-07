@@ -56,25 +56,22 @@ public class Repository {
   public List<Dependency> getDependencies(Path sourceSet) {
 
     List<Dependency> artifacts = new ArrayList<>();
-    for (Path path :
-        new Path[] {
-          Paths.get("dependencies.json"), Paths.get("../dependencies.json"),
-        }) {
-      Path dependenciesFile = sourceSet.resolve(path);
-      if (Files.exists(dependenciesFile)) {
-        LOGGER.debug("reading {}", dependenciesFile);
-        Map<String, Map> tree;
-        try {
-          tree =
-              OBJECT_MAPPER.readValue(
-                  dependenciesFile.toFile(), new TypeReference<Map<String, Map>>() {});
-        } catch (IOException e) {
-          throw new UncheckedIOException(e);
-        }
-
-        artifacts.addAll(flatten(tree, new ArrayList<>()));
+    Path moduleFile = sourceSet.resolve(Paths.get("module.json"));
+    if (Files.exists(moduleFile)) {
+      LOGGER.debug("reading {}", moduleFile);
+      Map<String, Map> tree;
+      try {
+        tree =
+            OBJECT_MAPPER.readValue(moduleFile.toFile(), new TypeReference<Map<String, Map>>() {});
+      } catch (IOException e) {
+        throw new UncheckedIOException(e);
       }
+
+      @SuppressWarnings("unchecked")
+      Map<String, Map> dependencies = tree.get("dependencies");
+      artifacts.addAll(flatten(dependencies, new ArrayList<>()));
     }
+
     LOGGER.debug(
         "{} depends on {} ",
         sourceSet,
