@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="rename">
-      <change afterPath="$PROJECT_DIR$/src/api/java/bt/api/Context.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" afterDir="false" />
+    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="prototype new events">
       <change beforePath="$PROJECT_DIR$/bt.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bt.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/java/bt/api/EventBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/java/bt/api/EventBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/java/bt/api/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/java/bt/api/Module.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/java/bt/api/events/JarCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/java/bt/api/events/JarCreated.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/main/DefaultEventBus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/compiler/CompileCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/formatter/FormatSourceCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/test/RunTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/services/bt.api.Task" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/bt.api.Task" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/java/" />
     <ignored path="$PROJECT_DIR$/src/test-support/target/" />
@@ -34,7 +16,7 @@
     <session id="1906433136">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.opened" value="2" />
@@ -68,18 +50,18 @@
           <entry key="bt" value="14" />
           <entry key="dummy" value="7" />
           <entry key="ipr" value="1" />
-          <entry key="java" value="1426" />
+          <entry key="java" value="1428" />
           <entry key="json" value="305" />
-          <entry key="txt" value="110" />
+          <entry key="txt" value="138" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="14" />
           <entry key="IDEA_PROJECT" value="1" />
-          <entry key="JAVA" value="1426" />
+          <entry key="JAVA" value="1428" />
           <entry key="JSON" value="305" />
-          <entry key="PLAIN_TEXT" value="117" />
+          <entry key="PLAIN_TEXT" value="145" />
           <entry key="SPI" value="1" />
         </counts>
       </usages-collector>
@@ -87,11 +69,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+            <state relative-caret-position="131">
+              <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
               <folding>
                 <element signature="e#759#760#0" expanded="true" />
                 <element signature="e#789#790#0" expanded="true" />
@@ -134,7 +116,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="343">
-              <caret line="82" column="27" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="27" />
+              <caret line="81" column="27" selection-start-line="81" selection-start-column="26" selection-end-line="81" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2564#2594#0" expanded="true" />
@@ -152,13 +134,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+            <state relative-caret-position="75">
+              <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#346#347#0" expanded="true" />
                 <element signature="e#417#418#0" expanded="true" />
               </folding>
             </state>
@@ -285,8 +267,8 @@
         <option value="$PROJECT_DIR$/src/api/java/bt/api/events/JarCreated.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java" />
         <option value="$PROJECT_DIR$/src/api/java/bt/api/Module.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java" />
       </list>
     </option>
   </component>
@@ -563,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538916820039</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="prototype new events">
+      <created>1538918122729</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1538918122729</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -576,7 +565,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="819" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25679544" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -637,7 +625,8 @@
     <MESSAGE value="extracted repository" />
     <MESSAGE value="@Subscribe" />
     <MESSAGE value="rename" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename" />
+    <MESSAGE value="prototype new events" />
+    <option name="LAST_COMMIT_MESSAGE" value="prototype new events" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -1006,7 +995,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
-          <caret line="82" column="27" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="27" />
+          <caret line="81" column="27" selection-start-line="81" selection-start-column="26" selection-end-line="81" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2564#2594#0" expanded="true" />
@@ -1030,24 +1019,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        <state relative-caret-position="75">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
           <folding>
-            <element signature="e#759#760#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
+            <element signature="e#346#347#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+        <state relative-caret-position="131">
+          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
           </folding>
         </state>
       </provider>

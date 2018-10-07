@@ -3,10 +3,10 @@ package bt.tasks.java.packaging;
 import bt.api.Artifact;
 import bt.api.Dependency;
 import bt.api.EventBus;
-import bt.api.Module;
 import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Subscribe;
+import bt.api.Task;
 import bt.api.events.JarCreated;
 import bt.api.events.JarDeployed;
 import org.slf4j.Logger;
@@ -17,22 +17,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class DeployJar {
+public class DeployJar implements Task  {
   private static final Logger LOGGER = LoggerFactory.getLogger(DeployJar.class);
-  private final Module module;
   @Inject private Project project;
   @Inject private Repository repository;
   @Inject private EventBus eventBus;
 
-  DeployJar(Module module) {
-    this.module = module;
-  }
-
   @Subscribe
   public void consume(JarCreated event) throws Exception {
-    if (!event.getModule().equals(module)) {
-      return;
-    }
     Path jar = event.getPath();
     Artifact artifact = project.getArtifact();
     Path target =
@@ -56,13 +48,6 @@ public class DeployJar {
     }
 
     eventBus.emit(new JarDeployed(target));
-  }
-
-  @Override
-  public String toString() {
-    return "DeployJar(" +
-             module +
-            ')';
   }
 }
 
