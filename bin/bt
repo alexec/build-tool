@@ -23,9 +23,9 @@ done
 lib=$(dirname $0)/../lib/main-$version.jar
 
 if [ -e $lib ]; then
-  export CLASSPATH=$(dirname $0)/../lib/main-$version.jar:$CLASSPATH
+  export CLASSPATH=$(dirname $0)/../lib/api-$version.jar:$(dirname $0)/../lib/main-$version.jar:$CLASSPATH
 else
-  export CLASSPATH=$M2_REPO/bt/main/$version/main-$version.jar:$CLASSPATH
+  export CLASSPATH=$M2_REPO/bt/api/$version/api-$version.jar:$M2_REPO/bt/main/$version/main-$version.jar:$CLASSPATH
 fi
 
 java bt.Main $*

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    ":api": {},
     ":main": {},
     ":test-support": {},
     "junit:junit:4.12": {
