@@ -1,8 +1,8 @@
 package bt.api;
 
-public abstract class Dependency implements Comparable<Dependency> {
+public abstract class Dependency {
 
-  public static class ModuleDependency extends Dependency {
+  public static class ModuleDependency extends Dependency implements Comparable<ModuleDependency> {
     private final String artifactId;
 
     private ModuleDependency(String artifactId) {
@@ -14,12 +14,18 @@ public abstract class Dependency implements Comparable<Dependency> {
     }
 
     @Override
+    public int compareTo(ModuleDependency o) {
+      return artifactId.compareTo(o.artifactId);
+    }
+
+    @Override
     public String toString() {
       return ":" + artifactId;
     }
   }
 
-  public static class ArtifactDependency extends Dependency {
+  public static class ArtifactDependency extends Dependency
+      implements Comparable<ArtifactDependency> {
     private final Artifact artifact;
 
     private ArtifactDependency(Artifact artifact) {
@@ -34,19 +40,14 @@ public abstract class Dependency implements Comparable<Dependency> {
     public Artifact getArtifact() {
       return artifact;
     }
+
+    @Override
+    public int compareTo(ArtifactDependency o) {
+      return artifact.compareTo(o.artifact);
+    }
   }
 
   private Dependency() {}
-
-  @Override
-  public int compareTo(Dependency o) {
-    return toString().compareTo(o.toString());
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return this.toString().equals(obj.toString());
-  }
 
   /** Create a dependency form a string. */
   @SuppressWarnings("unused")

@@ -3,7 +3,7 @@ package bt.api;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Artifact {
+public class Artifact implements Comparable<Artifact> {
   private static final Pattern PATTERN =
       Pattern.compile(
           "(?<groupId>[^:]*):(?<artifactId>[^:]*)(:(?<type>[^:]*))?:(?<version>[^:]*)(:(?<classifier>[^:]*))?");
@@ -67,5 +67,10 @@ public class Artifact {
         + ":"
         + version
         + (classifier != null ? ":" + classifier : "");
+  }
+
+  @Override
+  public int compareTo(Artifact o) {
+    return toString().compareTo(o.toString());
   }
 }
