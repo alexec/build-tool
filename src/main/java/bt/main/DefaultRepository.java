@@ -10,10 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +27,8 @@ import java.util.stream.Collectors;
 public class DefaultRepository implements Repository {
   private static final Logger LOGGER = LoggerFactory.getLogger(Repository.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  private Map<String, Module> modules = new HashMap<>();
+  private final Map<String, Module> modules = new HashMap<>();
+  private boolean download = true;
 
   @Override
   public void addModule(Module module) {
@@ -34,22 +39,47 @@ public class DefaultRepository implements Repository {
     return modules.get(dependency.getArtifactId()).getCompiledCode();
   }
 
+  void setDownload(boolean download) {
+    this.download = download;
+  }
+
   private Path get(Dependency.ArtifactDependency dependency) {
     Artifact artifact = dependency.getArtifact();
 
-    return Paths.get(
-        System.getProperty("user.home"),
-        ".m2",
-        "repository",
-        artifact.getGroupId().replaceAll("\\.", "/"),
-        artifact.getArtifactId(),
-        artifact.getVersion(),
-        artifact.getArtifactId()
-            + "-"
-            + artifact.getVersion()
-            + (artifact.getClassifier() != null ? "-" + artifact.getClassifier() : "")
-            + "."
-            + artifact.getType());
+    Path path =
+        Paths.get(
+            artifact.getGroupId().replaceAll("\\.", "/"),
+            artifact.getArtifactId(),
+            artifact.getVersion(),
+            artifact.getArtifactId()
+                + "-"
+                + artifact.getVersion()
+                + (artifact.getClassifier() != null ? "-" + artifact.getClassifier() : "")
+                + "."
+                + artifact.getType());
+
+    Path localPath = Paths.get(System.getProperty("user.home"), ".m2", "repository").resolve(path);
+
+    if (download && !Files.exists(localPath)) {
+      try {
+        URL url = new URL("http://central.maven.org/maven2/" + path);
+        LOGGER.info("downloading {} to {} ", url, localPath);
+        Files.createDirectories(localPath.getParent());
+
+        try (InputStream in = url.openStream()) {
+          Files.copy(in, localPath, StandardCopyOption.REPLACE_EXISTING);
+        }
+      } catch (IOException e) {
+        try {
+          Files.delete(localPath);
+        } catch (IOException e1) {
+          throw new UncheckedIOException(e);
+        }
+        throw new UncheckedIOException(e);
+      }
+    }
+
+    return localPath;
   }
 
   /** Get the path of the dependency. */

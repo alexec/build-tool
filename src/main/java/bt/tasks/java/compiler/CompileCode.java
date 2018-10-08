@@ -62,7 +62,8 @@ public class CompileCode implements Task {
   }
 
   private void tryCompile(Module module) throws IOException {
-    if (pending.get(module).isEmpty()
+    if (pending.containsKey(module)
+        && pending.get(module).isEmpty()
         && resourcesCopied.contains(module)
         && !compiled.contains(module)) {
       compileCode(module);
