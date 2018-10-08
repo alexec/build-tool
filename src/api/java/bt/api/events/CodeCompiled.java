@@ -2,13 +2,13 @@ package bt.api.events;
 
 import bt.api.Module;
 
-import java.nio.file.Path;
+import static java.util.Objects.requireNonNull;
 
 public class CodeCompiled {
   private final Module module;
 
   public CodeCompiled(Module module) {
-    this.module = module;
+    this.module = requireNonNull(module);
   }
 
   public Module getModule() {

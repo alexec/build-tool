@@ -73,7 +73,7 @@ public class CompileCode implements Task {
   public void resourcesCopied(ResourcesCopied resourcesCopied) throws IOException {
     Module module = resourcesCopied.getModule();
     this.resourcesCopied.add(module);
-    tryCompile(resourcesCopied.getModule());
+    tryCompile(module);
   }
 
   @Subscribe

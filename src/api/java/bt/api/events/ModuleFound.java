@@ -2,11 +2,13 @@ package bt.api.events;
 
 import bt.api.Module;
 
+import static java.util.Objects.requireNonNull;
+
 public class ModuleFound {
   private final Module module;
 
   public ModuleFound(Module module) {
-    this.module = module;
+    this.module = requireNonNull(module);
   }
 
   public Module getModule() {
