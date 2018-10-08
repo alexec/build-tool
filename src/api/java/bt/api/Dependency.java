@@ -1,5 +1,7 @@
 package bt.api;
 
+import java.util.Objects;
+
 public abstract class Dependency {
 
   public static class ModuleDependency extends Dependency implements Comparable<ModuleDependency> {
@@ -19,6 +21,19 @@ public abstract class Dependency {
     }
 
     @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      ModuleDependency that = (ModuleDependency) o;
+      return Objects.equals(artifactId, that.artifactId);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(artifactId);
+    }
+
+    @Override
     public String toString() {
       return ":" + artifactId;
     }
@@ -30,6 +45,19 @@ public abstract class Dependency {
 
     private ArtifactDependency(Artifact artifact) {
       this.artifact = artifact;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      ArtifactDependency that = (ArtifactDependency) o;
+      return Objects.equals(artifact, that.artifact);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(artifact);
     }
 
     @Override

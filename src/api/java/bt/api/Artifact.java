@@ -1,5 +1,6 @@
 package bt.api;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,5 +73,22 @@ public class Artifact implements Comparable<Artifact> {
   @Override
   public int compareTo(Artifact o) {
     return toString().compareTo(o.toString());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Artifact artifact = (Artifact) o;
+    return Objects.equals(groupId, artifact.groupId)
+        && Objects.equals(artifactId, artifact.artifactId)
+        && Objects.equals(type, artifact.type)
+        && Objects.equals(version, artifact.version)
+        && Objects.equals(classifier, artifact.classifier);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupId, artifactId, type, version, classifier);
   }
 }

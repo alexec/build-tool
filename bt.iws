@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="tidy up">
-      <change beforePath="$PROJECT_DIR$/src/api/java/bt/api/Artifact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/java/bt/api/Artifact.java" afterDir="false" />
+    <list default="true" id="3eb9d4f2-ef4f-4ed2-9f2c-9660600c2bf6" name="Default" comment="simplify">
+      <change beforePath="$PROJECT_DIR$/bt.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bt.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/java/bt/api/Dependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/java/bt/api/Dependency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/java/" />
     <ignored path="$PROJECT_DIR$/src/test-support/target/" />
@@ -31,9 +32,9 @@
           <entry key="bt" value="1" />
           <entry key="class" value="1" />
           <entry key="iml" value="5" />
-          <entry key="ipr" value="4" />
-          <entry key="iws" value="1" />
-          <entry key="java" value="127" />
+          <entry key="ipr" value="5" />
+          <entry key="iws" value="2" />
+          <entry key="java" value="128" />
           <entry key="json" value="21" />
           <entry key="xml" value="1" />
         </counts>
@@ -43,9 +44,9 @@
           <entry key="Bash" value="1" />
           <entry key="CLASS" value="1" />
           <entry key="IDEA_MODULE" value="5" />
-          <entry key="IDEA_PROJECT" value="4" />
-          <entry key="IDEA_WORKSPACE" value="1" />
-          <entry key="JAVA" value="127" />
+          <entry key="IDEA_PROJECT" value="5" />
+          <entry key="IDEA_WORKSPACE" value="2" />
+          <entry key="JAVA" value="128" />
           <entry key="JSON" value="21" />
           <entry key="SPI" value="2" />
           <entry key="XML" value="1" />
@@ -57,18 +58,18 @@
           <entry key="bt" value="14" />
           <entry key="dummy" value="12" />
           <entry key="ipr" value="1" />
-          <entry key="java" value="4637" />
+          <entry key="java" value="4711" />
           <entry key="json" value="312" />
-          <entry key="txt" value="223" />
+          <entry key="txt" value="233" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="14" />
           <entry key="IDEA_PROJECT" value="1" />
-          <entry key="JAVA" value="4637" />
+          <entry key="JAVA" value="4711" />
           <entry key="JSON" value="312" />
-          <entry key="PLAIN_TEXT" value="235" />
+          <entry key="PLAIN_TEXT" value="245" />
           <entry key="SPI" value="6" />
         </counts>
       </usages-collector>
@@ -80,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultRepository.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
               <folding>
                 <element signature="e#1034#1035#0" expanded="true" />
                 <element signature="e#1101#1102#0" expanded="true" />
@@ -93,35 +94,69 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Dependency.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="260">
+              <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
               <folding>
-                <element signature="e#469#470#0" expanded="true" />
-                <element signature="e#491#492#0" expanded="true" />
-                <element signature="e#934#935#0" expanded="true" />
-                <element signature="e#956#957#0" expanded="true" />
+                <element signature="e#239#240#0" expanded="true" />
+                <element signature="e#281#282#0" expanded="true" />
+                <element signature="e#318#319#0" expanded="true" />
+                <element signature="e#349#350#0" expanded="true" />
+                <element signature="e#411#412#0" expanded="true" />
+                <element signature="e#466#467#0" expanded="true" />
+                <element signature="e#804#805#0" expanded="true" />
+                <element signature="e#849#850#0" expanded="true" />
+                <element signature="e#512#513#0" expanded="true" />
+                <element signature="e#549#550#0" expanded="true" />
+                <element signature="e#754#755#0" expanded="true" />
+                <element signature="e#792#793#0" expanded="true" />
+                <element signature="e#1130#1131#0" expanded="true" />
+                <element signature="e#1173#1174#0" expanded="true" />
+                <element signature="e#838#839#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#920#921#0" expanded="true" />
+                <element signature="e#949#950#0" expanded="true" />
+                <element signature="e#1013#1014#0" expanded="true" />
+                <element signature="e#1064#1065#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bt.iws">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bt.ipr">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="346">
+              <caret line="100" column="14" selection-start-line="100" selection-start-column="14" selection-end-line="100" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="69" column="89" selection-start-line="69" selection-start-column="89" selection-end-line="69" selection-end-column="89" />
+            <state relative-caret-position="511">
+              <caret line="76" column="61" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
+              <folding>
+                <element signature="e#795#796#0" expanded="true" />
+                <element signature="e#854#855#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJar.java">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/stream/Stream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+            <state relative-caret-position="488">
+              <caret line="358" column="14" selection-start-line="358" selection-start-column="14" selection-end-line="358" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -131,15 +166,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="62" column="72" selection-start-line="62" selection-start-column="72" selection-end-line="62" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -168,19 +194,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/Set.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="224" column="12" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/bt/main/DefaultRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="462">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -233,7 +250,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/dependencies.json" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Module.java" />
         <option value="$PROJECT_DIR$/src/test-support/module.json" />
         <option value="$PROJECT_DIR$/src/main/java/bt/api/Repository.java" />
@@ -254,7 +270,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" />
         <option value="$PROJECT_DIR$/src/main/resources/logback.xml" />
         <option value="$PROJECT_DIR$/src/api/java/bt/api/events/Finished.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" />
         <option value="$PROJECT_DIR$/src/api/java/bt/api/Module.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/finder/FindModules.java" />
         <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/style/CheckStyle.java" />
@@ -284,10 +299,12 @@
         <option value="$PROJECT_DIR$/src/test/java/bt/main/DefaultRepositoryTest.java" />
         <option value="$PROJECT_DIR$/src/api/java/bt/api/Artifact.java" />
         <option value="$PROJECT_DIR$/src/api/java/bt/api/Dependency.java" />
+        <option value="$PROJECT_DIR$/bt.ipr" />
+        <option value="$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1369" />
     <option name="height" value="946" />
@@ -612,7 +629,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539017630880</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="simplify">
+      <created>1539017917728</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1539017917728</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -633,21 +657,21 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1369" height="946" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="946" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.279578" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22649573" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49427754" visible="true" weight="0.3266979" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49427754" weight="0.3266979" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49928468" visible="true" weight="0.32786885" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3287483" />
+      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.3287483" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5007153" side_tool="true" weight="0.3287483" />
       <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.48855507" weight="0.3266979" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
@@ -696,14 +720,14 @@
     <MESSAGE value="@Subscribe" />
     <MESSAGE value="rename" />
     <MESSAGE value="prototype new events" />
-    <MESSAGE value="simplify" />
     <MESSAGE value="multi-threaded" />
     <MESSAGE value="threads" />
     <MESSAGE value="thread-safety" />
     <MESSAGE value="event" />
     <MESSAGE value="not null please" />
     <MESSAGE value="tidy up" />
-    <option name="LAST_COMMIT_MESSAGE" value="tidy up" />
+    <MESSAGE value="simplify" />
+    <option name="LAST_COMMIT_MESSAGE" value="simplify" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -719,35 +743,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/DeployJars.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/packaging/CreateJar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/EventBus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/concurrent/Executors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="87" column="34" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/concurrent/LinkedBlockingDeque.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="67" column="2" lean-forward="true" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/concurrent/ThreadPoolExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13188">
@@ -759,13 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="69" column="89" selection-start-line="69" selection-start-column="89" selection-end-line="69" selection-end-column="89" />
         </state>
       </provider>
     </entry>
@@ -1067,7 +1055,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/bt/main/DefaultRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
           <folding>
             <element signature="e#1034#1035#0" expanded="true" />
             <element signature="e#1101#1102#0" expanded="true" />
@@ -1082,7 +1070,7 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/bt/main/DefaultRepositoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1117,15 +1105,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="582">
+          <caret line="62" column="72" selection-start-line="62" selection-start-column="72" selection-end-line="62" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/Set.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="224" column="12" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bt.iws">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bt.ipr">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="100" column="14" selection-start-line="100" selection-start-column="14" selection-end-line="100" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/java/bt/api/Dependency.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="260">
+          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
           <folding>
-            <element signature="e#469#470#0" expanded="true" />
-            <element signature="e#491#492#0" expanded="true" />
-            <element signature="e#934#935#0" expanded="true" />
-            <element signature="e#956#957#0" expanded="true" />
+            <element signature="e#239#240#0" expanded="true" />
+            <element signature="e#281#282#0" expanded="true" />
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#411#412#0" expanded="true" />
+            <element signature="e#466#467#0" expanded="true" />
+            <element signature="e#804#805#0" expanded="true" />
+            <element signature="e#849#850#0" expanded="true" />
+            <element signature="e#512#513#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#754#755#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#1130#1131#0" expanded="true" />
+            <element signature="e#1173#1174#0" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#920#921#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+            <element signature="e#1013#1014#0" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/util/stream/Stream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="358" column="14" selection-start-line="358" selection-start-column="14" selection-end-line="358" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bt/tasks/java/ide/CreateIntelliJProject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="76" column="61" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
+          <folding>
+            <element signature="e#795#796#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
           </folding>
         </state>
       </provider>
