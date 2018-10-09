@@ -24,7 +24,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.requireNonNull;
 
 public class DefaultRepository implements Repository {
   private static final Logger LOGGER = LoggerFactory.getLogger(Repository.class);
@@ -98,6 +101,7 @@ public class DefaultRepository implements Repository {
   /** Get the path of the dependency. */
   @Override
   public Path getPath(Dependency dependency) {
+    requireNonNull(dependency);
     return dependency instanceof ArtifactDependency
         ? get((ArtifactDependency) dependency)
         : get((ModuleDependency) dependency);
@@ -105,22 +109,23 @@ public class DefaultRepository implements Repository {
 
   @Override
   public List<Dependency> getDependencies(Artifact artifact) {
-
+    requireNonNull(artifact);
     List<Dependency> dependencies = new ArrayList<>();
 
     dependencies.add(new ArtifactDependency(artifact));
 
-    this.dependencies
-        .get(artifact)
-        .stream()
-        .map(ArtifactDependency::new)
-        .forEach(dependencies::add);
+    List<Artifact> artifacts = this.dependencies.get(artifact);
+
+    requireNonNull(artifacts, artifact + " not found");
+
+    artifacts.stream().map(ArtifactDependency::new).forEach(dependencies::add);
 
     return dependencies;
   }
 
   @Override
   public List<Dependency> getDependencies(Module module) {
+    requireNonNull(module);
     Path moduleFile = module.getSourceSet().resolve(Paths.get("module.json"));
 
     LOGGER.debug("reading {}", moduleFile);
@@ -133,7 +138,8 @@ public class DefaultRepository implements Repository {
 
     List<Dependency> dependencies = new ArrayList<>();
 
-    ((List<String>) tree.get("dependencies1"))
+    //noinspection unchecked
+    ((List<String>) tree.get("dependencies"))
         .stream()
         .map(Dependency::valueOf)
         .forEach(
@@ -146,8 +152,18 @@ public class DefaultRepository implements Repository {
 
   private List<Dependency> getDependencies(Dependency dependency) {
     return dependency instanceof ModuleDependency
-        ? getDependencies(modules.get(((ModuleDependency) dependency).getArtifactId()))
-        : getDependencies(((ArtifactDependency) dependency).getArtifact());
+        ? getDependencies((ModuleDependency) dependency)
+        : getDependencies((ArtifactDependency) dependency);
+  }
+
+  private List<Dependency> getDependencies(ArtifactDependency dependency) {
+    return getDependencies(dependency.getArtifact());
+  }
+
+  private List<Dependency> getDependencies(ModuleDependency dependency) {
+    Module module =
+        requireNonNull(modules.get(dependency.getArtifactId()), dependency + " unknown");
+    return getDependencies(module);
   }
 
   @Override
