@@ -1,12 +1,9 @@
 package bt.main;
 
-import bt.api.Artifact;
 import bt.api.Dependency;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -23,11 +20,11 @@ public class DefaultRepositoryTest {
 
     defaultRepository.setDownload(false);
 
-    Files.deleteIfExists(defaultRepository.get(dependency));
+    Files.deleteIfExists(defaultRepository.getPath(dependency));
 
     defaultRepository.setDownload(true);
 
-    Path path = defaultRepository.get(dependency);
+    Path path = defaultRepository.getPath(dependency);
 
     assertTrue(Files.exists(path));
   }

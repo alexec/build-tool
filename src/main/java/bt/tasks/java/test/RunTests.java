@@ -1,6 +1,7 @@
 package bt.tasks.java.test;
 
 import bt.api.EventBus;
+import bt.api.Module;
 import bt.api.Repository;
 import bt.api.Subscribe;
 import bt.api.Task;
@@ -27,14 +28,14 @@ public class RunTests implements Task {
   @Subscribe
   public void codeCompiled(CodeCompiled event) throws Exception {
 
-    Path compiledCode = event.getModule().getCompiledCode();
+    Module module = event.getModule();
+    Path compiledCode = module.getCompiledCode();
 
     if (!Files.exists(compiledCode.resolve(Paths.get("META-INF/tests")))) {
       LOGGER.debug("skipping {}, no tests", compiledCode);
     } else {
 
-      String classPath =
-          compiledCode + ":" + repository.getClassPath(event.getModule().getSourceSet());
+      String classPath = compiledCode + ":" + repository.getClassPath(module);
       LOGGER.debug("running tests in {} with -cp {}", compiledCode, classPath);
 
       Process process =

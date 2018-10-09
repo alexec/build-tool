@@ -2,6 +2,8 @@ package bt.tasks.java.ide;
 
 import bt.api.Dependency;
 import bt.api.EventBus;
+import bt.api.Module;
+import bt.api.ModuleDependency;
 import bt.api.Repository;
 import bt.api.Subscribe;
 import bt.api.Task;
@@ -22,11 +24,12 @@ public class CreateIntelliJModule implements Task {
   @Subscribe
   public void moduleFound(ModuleFound event) throws Exception {
 
-    Path sourceSet = event.getModule().getSourceSet();
+    Module module = event.getModule();
+    Path sourceSet = module.getSourceSet();
 
     boolean testSource =
         repository
-            .getDependencies(sourceSet)
+            .getDependencies(module)
             .stream()
             .anyMatch(dependency -> dependency.toString().contains("junit"));
 
@@ -35,10 +38,10 @@ public class CreateIntelliJModule implements Task {
             + "<module type=\"JAVA_MODULE\" version=\"4\">\n"
             + "  <component name=\"NewModuleRootManager\">\n"
             + "    <output url=\"file://$MODULE_DIR$/../../target/java/"
-            + event.getModule().getName()
+            + module.getName()
             + "/classes\" />\n"
             + "    <output-test url=\"file://$MODULE_DIR$/../../target/java/"
-            + event.getModule().getName()
+            + module.getName()
             + "/classes\" />\n"
             + "    <exclude-output />\n"
             + "    <content url=\"file://$MODULE_DIR$\">\n"
@@ -54,13 +57,13 @@ public class CreateIntelliJModule implements Task {
             + false
             + "\" />\n"
             + (repository
-                .getDependencies(sourceSet)
+                .getDependencies(module)
                 .stream()
                 .map(
                     dependency -> {
-                      if (dependency instanceof Dependency.ModuleDependency) {
+                      if (dependency instanceof ModuleDependency) {
                         return "    <orderEntry type=\"module\" module-name=\""
-                            + ((Dependency.ModuleDependency) dependency).getArtifactId()
+                            + ((ModuleDependency) dependency).getArtifactId()
                             + "\" />";
                       } else {
                         return "    <orderEntry type=\""

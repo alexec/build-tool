@@ -1,18 +1,20 @@
 package bt.main;
 
 import bt.api.Artifact;
+import bt.api.ArtifactDependency;
 import bt.api.Dependency;
 import bt.api.Module;
+import bt.api.ModuleDependency;
 import bt.api.Repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,13 +31,24 @@ public class DefaultRepository implements Repository {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private final Map<String, Module> modules = new HashMap<>();
   private boolean download = true;
+  private final Map<Artifact, List<Artifact>> dependencies;
+
+  public DefaultRepository() {
+    try {
+      dependencies =
+          OBJECT_MAPPER.readValue(
+              new File("dependencies.json"), new TypeReference<Map<Artifact, List<Artifact>>>() {});
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
 
   @Override
   public void addModule(Module module) {
     modules.put(module.getArtifact().getArtifactId(), module);
   }
 
-  private Path get(Dependency.ModuleDependency dependency) {
+  private Path get(ModuleDependency dependency) {
     return modules.get(dependency.getArtifactId()).getCompiledCode();
   }
 
@@ -43,7 +56,7 @@ public class DefaultRepository implements Repository {
     this.download = download;
   }
 
-  private Path get(Dependency.ArtifactDependency dependency) {
+  private Path get(ArtifactDependency dependency) {
     Artifact artifact = dependency.getArtifact();
 
     Path path =
@@ -84,56 +97,64 @@ public class DefaultRepository implements Repository {
 
   /** Get the path of the dependency. */
   @Override
-  public Path get(Dependency dependency) {
-    return dependency instanceof Dependency.ArtifactDependency
-        ? get((Dependency.ArtifactDependency) dependency)
-        : get((Dependency.ModuleDependency) dependency);
+  public Path getPath(Dependency dependency) {
+    return dependency instanceof ArtifactDependency
+        ? get((ArtifactDependency) dependency)
+        : get((ModuleDependency) dependency);
   }
 
   @Override
-  public List<Dependency> getDependencies(Path sourceSet) {
+  public List<Dependency> getDependencies(Artifact artifact) {
 
-    List<Dependency> artifacts = new ArrayList<>();
-    Path moduleFile = sourceSet.resolve(Paths.get("module.json"));
-    if (Files.exists(moduleFile)) {
-      LOGGER.debug("reading {}", moduleFile);
-      Map<String, Map> tree;
-      try {
-        tree =
-            OBJECT_MAPPER.readValue(moduleFile.toFile(), new TypeReference<Map<String, Map>>() {});
-      } catch (IOException e) {
-        throw new UncheckedIOException(e);
-      }
+    List<Dependency> dependencies = new ArrayList<>();
 
-      @SuppressWarnings("unchecked")
-      Map<String, Map> dependencies = tree.get("dependencies");
-      artifacts.addAll(flatten(dependencies, new ArrayList<>()));
-    }
+    dependencies.add(new ArtifactDependency(artifact));
 
-    LOGGER.debug(
-        "{} depends on {} ",
-        sourceSet,
-        artifacts.stream().map(String::valueOf).collect(Collectors.joining(",")));
-    return artifacts;
-  }
-
-  @SuppressWarnings("unchecked")
-  private List<Dependency> flatten(Map<String, Map> tree, List<Dependency> dependencies) {
-
-    tree.forEach(
-        (dependency, map) -> {
-          dependencies.add(Dependency.valueOf(dependency));
-          flatten(map, dependencies);
-        });
+    this.dependencies
+        .get(artifact)
+        .stream()
+        .map(ArtifactDependency::new)
+        .forEach(dependencies::add);
 
     return dependencies;
   }
 
   @Override
-  public String getClassPath(Path sourceSet) {
-    return getDependencies(sourceSet)
+  public List<Dependency> getDependencies(Module module) {
+    Path moduleFile = module.getSourceSet().resolve(Paths.get("module.json"));
+
+    LOGGER.debug("reading {}", moduleFile);
+    Map<String, ?> tree;
+    try {
+      tree = OBJECT_MAPPER.readValue(moduleFile.toFile(), new TypeReference<Map<String, ?>>() {});
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+
+    List<Dependency> dependencies = new ArrayList<>();
+
+    ((List<String>) tree.get("dependencies1"))
         .stream()
-        .map(this::get)
+        .map(Dependency::valueOf)
+        .forEach(
+            dependency -> {
+              dependencies.add(dependency);
+              dependencies.addAll(getDependencies(dependency));
+            });
+    return dependencies;
+  }
+
+  private List<Dependency> getDependencies(Dependency dependency) {
+    return dependency instanceof ModuleDependency
+        ? getDependencies(modules.get(((ModuleDependency) dependency).getArtifactId()))
+        : getDependencies(((ArtifactDependency) dependency).getArtifact());
+  }
+
+  @Override
+  public String getClassPath(Module module) {
+    return getDependencies(module)
+        .stream()
+        .map(this::getPath)
         .map(String::valueOf)
         .collect(Collectors.joining(":"));
   }

@@ -3,6 +3,7 @@ package bt.tasks.java.compiler;
 import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Module;
+import bt.api.ModuleDependency;
 import bt.api.Repository;
 import bt.api.Subscribe;
 import bt.api.Task;
@@ -43,15 +44,14 @@ public class CompileCode implements Task {
   @Subscribe
   public void moduleFound(ModuleFound event) throws Exception {
     Module module = event.getModule();
-    Path sourceSet = module.getSourceSet();
 
     Set<String> eventDeps =
         repository
-            .getDependencies(sourceSet)
+            .getDependencies(module)
             .stream()
-            .filter(dependency -> dependency instanceof Dependency.ModuleDependency)
-            .map(dependency -> (Dependency.ModuleDependency) dependency)
-            .map(Dependency.ModuleDependency::getArtifactId)
+            .filter(dependency -> dependency instanceof ModuleDependency)
+            .map(dependency -> (ModuleDependency) dependency)
+            .map(ModuleDependency::getArtifactId)
             .collect(Collectors.toSet());
 
     LOGGER.debug("{} depends on {}", module, eventDeps);
@@ -124,7 +124,7 @@ public class CompileCode implements Task {
       arguments.add("-target");
       arguments.add(String.valueOf(compilationOpts.getTarget()));
       arguments.add("-cp");
-      arguments.add(repository.getClassPath(sourceSet));
+      arguments.add(repository.getClassPath(module));
       arguments.add("-d");
       arguments.add(output.toAbsolutePath().toString());
       arguments.addAll(sourceFiles);

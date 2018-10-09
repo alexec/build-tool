@@ -1,7 +1,8 @@
 package bt.tasks.java.ide;
 
-import bt.api.Dependency;
+import bt.api.ArtifactDependency;
 import bt.api.EventBus;
+import bt.api.Module;
 import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Subscribe;
@@ -23,11 +24,11 @@ public class CreateIntelliJProject implements Task {
   @Inject private Project project;
   @Inject private Repository repository;
   @Inject private EventBus eventBus;
-  private final List<Path> sourcesSets = new ArrayList<>();
+  private final List<Module> modules = new ArrayList<>();
 
   @Subscribe
   public void moduleFound(ModuleFound event) {
-    sourcesSets.add(event.getModule().getSourceSet());
+    modules.add(event.getModule());
   }
 
   @Subscribe
@@ -44,9 +45,9 @@ public class CreateIntelliJProject implements Task {
             + "  </component>\n"
             + "  <component name=\"ProjectModuleManager\">\n"
             + "    <modules>\n"
-            + (sourcesSets
+            + (modules
                 .stream()
-                .map(sourceSet -> sourceSet.resolve(sourceSet.getFileName() + ".iml"))
+                .map(module -> module.getSourceSet().resolve(module.getName() + ".iml"))
                 .map(
                     iml ->
                         "      <module fileurl=\"file://$PROJECT_DIR$/"
@@ -64,10 +65,10 @@ public class CreateIntelliJProject implements Task {
             + "  </component>\n"
             + "\n"
             + "  <component name=\"libraryTable\">\n"
-            + (sourcesSets
+            + (modules
                 .stream()
-                .flatMap(sourceSet -> repository.getDependencies(sourceSet).stream())
-                .filter(dependency -> dependency instanceof Dependency.ArtifactDependency)
+                .flatMap(module -> repository.getDependencies(module).stream())
+                .filter(dependency -> dependency instanceof ArtifactDependency)
                 .sorted()
                 .distinct()
                 .map(
@@ -80,7 +81,7 @@ public class CreateIntelliJProject implements Task {
                             + "\" />\n"
                             + "      <CLASSES>\n"
                             + "        <root url=\"jar://"
-                            + repository.get(dependency)
+                            + repository.getPath(dependency)
                             + "!/\" />\n"
                             + "      </CLASSES>\n"
                             + "      <JAVADOC />\n"

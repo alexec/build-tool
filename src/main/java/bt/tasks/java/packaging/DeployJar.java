@@ -28,7 +28,7 @@ public class DeployJar implements Task {
     Path jar = event.getPath();
     Artifact artifact = project.getArtifact();
     Path target =
-        repository.get(
+        repository.getPath(
             Dependency.valueOf(
                 artifact.getGroupId()
                     + ":"

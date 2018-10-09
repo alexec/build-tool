@@ -6,9 +6,11 @@ import java.util.List;
 public interface Repository {
   void addModule(Module module);
 
-  Path get(Dependency dependency);
+  Path getPath(Dependency dependency);
 
-  List<Dependency> getDependencies(Path sourceSet);
+  List<Dependency> getDependencies(Artifact artifact);
 
-  String getClassPath(Path sourceSet);
+  List<Dependency> getDependencies(Module module);
+
+  String getClassPath(Module module);
 }
