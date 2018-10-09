@@ -11,7 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DefaultRepositoryTest {
 
@@ -22,13 +23,11 @@ public class DefaultRepositoryTest {
   @Ignore("slow")
   public void download() throws Exception {
 
-    defaultRepository.setDownload(false);
-
     Files.deleteIfExists(defaultRepository.getPath(dependency));
 
-    defaultRepository.setDownload(true);
-
     Path path = defaultRepository.getPath(dependency);
+
+    defaultRepository.resolve(dependency);
 
     assertTrue(Files.exists(path));
   }
