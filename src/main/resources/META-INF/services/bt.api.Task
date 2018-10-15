@@ -1,4 +1,3 @@
-bt.tasks.Clean
 bt.tasks.java.finder.FindModules
 bt.tasks.java.resources.CopyResources
 bt.tasks.java.formatter.FormatSourceCode

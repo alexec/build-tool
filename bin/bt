@@ -5,7 +5,7 @@ unset JAVA_TOOL_OPTIONS
 
 export M2_REPO=$HOME/.m2/repository
 
-version=${version:-1.0.12-SNAPSHOT}
+version=${version:-1.0.14-SNAPSHOT}
 
 echo $version
 

@@ -1,9 +1,9 @@
 {
   "artifact": "bt:bt:1.0.14-SNAPSHOT",
   "modules": [
-    "src/test",
+    "src/api",
     "src/main",
     "src/test-support",
-    "src/api"
+    "src/test"
   ]
 }
