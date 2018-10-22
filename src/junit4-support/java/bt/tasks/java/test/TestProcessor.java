@@ -28,7 +28,8 @@ public class TestProcessor extends AbstractProcessor {
         FileObject tests =
             processingEnv
                 .getFiler()
-                .createResource(StandardLocation.CLASS_OUTPUT, "", "META-INF/tests");
+                .createResource(
+                    StandardLocation.CLASS_OUTPUT, "", "META-INF/annotations/org.junit.Test");
 
         Set<String> types = new HashSet<>();
 

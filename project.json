@@ -1,5 +1,5 @@
 {
-  "artifact": "bt:bt:1.0.14-SNAPSHOT",
+  "artifact": "bt:bt:1.0.15-SNAPSHOT",
   "modules": [
     "src/api",
     "src/main",

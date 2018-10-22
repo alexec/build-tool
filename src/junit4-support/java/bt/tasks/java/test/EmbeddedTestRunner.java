@@ -1,5 +1,6 @@
 package bt.tasks.java.test;
 
+import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -77,7 +78,9 @@ public class EmbeddedTestRunner {
         new BufferedReader(
             new InputStreamReader(
                 Objects.requireNonNull(
-                        EmbeddedTestRunner.class.getClassLoader().getResource("META-INF/tests"))
+                        EmbeddedTestRunner.class
+                            .getClassLoader()
+                            .getResource("META-INF/annotations/org.junit.Test"))
                     .openStream()))) {
       return in.lines()
           .map(EmbeddedTestRunner::toClass)

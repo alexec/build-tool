@@ -31,8 +31,9 @@ public class RunTests implements Task {
     Module module = event.getModule();
     Path compiledCode = module.getCompiledCode();
 
-    if (!Files.exists(compiledCode.resolve(Paths.get("META-INF/tests")))) {
-      LOGGER.debug("skipping {}, no tests", compiledCode);
+    Path index = compiledCode.resolve(Paths.get("META-INF", "annotations", "org.junit.Test"));
+    if (!Files.exists(index)) {
+      LOGGER.debug("skipping {}, {} does not exist, no tests", compiledCode, index);
     } else {
 
       String classPath = compiledCode + ":" + repository.getClassPath(module);
