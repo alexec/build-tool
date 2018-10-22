@@ -3,7 +3,7 @@
   "modules": [
     "src/api",
     "src/main",
-    "src/test-support",
+    "src/junit4-support",
     "src/test"
   ]
 }
