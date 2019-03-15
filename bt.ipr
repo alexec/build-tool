@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
     </profile>
     <version value="1.0" />
+  </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="acollins8">
+      <words>
+        <w>gradle</w>
+      </words>
+    </dictionary>
   </component>
   <component name="ProjectModuleManager">
     <modules>
@@ -14,16 +22,15 @@
       <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK"/>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
-
   <component name="libraryTable">
     <library name="antlr:antlr:2.7.7" type="repository">
       <properties maven-id="antlr:antlr:2.7.7" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -31,7 +38,7 @@
     <library name="ch.qos.logback:logback-classic:1.2.3" type="repository">
       <properties maven-id="ch.qos.logback:logback-classic:1.2.3" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -39,7 +46,7 @@
     <library name="ch.qos.logback:logback-core:1.2.3" type="repository">
       <properties maven-id="ch.qos.logback:logback-core:1.2.3" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -47,7 +54,7 @@
     <library name="com.fasterxml.jackson.core:jackson-annotations:2.9.0" type="repository">
       <properties maven-id="com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -55,7 +62,7 @@
     <library name="com.fasterxml.jackson.core:jackson-core:2.9.4" type="repository">
       <properties maven-id="com.fasterxml.jackson.core:jackson-core:2.9.4" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.4/jackson-core-2.9.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.9.4/jackson-core-2.9.4.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -63,7 +70,7 @@
     <library name="com.fasterxml.jackson.core:jackson-databind:2.9.4" type="repository">
       <properties maven-id="com.fasterxml.jackson.core:jackson-databind:2.9.4" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.4/jackson-databind-2.9.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.9.4/jackson-databind-2.9.4.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -71,7 +78,7 @@
     <library name="com.google.errorprone:javac-shaded:9+181-r4173-1" type="repository">
       <properties maven-id="com.google.errorprone:javac-shaded:9+181-r4173-1" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/google/errorprone/javac-shaded/9+181-r4173-1/javac-shaded-9+181-r4173-1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/errorprone/javac-shaded/9+181-r4173-1/javac-shaded-9+181-r4173-1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -79,7 +86,7 @@
     <library name="com.google.googlejavaformat:google-java-format:1.6" type="repository">
       <properties maven-id="com.google.googlejavaformat:google-java-format:1.6" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/google/googlejavaformat/google-java-format/1.6/google-java-format-1.6.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/googlejavaformat/google-java-format/1.6/google-java-format-1.6.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -87,7 +94,7 @@
     <library name="com.google.guava:guava:22.0" type="repository">
       <properties maven-id="com.google.guava:guava:22.0" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/google/guava/guava/22.0/guava-22.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/22.0/guava-22.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -95,7 +102,7 @@
     <library name="com.puppycrawl.tools:checkstyle:8.12" type="repository">
       <properties maven-id="com.puppycrawl.tools:checkstyle:8.12" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/com/puppycrawl/tools/checkstyle/8.12/checkstyle-8.12.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/puppycrawl/tools/checkstyle/8.12/checkstyle-8.12.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -103,7 +110,7 @@
     <library name="commons-beanutils:commons-beanutils:1.9.3" type="repository">
       <properties maven-id="commons-beanutils:commons-beanutils:1.9.3" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -111,7 +118,7 @@
     <library name="commons-cli:commons-cli:1.4" type="repository">
       <properties maven-id="commons-cli:commons-cli:1.4" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.4/commons-cli-1.4.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -119,7 +126,7 @@
     <library name="javax.inject:javax.inject:1" type="repository">
       <properties maven-id="javax.inject:javax.inject:1" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/javax/inject/javax.inject/1/javax.inject-1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -127,7 +134,7 @@
     <library name="junit:junit:4.12" type="repository">
       <properties maven-id="junit:junit:4.12" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/junit/junit/4.12/junit-4.12.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -135,7 +142,7 @@
     <library name="net.sf.saxon:Saxon-HE:9.8.0-12" type="repository">
       <properties maven-id="net.sf.saxon:Saxon-HE:9.8.0-12" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/net/sf/saxon/Saxon-HE/9.8.0-12/Saxon-HE-9.8.0-12.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/net/sf/saxon/Saxon-HE/9.8.0-12/Saxon-HE-9.8.0-12.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -143,7 +150,7 @@
     <library name="org.antlr:antlr4-runtime:4.7.1" type="repository">
       <properties maven-id="org.antlr:antlr4-runtime:4.7.1" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -151,7 +158,7 @@
     <library name="org.hamcrest:hamcrest-core:1.3" type="repository">
       <properties maven-id="org.hamcrest:hamcrest-core:1.3" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -159,10 +166,10 @@
     <library name="org.slf4j:slf4j-api:1.7.25" type="repository">
       <properties maven-id="org.slf4j:slf4j-api:1.7.25" />
       <CLASSES>
-        <root url="jar:///Users/acollins8/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-
-  </component></project>
+  </component>
+</project>
