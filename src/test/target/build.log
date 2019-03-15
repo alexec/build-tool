@@ -1,4 +1,0 @@
-307  [main] INFO  bt.api.Repository - downloading http://central.maven.org/maven2/org/testng/testng/6.14.3/testng-6.14.3.jar to /Users/acollins8/.m2/repository/org/testng/testng/6.14.3/testng-6.14.3.jar 
-284  [main] INFO  bt.api.Repository - downloading http://central.maven.org/maven2/org/testng/testng/6.14.3/testng-6.14.3.jar to /Users/acollins8/.m2/repository/org/testng/testng/6.14.3/testng-6.14.3.jar 
-346  [main] INFO  bt.api.Repository - downloading http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.5/slf4j-api-1.6.5.jar to /Users/acollins8/.m2/repository/org/slf4j/slf4j-api/1.6.5/slf4j-api-1.6.5.jar 
-319  [main] INFO  bt.api.Repository - downloading http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.5/slf4j-api-1.6.5.jar to /Users/acollins8/.m2/repository/org/slf4j/slf4j-api/1.6.5/slf4j-api-1.6.5.jar 

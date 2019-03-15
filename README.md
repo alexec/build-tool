@@ -106,8 +106,8 @@ Modules are named after the directory they are found in and can only the same gr
 
 Otherwise, there is no special configuration. For example:
 
-* Want to use check-style? Include `checkstyle.xml`.
-* Want to have a main-class? Include `resources/MANIFEST.MF`.
+* Want to use check-style? Include your `checkstyle.xml` file in the module root.
+* Want to have a main-class? Include `resources/MANIFEST.MF` in your source code tree.
 
 Oh yeah - no XML by default.
 
@@ -122,6 +122,14 @@ Maven and Gradle treat tests as part of a module. BT treats does not have separa
 ### (e) Logging 
 
 Logs of the build are dumped into `target/build.log`, not the console.
+
+### (f) Not Such Thing As A Clean Build
+
+Nope. If you want a clean build:
+
+~~~bash
+find . -name target | xargs -Rf 
+~~~
 
 ## How can I write a task for BT?
 
