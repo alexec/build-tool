@@ -46,7 +46,7 @@ public class DefaultRepositoryTest {
 
     System.out.println(dependencies);
 
-    assertEquals(27, dependencies.size());
+    assertEquals(17, dependencies.size());
 
     String classPath = defaultRepository.getClassPath(module);
 

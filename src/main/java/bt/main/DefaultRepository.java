@@ -22,8 +22,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -95,8 +97,7 @@ public class DefaultRepository implements Repository {
       } catch (IOException e) {
         try {
           Files.delete(localPath);
-        } catch (IOException e1) {
-          throw new UncheckedIOException(e);
+        } catch (IOException ignored) {
         }
         throw new UncheckedIOException(e);
       }
@@ -141,7 +142,7 @@ public class DefaultRepository implements Repository {
       throw new UncheckedIOException(e);
     }
 
-    List<Dependency> dependencies = new ArrayList<>();
+    Set<Dependency> dependencies = new LinkedHashSet<>();
 
     //noinspection unchecked
     ((List<String>) tree.get("dependencies"))
@@ -152,7 +153,7 @@ public class DefaultRepository implements Repository {
               dependencies.add(dependency);
               dependencies.addAll(getDependencies(dependency));
             });
-    return dependencies;
+    return new ArrayList<>(dependencies);
   }
 
   private List<Dependency> getDependencies(Dependency dependency) {

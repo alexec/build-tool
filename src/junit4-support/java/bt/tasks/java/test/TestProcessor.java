@@ -42,7 +42,7 @@ public class TestProcessor extends AbstractProcessor {
 
               processingEnv
                   .getMessager()
-                  .printMessage(Diagnostic.Kind.OTHER, "indexed test " + type);
+                  .printMessage(Diagnostic.Kind.NOTE, "indexed test " + type);
 
               out.println(type);
             }

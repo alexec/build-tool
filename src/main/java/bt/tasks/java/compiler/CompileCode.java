@@ -135,7 +135,7 @@ public class CompileCode implements Task {
           JAVA_COMPILER.run(
               null,
               new LogOutputStream(LOGGER::info),
-              new LogOutputStream(LOGGER::warn),
+              new LogOutputStream(LOGGER::info),
               arguments.toArray(new String[0]));
 
       if (exitCode != 0) {

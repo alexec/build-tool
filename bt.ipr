@@ -7,13 +7,6 @@
     </profile>
     <version value="1.0" />
   </component>
-  <component name="ProjectDictionaryState">
-    <dictionary name="acollins8">
-      <words>
-        <w>gradle</w>
-      </words>
-    </dictionary>
-  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/src/api/api.iml" filepath="$PROJECT_DIR$/src/api/api.iml" />
