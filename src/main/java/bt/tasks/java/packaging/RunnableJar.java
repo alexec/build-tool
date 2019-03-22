@@ -1,17 +1,13 @@
 package bt.tasks.java.packaging;
 
 import bt.api.Dependency;
-import bt.api.EventBus;
 import bt.api.Module;
 import bt.api.Repository;
-import bt.api.Subscribe;
 import bt.api.Task;
 import bt.api.events.CodeCompiled;
-import bt.api.events.JarCreated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,7 +16,6 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,11 +24,11 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-class JarWithDependencies implements Task {
-  private static final Logger LOGGER = LoggerFactory.getLogger(JarWithDependencies.class);
+class RunnableJar implements Task {
+  private static final Logger LOGGER = LoggerFactory.getLogger(RunnableJar.class);
   private final Repository repository;
 
-  JarWithDependencies(Repository repository) {
+  RunnableJar(Repository repository) {
     this.repository = repository;
   }
 

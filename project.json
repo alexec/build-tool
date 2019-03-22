@@ -3,7 +3,7 @@
   "modules": [
     "src/api",
     "src/main",
-    "src/jar-with-dependencies",
+    "src/runnable",
     "src/junit4-support",
     "src/test"
   ]

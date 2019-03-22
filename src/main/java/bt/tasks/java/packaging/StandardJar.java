@@ -19,10 +19,10 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-class VanillaJar {
+class StandardJar {
   private static final Logger LOGGER = LoggerFactory.getLogger(CreateJar.class);
 
-  VanillaJar() {}
+  StandardJar() {}
 
   void codeCompiled(CodeCompiled event, Path jar) throws Exception {
     Path compiledCode = event.getModule().getCompiledCode();

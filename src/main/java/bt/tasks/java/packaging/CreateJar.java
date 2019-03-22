@@ -35,12 +35,12 @@ public class CreateJar implements Task {
             .getParent()
             .resolve(Paths.get(event.getModule().getSourceSet().getFileName() + ".jar"));
 
-    LOGGER.debug("{} -> {}", event.getModule(), jarWithDeps ? "jar-with-dependencies" : "jar");
+    LOGGER.debug("{} -> {}", event.getModule(), jarWithDeps ? "runnable-jar" : "jar");
 
     if (jarWithDeps) {
-      new JarWithDependencies(repository).codeCompiled(event, jar);
+      new RunnableJar(repository).codeCompiled(event, jar);
     } else {
-      new VanillaJar().codeCompiled(event, jar);
+      new StandardJar().codeCompiled(event, jar);
     }
     eventBus.emit(new JarCreated(module, jar));
   }
