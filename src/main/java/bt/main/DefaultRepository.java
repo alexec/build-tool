@@ -33,7 +33,7 @@ import static java.util.Objects.requireNonNull;
 public class DefaultRepository implements Repository {
   private static final Logger LOGGER = LoggerFactory.getLogger(Repository.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  public static final Path M2_REPO =
+  private static final Path M2_REPO =
       Paths.get(System.getProperty("user.home"), ".m2", "repository");
   private final Map<String, Module> modules = new HashMap<>();
   private final Map<Artifact, List<Artifact>> dependencies;
@@ -144,8 +144,7 @@ public class DefaultRepository implements Repository {
 
     Set<Dependency> dependencies = new LinkedHashSet<>();
 
-    //noinspection unchecked
-    ((List<String>) tree.get("dependencies"))
+    getDependencies(tree)
         .stream()
         .map(Dependency::valueOf)
         .forEach(
@@ -154,6 +153,11 @@ public class DefaultRepository implements Repository {
               dependencies.addAll(getDependencies(dependency));
             });
     return new ArrayList<>(dependencies);
+  }
+
+  @SuppressWarnings("unchecked")
+  private List<String> getDependencies(Map<String, ?> tree) {
+    return (List<String>) tree.get("dependencies");
   }
 
   private List<Dependency> getDependencies(Dependency dependency) {

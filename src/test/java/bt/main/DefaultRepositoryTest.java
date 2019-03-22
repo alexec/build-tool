@@ -52,6 +52,6 @@ public class DefaultRepositoryTest {
 
     System.out.println(classPath);
 
-    assertEquals(27, classPath.split(":").length);
+    assertEquals(17, classPath.split(":").length);
   }
 }
