@@ -1,0 +1,10 @@
+bt.tasks.java.finder.FindModules
+bt.tasks.java.resources.CopyResources
+bt.tasks.java.formatter.FormatSourceCode
+bt.tasks.java.style.CheckStyle
+bt.tasks.java.compiler.CompileCode
+bt.tasks.java.ide.CreateIntelliJModule
+bt.tasks.java.ide.CreateIntelliJProject
+bt.tasks.java.test.RunTests
+bt.tasks.java.packaging.CreateJar
+bt.tasks.java.packaging.DeployJar

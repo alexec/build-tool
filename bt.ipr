@@ -9,8 +9,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/src/api/api.iml" filepath="$PROJECT_DIR$/src/api/api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/core/core.iml" filepath="$PROJECT_DIR$/src/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/runnable/runnable.iml" filepath="$PROJECT_DIR$/src/runnable/runnable.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/junit4-support/junit4-support.iml" filepath="$PROJECT_DIR$/src/junit4-support/junit4-support.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
     </modules>

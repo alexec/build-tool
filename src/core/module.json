@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    ":api",
+    "org.slf4j:slf4j-api:1.7.25",
+    "ch.qos.logback:logback-classic:1.2.3",
+    "com.google.googlejavaformat:google-java-format:1.6",
+    "com.puppycrawl.tools:checkstyle:8.12",
+    "com.fasterxml.jackson.core:jackson-databind:2.9.4",
+    "javax.inject:javax.inject:1"
+  ]
+}

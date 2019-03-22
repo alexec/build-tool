@@ -2,8 +2,8 @@
   "artifact": "bt:bt:1.0.15-SNAPSHOT",
   "modules": [
     "src/api",
+    "src/core",
     "src/main",
-    "src/runnable",
     "src/junit4-support",
     "src/test"
   ]

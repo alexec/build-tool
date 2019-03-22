@@ -41,7 +41,7 @@ public class DefaultRepositoryTest {
             Paths.get("target", "java", "api"),
             Artifact.valueOf("bt:api:1")));
 
-    Module module = new Module(Paths.get("src", "main"), null, null);
+    Module module = new Module(Paths.get("src", "core"), null, null);
     List<Dependency> dependencies = defaultRepository.getDependencies(module);
 
     System.out.println(dependencies);

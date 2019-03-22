@@ -1,0 +1,86 @@
+package bt.tasks.java.ide;
+
+import bt.api.Dependency;
+import bt.api.EventBus;
+import bt.api.Module;
+import bt.api.ModuleDependency;
+import bt.api.Repository;
+import bt.api.Subscribe;
+import bt.api.Task;
+import bt.api.events.IntelliJModuleCreated;
+import bt.api.events.ModuleFound;
+
+import javax.inject.Inject;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+
+public class CreateIntelliJModule implements Task {
+
+  @Inject private Repository repository;
+  @Inject private EventBus eventBus;
+
+  @Subscribe
+  public void moduleFound(ModuleFound event) throws Exception {
+
+    Module module = event.getModule();
+    Path sourceSet = module.getSourceSet();
+
+    boolean testSource =
+        repository
+            .getDependencies(module)
+            .stream()
+            .anyMatch(dependency -> dependency.toString().contains("junit"));
+
+    String context =
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<module type=\"JAVA_MODULE\" version=\"4\">\n"
+            + "  <component name=\"NewModuleRootManager\">\n"
+            + "    <output url=\"file://$MODULE_DIR$/../../target/java/"
+            + module.getName()
+            + "/classes\" />\n"
+            + "    <output-test url=\"file://$MODULE_DIR$/../../target/java/"
+            + module.getName()
+            + "/classes\" />\n"
+            + "    <exclude-output />\n"
+            + "    <content url=\"file://$MODULE_DIR$\">\n"
+            + "      <sourceFolder url=\"file://$MODULE_DIR$/java\" isTestSource=\""
+            + testSource
+            + "\" />\n"
+            + "      <sourceFolder url=\"file://$MODULE_DIR$/resources\" isTestSource=\""
+            + testSource
+            + "\" />\n"
+            + "    </content>\n"
+            + "    <orderEntry type=\"inheritedJdk\" />\n"
+            + "    <orderEntry type=\"sourceFolder\" forTests=\""
+            + false
+            + "\" />\n"
+            + (repository
+                .getDependencies(module)
+                .stream()
+                .map(
+                    dependency -> {
+                      if (dependency instanceof ModuleDependency) {
+                        return "    <orderEntry type=\"module\" module-name=\""
+                            + ((ModuleDependency) dependency).getArtifactId()
+                            + "\" />";
+                      } else {
+                        return "    <orderEntry type=\""
+                            + "library"
+                            + "\" name=\""
+                            + dependency
+                            + "\" level=\"project\" />";
+                      }
+                    })
+                .collect(Collectors.joining("\n")))
+            + "\n"
+            + "  </component>\n"
+            + "</module>";
+    Path path = sourceSet.resolve(Paths.get(sourceSet.getFileName() + ".iml"));
+
+    Files.write(path, context.getBytes());
+
+    eventBus.emit(new IntelliJModuleCreated(path));
+  }
+}

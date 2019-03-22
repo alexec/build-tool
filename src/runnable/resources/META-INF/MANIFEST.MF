@@ -1,2 +1,0 @@
-Main-Class: bt.Main
-Manifest-Version: 1.0
