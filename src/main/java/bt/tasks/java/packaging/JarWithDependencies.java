@@ -3,7 +3,6 @@ package bt.tasks.java.packaging;
 import bt.api.Dependency;
 import bt.api.EventBus;
 import bt.api.Module;
-import bt.api.Project;
 import bt.api.Repository;
 import bt.api.Subscribe;
 import bt.api.Task;
@@ -30,43 +29,31 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class CreateJarWithDependencies implements Task {
-  private static final Logger LOGGER = LoggerFactory.getLogger(CreateJarWithDependencies.class);
-  @Inject private Repository repository;
-  @Inject private EventBus eventBus;
+class JarWithDependencies implements Task {
+  private static final Logger LOGGER = LoggerFactory.getLogger(JarWithDependencies.class);
+  private final Repository repository;
 
-  @Subscribe
-  public void codeCompiled(CodeCompiled event) throws Exception {
+  JarWithDependencies(Repository repository) {
+    this.repository = repository;
+  }
+
+  void codeCompiled(CodeCompiled event, Path jar) throws Exception {
 
     Module module = event.getModule();
-    Path manifest =
-        module.getSourceSet().resolve(Paths.get("resources", "META-INF", "MANIFEST.MF"));
+    Map<String, Path> names = new HashMap<>();
 
-    if (Files.exists(manifest)) {
-      LOGGER.info("{} found, creating jar-with-dependencies", manifest);
-
-      Path jarWithDeps =
-          module
-              .getBuildDir()
-              .resolve(
-                  Paths.get(module.getArtifact().getArtifactId() + "-jar-with-dependencies.jar"));
-
-      Map<String, Path> names = new HashMap<>();
-
-      try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(jarWithDeps.toFile()))) {
-        addDirectory(names, out, event.getModule().getCompiledCode());
-        for (Dependency dependency : repository.getDependencies(module)) {
-          LOGGER.debug("adding {} ", dependency);
-          Path path = repository.getPath(dependency);
-          File file = path.toFile();
-          if (file.isFile()) {
-            addJar(names, out, path, file);
-          } else {
-            addDirectory(names, out, path);
-          }
+    try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(jar.toFile()))) {
+      addDirectory(names, out, event.getModule().getCompiledCode());
+      for (Dependency dependency : repository.getDependencies(module)) {
+        LOGGER.debug("adding {} ", dependency);
+        Path path = repository.getPath(dependency);
+        File file = path.toFile();
+        if (file.isFile()) {
+          addJar(names, out, path, file);
+        } else {
+          addDirectory(names, out, path);
         }
       }
-      eventBus.emit(new JarCreated(module, jarWithDeps));
     }
   }
 
